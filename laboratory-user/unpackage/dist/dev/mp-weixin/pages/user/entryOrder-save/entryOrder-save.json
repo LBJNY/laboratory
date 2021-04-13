@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "进场单",
+  "navigationBarBackgroundColor": "#F8F9FB",
+  "usingComponents": {
+    "uni-forms": "/components/uni-forms/uni-forms",
+    "uni-datetime-picker": "/components/uni-datetime-picker/uni-datetime-picker"
+  }
+}

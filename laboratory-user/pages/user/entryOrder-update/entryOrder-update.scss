@@ -1,0 +1,73 @@
+.content{
+	padding: 20rpx;
+	.container{
+		margin-top: -200rpx;
+		width: 98%;
+		.main{
+			.detail{
+				margin-top: 20rpx;
+			}
+		}
+		.big-title{
+			margin-left: 20rpx;
+			font-size: 34rpx;
+		}
+		.big-title::before{
+			top:24%;
+		}
+		.detail{
+			padding: 14rpx 24rpx;
+		}
+	}
+}
+
+.item{
+	line-height: 52rpx;
+	padding: 12rpx 0rpx;
+	
+}
+/**
+  * 头部
+  */
+.head{
+	height: 350rpx;
+	padding: 20rpx 44rpx;
+	.des{
+		font-size: 34rpx;
+		height: 100rpx;
+		letter-spacing: 4rpx;
+	}
+	.back{
+		margin-top: 8rpx;
+	}
+	border-radius: 0rpx 0rpx 20rpx 20rpx;
+}
+.big-title{
+	padding-left: 20rpx;
+	position: relative;
+}
+.big-title::before{
+	display: block;
+	width: 8rpx; 
+	height: 28rpx;
+	background-color: #455CFF;
+	content: "";
+	position: absolute;
+	left: 0;
+	border-radius: 5rpx;
+}
+.next-step{
+	//position: absolute;
+	margin-top: 100rpx;
+	margin-bottom: 20rpx;
+	bottom: 30rpx;
+	.return{
+		background-color: #C7C7CC;
+	}
+	.cu-btn{
+		padding: 20rpx;
+		width: 48%;
+		border-radius: 40rpx;
+	}
+}
+

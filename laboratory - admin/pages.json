@@ -1,0 +1,261 @@
+{
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+			"path": "pages/entryOrder/entryOrder",
+			"style": {
+				// #ifdef APP-PLUS
+				"navigationStyle": "custom",
+				"app-plus": {
+					"titleNView": false //去掉当前页的顶部导航栏
+				},
+				"navigationBarTextStyle": "white",
+				// #endif
+				// #ifdef MP
+				"navigationBarTitleText": "进场单",
+				"navigationBarBackgroundColor": "#FFFFFF",
+				// #endif
+
+				"h5": {
+					"titleNView": false
+				}
+			}
+		},
+		{
+			"path": "pages/serviceOrder/serviceOrder",
+			"style": {
+				// #ifdef APP-PLUS
+				"navigationStyle": "custom",
+				"app-plus": {
+					"titleNView": false //去掉当前页的顶部导航栏
+				},
+				"navigationBarTextStyle": "white",
+				// #endif
+				// #ifdef MP
+				"navigationBarTitleText": "服务委托单",
+				"navigationBarBackgroundColor": "#FFFFFF",
+				// #endif
+
+				"h5": {
+					"titleNView": false
+				},
+				"backgroundColor": "#000000"
+			}
+
+		},
+		{
+			"path": "pages/home/home",
+			"style": {
+				// #ifdef APP-PLUS
+				"navigationStyle": "custom",
+
+				"navigationBarTextStyle": "white",
+				// #endif
+				// #ifdef MP
+				"navigationBarTitleText": "首页",
+				"navigationBarBackgroundColor": "#FFFFFF",
+				// #endif
+				"app-plus": {
+					"titleNView": false //去掉当前页的顶部导航栏
+				},
+				"h5": {
+					"titleNView": false
+				},
+				//"disableScroll": true
+				"backgroundColor": "#FFFFFF"
+			}
+
+		},
+
+		{
+			"path": "pages/index/index",
+			"style": {
+				// #ifdef APP-PLUS
+				"navigationStyle": "custom",
+				"app-plus": {
+					"titleNView": false //去掉当前页的顶部导航栏
+				},
+				"navigationBarTextStyle": "white",
+				// #endif
+				// #ifdef MP
+				"navigationBarTitleText": "登录",
+				"navigationBarBackgroundColor": "#FFFFFF",
+				// #endif
+				"h5": {
+					"titleNView": false
+				}
+			}
+		},
+		// {
+		// 	"path": "pages/test/test",
+		// 	"style": {
+		// 		// #ifdef APP-PLUS
+		// 		"navigationStyle": "custom",
+		// 		"app-plus": {
+		// 			"titleNView": false //去掉当前页的顶部导航栏
+		// 		},
+		// 		"navigationBarTextStyle": "white",
+		// 		// #endif
+		// 		// #ifdef MP
+		// 		"navigationBarTitleText": "服务委托单",
+		// 		"navigationBarBackgroundColor": "#F8F9FB",
+		// 		// #endif
+		// 		"h5": {
+		// 			"titleNView": false
+		// 		}
+
+		// 	}
+		// },
+		 {
+			"path": "pages/user/entryOrder-examine/entryOrder-examine",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+
+		},
+		{
+			"path": "pages/user/serviceOrder-feedback/serviceOrder-feedback",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+
+		},
+		
+		{
+			"path": "pages/user/serviceOrder-examine/serviceOrder-examine",
+			"style": {
+				// #ifdef APP-PLUS
+				"navigationStyle": "custom",
+				"app-plus": {
+					"titleNView": false //去掉当前页的顶部导航栏
+				},
+				"navigationBarTextStyle": "white",
+				// #endif
+				// #ifdef MP
+				"navigationBarTitleText": "服务委托单",
+				"navigationBarBackgroundColor": "#F8F9FB",
+				// #endif
+				"h5": {
+					"titleNView": false
+				}
+
+			}
+		},
+		{
+			"path": "pages/user/serviceOrder-info/serviceOrder-info",
+			"style": {
+				// #ifdef APP-PLUS
+				"navigationStyle": "custom",
+				"app-plus": {
+					"titleNView": false //去掉当前页的顶部导航栏
+				},
+				"navigationBarTextStyle": "white",
+				// #endif
+				// #ifdef MP
+				"navigationBarTitleText": "服务委托单",
+				"navigationBarBackgroundColor": "#F8F9FB",
+				// #endif
+				"h5": {
+					"titleNView": false
+				}
+
+			}
+		},
+		
+		{
+			"path": "pages/my/my",
+			"style": {
+				// #ifdef APP-PLUS
+				"navigationStyle": "custom",
+				"app-plus": {
+					"titleNView": false //去掉当前页的顶部导航栏
+				},
+				"navigationBarTextStyle": "white",
+				// #endif
+				// #ifdef MP
+				"navigationBarTitleText": "个人中心",
+				"navigationBarBackgroundColor": "#FFFFFF",
+				// #endif
+
+				"h5": {
+					"titleNView": false
+				}
+			}
+		},
+
+		{
+			"path": "pages/user/message/message",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "pages/admin/serviceOrder-examine/serviceOrder-examine",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "pages/admin/entryOrder-examine/entryOrder-examine",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "pages/admin/serviceOrder-info/serviceOrder-info",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "pages/admin/entryOrder-info/entryOrder-info",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+
+		}
+	],
+	"tabBar": {
+		//"custom": true,
+		"color": "#78798C",
+		"selectedColor": "#5C70FC",
+		"backgroundColor": "#ffffff",
+		"list": [{
+				"iconPath": "/static/image/home.jpg",
+				"selectedIconPath": "/static/image/home-h.jpg",
+				"pagePath": "pages/home/home",
+				"text": "主页"
+			},
+			{
+				"iconPath": "/static/image/entrust.jpg",
+				"selectedIconPath": "/static/image/entrust-h.jpg",
+				"pagePath": "pages/serviceOrder/serviceOrder",
+				"text": "服务委托单"
+			},
+			{
+				"iconPath": "/static/image/entry.jpg",
+				"selectedIconPath": "/static/image/entrust-h.jpg",
+				"pagePath": "pages/entryOrder/entryOrder",
+				"text": "进场单"
+			},
+			{
+				"iconPath": "/static/image/center.jpg",
+				"selectedIconPath": "/static/image/center-h.jpg",
+				"pagePath": "pages/my/my",
+				"text": "个人中心"
+			}
+		]
+	},
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "uni-app",
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"backgroundColor": "#F8F8F8"
+	}
+}

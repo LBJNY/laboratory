@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "服务委托单",
+  "navigationBarBackgroundColor": "#FFFFFF",
+  "backgroundColor": "#000000",
+  "usingComponents": {
+    "uni-steps": "/components/uni-steps/uni-steps"
+  }
+}

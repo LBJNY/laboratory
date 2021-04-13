@@ -1,0 +1,53 @@
+/* pages/me/me.wxss */
+page{background-color: #F8F9FB;}
+
+.head{
+	background-color: #ffff;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 50rpx 20rpx 50rpx 44rpx;
+	margin-bottom: 20rpx;
+	border: 1px solid #F6F7F8;
+	.left{
+		.avatar{
+			margin-right: 20rpx;
+		}
+		.detail {
+			.nickName{
+				font-size: 36rpx;
+				color: #556AFF;
+			}
+			.phone{
+				font-size: 26rpx;
+			}
+		}
+		
+	}
+	.right{
+		margin-top: 60rpx;
+	}
+}
+.list{
+	.container{
+		width: 93%;
+		.list-item{
+			height: 80rpx;
+			line-height: 80rpx;
+			.left{
+				padding-left: 16rpx;
+				.icon{
+					font-size: 36rpx;
+				}
+				.txt{
+					font-size: 34rpx;
+					padding-left: 16rpx;
+				}
+			}
+		}
+	}
+}
+
+.btn{
+	margin-top: 30rpx;
+}

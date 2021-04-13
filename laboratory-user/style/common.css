@@ -1,0 +1,33 @@
+.bg-light-blue{
+	background-color: #455CFF;
+}
+.text-light-blue{
+	color: #455CFF;
+}
+.text-label-grey{
+	color: #C8C8CD !important;
+}
+.border-bottom{
+	border-bottom: 1rpx solid #F8F8F8;
+}
+.border-top-dashed{
+	border-top: 1rpx dashed #717173;
+}
+.border-bottom-dashed{
+	border-bottom: 1rpx dashed #717173;
+}
+.border-bottom-solid{
+	border-bottom: 1rpx solid #717173;
+}
+.border-bottom-none{
+	border-bottom: none;
+}
+.display-none{
+	display: none;
+}
+.border-radius{
+	border-radius: 10rpx;
+}
+.justify-content-center{
+	justify-content: center;
+}

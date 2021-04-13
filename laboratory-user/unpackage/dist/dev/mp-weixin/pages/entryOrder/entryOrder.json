@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "进场单",
+  "navigationBarBackgroundColor": "#FFFFFF",
+  "usingComponents": {
+    "uni-steps": "/components/uni-steps/uni-steps"
+  }
+}
