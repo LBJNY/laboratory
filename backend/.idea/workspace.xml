@@ -2,13 +2,27 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="07a6c610-2ffa-4feb-8b76-f4e94f7c4007" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/laboratory-admin" beforeDir="false" afterPath="$PROJECT_DIR$/laboratory-admin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/laboratory-admin/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/laboratory-admin/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory-admin/src/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/laboratory-admin/src/App.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/laboratory-admin/src/api/shop-brand.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/laboratory-admin/src/api/shop-coupon.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/laboratory-admin/src/api/shop-pack.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/laboratory-admin/src/api/shop-product-category.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/laboratory-admin/src/api/shop-product.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory-admin/src/components/Charts/Keyboard.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory-admin/src/components/Charts/LineMarker.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory-admin/src/components/Charts/MixChart.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory-admin/src/components/Charts/mixins/resize.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory-admin/src/components/SelectProduct/index.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory-admin/src/components/Upload/SingleImage.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory-admin/src/components/Upload/SingleImage2.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory-admin/src/components/Upload/SingleImage3.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory-admin/src/components/UploadExcel/index.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory-admin/src/layout/components/Navbar.vue" beforeDir="false" afterPath="$PROJECT_DIR$/laboratory-admin/src/layout/components/Navbar.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/laboratory-admin/src/router/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/laboratory-admin/src/router/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory-admin/src/router/modules/charts.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory-admin/src/router/modules/components.js" beforeDir="false" afterPath="$PROJECT_DIR$/laboratory-admin/src/router/modules/components.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/base/brand/shop-brand-add.vue" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/base/brand/shop-brand-info.vue" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/base/brand/shop-brand-list.vue" beforeDir="false" />
@@ -16,6 +30,23 @@
       <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/base/category/product-category-add.vue" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/base/category/product-category-list.vue" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/base/category/product-category-update.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/charts/keyboard.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/charts/line.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/charts/mix-chart.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/components-demo/avatar-upload.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/components-demo/back-to-top.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/components-demo/count-to.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/components-demo/dnd-list.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/components-demo/drag-dialog.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/components-demo/drag-kanban.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/components-demo/drag-select.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/components-demo/dropzone.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/components-demo/json-editor.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/components-demo/markdown.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/components-demo/mixin.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/components-demo/split-pane.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/components-demo/sticky.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/components-demo/tinymce.vue" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/dashboard/admin/components/BarChart.vue" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/dashboard/admin/components/BoxCard.vue" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/dashboard/admin/components/LineChart.vue" beforeDir="false" />
@@ -30,6 +61,16 @@
       <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/dashboard/admin/index.vue" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/dashboard/editor/index.vue" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/dashboard/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/laboratory-admin/src/views/dashboard/index.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/documentation/index.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/example/components/ArticleDetail.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/example/components/Dropdown/Comment.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/example/components/Dropdown/Platform.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/example/components/Dropdown/SourceUrl.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/example/components/Dropdown/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/example/components/Warning.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/example/create.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/example/edit.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/example/list.vue" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/excel/components/AutoWidthOption.vue" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/excel/components/BookTypeOption.vue" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/excel/components/FilenameOption.vue" beforeDir="false" />
@@ -37,8 +78,21 @@
       <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/excel/merge-header.vue" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/excel/select-excel.vue" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/excel/upload-excel.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/guide/index.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/guide/steps.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/icons/element-icons.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/icons/index.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/icons/svg-icons.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/login/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/laboratory-admin/src/views/login/index.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/market/coupon/shop-coupon-add.vue" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/market/coupon/shop-coupon-list.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/nested/menu1/index.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/nested/menu1/menu1-1/index.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/nested/menu1/menu1-2/index.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/nested/menu1/menu1-2/menu1-2-1/index.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/nested/menu1/menu1-2/menu1-2-2/index.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/nested/menu1/menu1-3/index.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/nested/menu2/index.vue" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/pdf/content.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/pdf/download.vue" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/pdf/index.vue" beforeDir="false" />
@@ -50,6 +104,22 @@
       <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/product/product/product-add.vue" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/product/product/product-list.vue" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/product/product/product-update.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/profile/components/Account.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/profile/components/Activity.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/profile/components/Timeline.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/profile/components/UserCard.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/profile/index.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/qiniu/upload.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/tab/components/TabPane.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/tab/index.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/table/complex-table.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/table/drag-table.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/table/dynamic-table/components/FixedThead.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/table/dynamic-table/components/UnfixedThead.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/table/dynamic-table/index.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/table/inline-edit-table.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/theme/index.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/zip/index.vue" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -88,6 +158,7 @@
     <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
+    <property name="restartRequiresConfirmation" value="false" />
     <property name="settings.editor.selected.configurable" value="File.Encoding" />
   </component>
   <component name="RecentsManager">
@@ -123,6 +194,7 @@
       <option name="presentableId" value="Default" />
       <updated>1618295279537</updated>
       <workItem from="1618295281633" duration="7572000" />
+      <workItem from="1618360509224" duration="3854000" />
     </task>
     <servers />
   </component>
@@ -138,38 +210,38 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="549" y="167" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1618295339493" />
-    <state width="1493" height="388" key="GridCell.Tab.0.bottom" timestamp="1618304660396">
+    <state width="1493" height="388" key="GridCell.Tab.0.bottom" timestamp="1618366171413">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="388" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1618304660396" />
-    <state width="1493" height="388" key="GridCell.Tab.0.center" timestamp="1618304660396">
+    <state width="1493" height="388" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1618366171413" />
+    <state width="1493" height="388" key="GridCell.Tab.0.center" timestamp="1618366171412">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="388" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1618304660396" />
-    <state width="1493" height="388" key="GridCell.Tab.0.left" timestamp="1618304660396">
+    <state width="1493" height="388" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1618366171412" />
+    <state width="1493" height="388" key="GridCell.Tab.0.left" timestamp="1618366171412">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="388" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1618304660396" />
-    <state width="1493" height="388" key="GridCell.Tab.0.right" timestamp="1618304660396">
+    <state width="1493" height="388" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1618366171412" />
+    <state width="1493" height="388" key="GridCell.Tab.0.right" timestamp="1618366171412">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="388" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1618304660396" />
-    <state width="1493" height="388" key="GridCell.Tab.1.bottom" timestamp="1618304660397">
+    <state width="1493" height="388" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1618366171412" />
+    <state width="1493" height="388" key="GridCell.Tab.1.bottom" timestamp="1618366171413">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="388" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1618304660397" />
-    <state width="1493" height="388" key="GridCell.Tab.1.center" timestamp="1618304660396">
+    <state width="1493" height="388" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1618366171413" />
+    <state width="1493" height="388" key="GridCell.Tab.1.center" timestamp="1618366171413">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="388" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1618304660396" />
-    <state width="1493" height="388" key="GridCell.Tab.1.left" timestamp="1618304660396">
+    <state width="1493" height="388" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1618366171413" />
+    <state width="1493" height="388" key="GridCell.Tab.1.left" timestamp="1618366171413">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="388" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1618304660396" />
-    <state width="1493" height="388" key="GridCell.Tab.1.right" timestamp="1618304660396">
+    <state width="1493" height="388" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1618366171413" />
+    <state width="1493" height="388" key="GridCell.Tab.1.right" timestamp="1618366171413">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="388" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1618304660396" />
+    <state width="1493" height="388" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1618366171413" />
     <state x="270" y="0" key="SettingsEditor" timestamp="1618295430028">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
