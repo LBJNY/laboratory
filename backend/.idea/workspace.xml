@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="07a6c610-2ffa-4feb-8b76-f4e94f7c4007" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/laboratory-admin/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/laboratory-admin/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory-admin/src/api/shop-brand.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory-admin/src/api/shop-coupon.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory-admin/src/api/shop-pack.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory-admin/src/api/shop-product-category.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory-admin/src/api/shop-product.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory-admin/src/router/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/laboratory-admin/src/router/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/base/brand/shop-brand-add.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/base/brand/shop-brand-info.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/base/brand/shop-brand-list.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/base/brand/shop-brand-update.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/base/category/product-category-add.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/base/category/product-category-list.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/base/category/product-category-update.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/dashboard/admin/components/BarChart.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/dashboard/admin/components/BoxCard.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/dashboard/admin/components/LineChart.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/dashboard/admin/components/PanelGroup.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/dashboard/admin/components/PieChart.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/dashboard/admin/components/RaddarChart.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/dashboard/admin/components/TodoList/Todo.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/dashboard/admin/components/TodoList/index.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/dashboard/admin/components/TodoList/index.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/dashboard/admin/components/TransactionTable.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/dashboard/admin/components/mixins/resize.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/dashboard/admin/index.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/dashboard/editor/index.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/dashboard/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/laboratory-admin/src/views/dashboard/index.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/excel/components/AutoWidthOption.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/excel/components/BookTypeOption.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/excel/components/FilenameOption.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/excel/export-excel.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/excel/merge-header.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/excel/select-excel.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/excel/upload-excel.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/market/coupon/shop-coupon-add.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/market/coupon/shop-coupon-list.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/pdf/content.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/pdf/download.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/pdf/index.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/product/pack/pack-add.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/product/pack/pack-list.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/product/pack/pack-update.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/product/pack/product-detail.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/product/product/pack-select.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/product/product/product-add.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/product/product/product-list.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/laboratory-admin/src/views/product/product/product-update.vue" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHome" value="D:/Installation/Apache/maven/apache-maven-3.6.3" />
+        <option name="userSettingsFile" value="D:\Installation\Apache\maven\apache-maven-3.6.3\conf\settings.xml" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="1r6SvtiKB1Dh9eqOn58B0aPvcq9" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RequestMappingsPanelOrder0" value="0" />
+    <property name="RequestMappingsPanelOrder1" value="1" />
+    <property name="RequestMappingsPanelWidth0" value="75" />
+    <property name="RequestMappingsPanelWidth1" value="75" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="jdk.selected.JAVA_MODULE" value="1.8" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/laboratory/src/main/java/com/zj/laboratory" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="project.structure.last.edited" value="Libraries" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="File.Encoding" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.zj.laboratory.pojo.dto" />
+      <recent name="com.zj.laboratory.config" />
+      <recent name="com.zj.laboratory.constant" />
+      <recent name="com.zj.laboratory.mapper" />
+      <recent name="com.zj.laboratory.pojo" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\study\MyDev\小程序\backend\laboratory\src\main\java\com\zj\laboratory" />
+      <recent name="D:\study\MyDev\小程序\backend\laboratory\src\main\resources" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="LaboratoryApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="laboratory" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.zj.laboratory.LaboratoryApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="07a6c610-2ffa-4feb-8b76-f4e94f7c4007" name="Default Changelist" comment="" />
+      <created>1618295279537</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1618295279537</updated>
+      <workItem from="1618295281633" duration="7572000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="574" y="116" key="#com.intellij.ide.util.MemberChooser" timestamp="1618299806136">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="574" y="116" key="#com.intellij.ide.util.MemberChooser/0.0.1536.824@0.0.1536.824" timestamp="1618299806136" />
+    <state x="549" y="167" key="FileChooserDialogImpl" timestamp="1618295339493">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="549" y="167" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1618295339493" />
+    <state width="1493" height="388" key="GridCell.Tab.0.bottom" timestamp="1618304660396">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1493" height="388" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1618304660396" />
+    <state width="1493" height="388" key="GridCell.Tab.0.center" timestamp="1618304660396">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1493" height="388" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1618304660396" />
+    <state width="1493" height="388" key="GridCell.Tab.0.left" timestamp="1618304660396">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1493" height="388" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1618304660396" />
+    <state width="1493" height="388" key="GridCell.Tab.0.right" timestamp="1618304660396">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1493" height="388" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1618304660396" />
+    <state width="1493" height="388" key="GridCell.Tab.1.bottom" timestamp="1618304660397">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1493" height="388" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1618304660397" />
+    <state width="1493" height="388" key="GridCell.Tab.1.center" timestamp="1618304660396">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1493" height="388" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1618304660396" />
+    <state width="1493" height="388" key="GridCell.Tab.1.left" timestamp="1618304660396">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1493" height="388" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1618304660396" />
+    <state width="1493" height="388" key="GridCell.Tab.1.right" timestamp="1618304660396">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1493" height="388" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1618304660396" />
+    <state x="270" y="0" key="SettingsEditor" timestamp="1618295430028">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="270" y="0" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1618295430028" />
+    <state x="437" y="129" width="662" height="566" key="find.popup" timestamp="1618302167677">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="437" y="129" width="662" height="566" key="find.popup/0.0.1536.824@0.0.1536.824" timestamp="1618302167677" />
+    <state x="178" y="110" key="new project wizard" timestamp="1618297148186">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="178" y="110" key="new project wizard/0.0.1536.824@0.0.1536.824" timestamp="1618297148186" />
+  </component>
+</project>

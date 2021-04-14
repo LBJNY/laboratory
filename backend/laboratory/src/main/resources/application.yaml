@@ -1,0 +1,30 @@
+spring:
+  datasource:
+    druid:
+      url: jdbc:mysql://39.97.127.23:3306/laboratory?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf8
+      username: root
+      password: 123456
+      driver-class-name: com.mysql.jdbc.Driver
+      initialSize: 5
+      minIdle: 5
+      maxActive: 20
+      maxWait: 10000
+      testOnBorrow: true
+      testOnReturn: false
+      timeBetweenEvictionRunsMillis: 60000
+      minEvictableIdleTimeMillis: 300000
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 100MB
+  redis:
+    host: 39.97.127.23
+    port: 6379
+  data:
+    mongodb:
+      host: 39.97.127.23
+      port: 27017
+      database: laboratory
+mybatis:
+  mapper-locations: classpath:mapper/*Mapper.xml
+  type-aliases-package: com.zj.laboratory
