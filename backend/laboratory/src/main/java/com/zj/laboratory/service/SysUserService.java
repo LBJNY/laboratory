@@ -2,6 +2,7 @@ package com.zj.laboratory.service;
 
 
 import com.zj.laboratory.pojo.SysUser;
+import com.zj.laboratory.pojo.dto.UpdatePwdDto;
 import com.zj.laboratory.pojo.vo.SysUserVo;
 import com.zj.laboratory.utils.Page;
 
@@ -77,4 +78,10 @@ public interface SysUserService {
      * @return
      */
     Page<SysUser> getByPage(Page<SysUser> page);
+
+    /**
+     * 更新用户密码
+     * @param updatePwdDto 更新密码类
+     */
+    void updatePwd(UpdatePwdDto updatePwdDto);
 }

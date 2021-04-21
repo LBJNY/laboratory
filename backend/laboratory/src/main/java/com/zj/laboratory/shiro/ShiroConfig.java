@@ -24,7 +24,7 @@ public class ShiroConfig {
     private SysUserRealm sysUserRealm;
 
     @Autowired
-    private ShopUserRealm shopUserRealm;
+    private LwUserRealm lwUserRealm;
 
     @org.springframework.context.annotation.Bean("shiroFilterFactoryBean")
     public ShiroFilterFactoryBean shiroFilterFactoryBean(org.apache.shiro.mgt.SecurityManager securityManager) {
@@ -52,7 +52,7 @@ public class ShiroConfig {
         List<org.apache.shiro.realm.Realm> realms = new ArrayList<>();
         //添加多个Realm
         realms.add(sysUserRealm);
-        realms.add(shopUserRealm);
+        realms.add(lwUserRealm);
         def.setRealms(realms);
         // 自定义session管理 使用redis
         TokenWebSessionManager sessionConfig = new TokenWebSessionManager();
@@ -67,7 +67,7 @@ public class ShiroConfig {
     @Bean
     public ModularRealmAuthenticator modularRealmAuthenticator() {
         //自己重写的ModularRealmAuthenticator
-        PochiAuthenticator modularRealmAuthenticator = new PochiAuthenticator();
+        LaboratoryAuthenticator modularRealmAuthenticator = new LaboratoryAuthenticator();
         modularRealmAuthenticator.setAuthenticationStrategy(new AtLeastOneSuccessfulStrategy());
         return modularRealmAuthenticator;
     }

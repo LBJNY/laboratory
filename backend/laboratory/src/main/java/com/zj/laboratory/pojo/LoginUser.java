@@ -35,6 +35,10 @@ public class LoginUser implements Serializable {
     private String nickName;
 
     /**
+     * 名称
+     */
+    private String name;
+    /**
      * 头像
      */
     private String header;
@@ -43,6 +47,18 @@ public class LoginUser implements Serializable {
      * 最后登录时间
      */
     private String loginTime;
+    /**
+     * 审核员类型
+     */
+    private Integer reviewerType;
+    /**
+     * 等级:
+     * 0:用户
+     * 1:服务委托单
+     * 2:进场单
+     * 3:管理员都可
+     */
+    private Integer level;
 
     /**
      * 权限列表

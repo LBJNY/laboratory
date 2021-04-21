@@ -1,17 +1,23 @@
 package com.zj.laboratory.service.impl;
 
 
+import com.zj.laboratory.enums.ResultEnum;
 import com.zj.laboratory.enums.StateEnums;
+import com.zj.laboratory.exception.LaboratoryException;
 import com.zj.laboratory.mapper.SysRoleMapper;
 import com.zj.laboratory.mapper.SysUserMapper;
 import com.zj.laboratory.mapper.SysUserRoleMapper;
+import com.zj.laboratory.pojo.LoginUser;
 import com.zj.laboratory.pojo.SysRole;
 import com.zj.laboratory.pojo.SysUser;
 import com.zj.laboratory.pojo.SysUserRole;
+import com.zj.laboratory.pojo.dto.UpdatePwdDto;
 import com.zj.laboratory.pojo.vo.SysUserVo;
 import com.zj.laboratory.service.SysUserService;
 import com.zj.laboratory.utils.IdWorker;
 import com.zj.laboratory.utils.Page;
+import com.zj.laboratory.utils.ShiroUtils;
+import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -174,5 +180,28 @@ public class SysUserServiceImpl implements SysUserService {
         page.setList(userList);
         page.setTotalCount(pageCount);
         return page;
+    }
+
+    /**
+     * 更新用户密码
+     * @param updatePwdDto 更新密码类
+     */
+    @Override
+    public void updatePwd(UpdatePwdDto updatePwdDto) {
+        if (updatePwdDto.getOldPwd().isEmpty()){
+            throw new LaboratoryException("原密码不能为空!");
+        }
+        if (updatePwdDto.getNewPwd().isEmpty()){
+            throw new LaboratoryException("新密码不能为空!");
+        }
+        LoginUser loginUser = ShiroUtils.getLoginUser();
+        assert loginUser != null;
+        updatePwdDto.setId(loginUser.getId());
+        Long res = sysUserMapper.updatePwd(updatePwdDto);
+        if (res!=1){
+            throw new LaboratoryException(ResultEnum.PASSWORD_ERROR);
+        }
+        //清除shiro缓存
+        SecurityUtils.getSubject().logout();
     }
 }

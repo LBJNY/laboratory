@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zj.laboratory.mapper.LwLevelMapper">
+    <resultMap id="BastResultMap" type="com.zj.laboratory.pojo.LwLevel">
+        <id column="id" property="id"/>
+        <result column="level" property="level"/>
+        <result column="des" property="des"/>
+        <result column="status" property="status"/>
+    </resultMap>
+    <select id="getList" resultMap="BastResultMap">
+        select id, level, des, status
+        from lw_level
+    </select>
+</mapper>

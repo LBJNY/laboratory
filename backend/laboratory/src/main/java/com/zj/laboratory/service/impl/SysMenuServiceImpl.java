@@ -114,6 +114,7 @@ public class SysMenuServiceImpl implements SysMenuService {
         }
         // 菜单不存在，入表
         LoginUser loginUser = ShiroUtils.getLoginUser();
+        assert loginUser != null;
         sysMenu.setCreateBy(loginUser.getUsername());
         sysMenu.setUpdateBy(loginUser.getUsername());
         // 添加

@@ -1,114 +1,102 @@
 package com.zj.laboratory.pojo;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Date;
 
 /**
- * <p>
- * 用户表实体类
- * </p>
+ * 小程序用户表(lw_user)实体类
+ *
+ * @author lbj
+ * @since 2021-04-19 09:13:37
  */
 @Data
-//@Table(name = "lw_user")
+@NoArgsConstructor
+@Accessors(chain = true)
 public class LwUser implements Serializable {
 
     private static final long serialVersionUID = 981816007678159811L;
 
     /**
-     * id
+     * id号
      */
-//    @Id
-//    @Column(name = "id")
     private Long id;
 
     /**
+     * 用户唯一openid
+     */
+    private String openId;
+    /**
      * 手机号
      */
-//    @Column(name = "phone")
     private String phone;
-
     /**
-     * 密码
+     * 微信昵称
      */
-//    @Column(name = "password")
-    private String password;
-
-    /**
-     * 昵称
-     */
-//    @Column(name = "nickname")
     private String nickname;
-
     /**
-     * 状态，1正常0封禁
+     * 性别:1:男 2: 女
      */
-//    @Column(name = "status")
-    private Integer status;
-
-    /**
-     * 头像
-     */
-//    @Column(name = "header")
-    private String header;
-
-    /**
-     * 性别，1男2女
-     */
-//    @Column(name = "gender")
     private Integer gender;
-
     /**
-     * 签名
+     * 头像url
      */
-//    @Column(name = "note")
-    private String note;
-
+    private String header;
     /**
-     * openid
+     * 姓名--后台给
      */
-    //    @Column(name = "openid")
-    private String openId;
-
+    private String name;
     /**
-     * 积分
+     * 有效（1：有效，0：无效）
      */
-    //    @Column(name = "point")
-    private BigDecimal point;
-
+    private Integer status;
     /**
-     * 历史积分
+     * 审核员类型
      */
-    //    @Column(name = "history_point")
-    private BigDecimal historyPoint;
-
+    private Integer reviewerType;
+    /**
+     * 等级:
+     * 0:用户
+     * 1:服务委托单
+     * 2:进场单
+     * 3:管理员都可
+     */
+    private Integer level;
     /**
      * 创建时间
      */
-    //    @Column(name = "create_time")
-    private String createTime;
-
+    private Date createTime;
     /**
-     * 更新时间
+     * 创建时间
      */
-    //    @Column(name = "update_time")
-    private String updateTime;
-
+    private Date updateTime;
     /**
      * 是否删除，1是0否
      */
-    //    @Column(name = "deleted")
     private Integer deleted;
+    /**
+     * 服务委托单数量  默认0
+     */
+    private Integer serviceNumber;
+    /**
+     * 进场单数量   默认0
+     */
+    private Integer entryNumber;
 
     public LoginUser toLoginUser() {
         LoginUser user = new LoginUser();
         user.setId(id);
         user.setUsername(phone);
-        //user.setPassword(password);
+        user.setName(name);
         user.setNickName(nickname);
         user.setHeader(header);
         user.setOpenId(openId);
+        user.setReviewerType(reviewerType);
+        user.setLevel(level);
         return user;
     }
 

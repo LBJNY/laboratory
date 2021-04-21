@@ -2,7 +2,9 @@ package com.zj.laboratory.mapper;
 
 
 import com.zj.laboratory.pojo.SysUser;
+import com.zj.laboratory.pojo.dto.UpdatePwdDto;
 import com.zj.laboratory.utils.Page;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -69,4 +71,9 @@ public interface SysUserMapper {
     Integer countByPage(Page<SysUser> page);
 
 
+    /**
+     * 修改密码
+     * @param updatePwdDto
+     */
+    Long updatePwd(UpdatePwdDto updatePwdDto);
 }

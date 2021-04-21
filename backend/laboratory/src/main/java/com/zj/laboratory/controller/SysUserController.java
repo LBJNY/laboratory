@@ -5,6 +5,7 @@ import com.zj.laboratory.enums.ResultEnum;
 import com.zj.laboratory.pojo.LoginUser;
 import com.zj.laboratory.pojo.SysUser;
 import com.zj.laboratory.pojo.TokenVo;
+import com.zj.laboratory.pojo.dto.UpdatePwdDto;
 import com.zj.laboratory.pojo.vo.SysUserVo;
 import com.zj.laboratory.service.SysUserService;
 import com.zj.laboratory.shiro.SysUserRealm;
@@ -51,6 +52,7 @@ public class SysUserController {
         page = sysUserService.getByPage(page);
         return new Result<>(page);
     }
+
     /**
      * 保存用户
      *
@@ -83,6 +85,20 @@ public class SysUserController {
     }
 
     /**
+     * 更新用户密码
+     *
+//     * @param newPwd
+//     * @param oldPwd
+     * @return
+     */
+    @PutMapping("/updatePwd")
+    public Result<?> updatePwd(@RequestBody UpdatePwdDto updatePwdDto) {
+        sysUserService.updatePwd(updatePwdDto);
+        System.out.println("1111111111");
+        return new Result<>("修改成功,请重新登陆!");
+    }
+
+    /**
      * 删除用户
      *
      * @param id
@@ -97,6 +113,7 @@ public class SysUserController {
 
     /**
      * 启用用户
+     *
      * @param id
      * @return
      */
@@ -108,6 +125,7 @@ public class SysUserController {
 
     /**
      * 禁用用户
+     *
      * @param id
      * @return
      */

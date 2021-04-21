@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zj.laboratory.mapper.LwUserMapper">
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.zj.laboratory.pojo.LwUser">
+        <id column="id" property="id"/>
+        <result column="phone" property="phone"/>
+        <result column="nickname" property="nickname"/>
+        <result column="name" property="name"/>
+        <result column="status" property="status"/>
+        <result column="header" property="header"/>
+        <result column="gender" property="gender"/>
+        <result column="openid" property="openId"/>
+        <result column="reviewerType" property="reviewerType"/>
+        <result column="level" property="level"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="deleted" property="deleted"/>
+    </resultMap>
+    <insert id="save">
+        insert into lw_user(id, phone, nickname, header, gender, openid)
+        values (#{id}, #{phone}, #{nickname}, #{header}, #{gender}, #{openId})
+    </insert>
+    <update id="updateLoginInfo">
+        update lw_user
+        <set>
+            <if test="phone!=null and phone!=''">
+                phone = #{phone},
+            </if>
+            <if test="openId!=null and openId!=''">
+                openid = #{openId},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+    <delete id="clearById">
+        delete
+        from lw_user
+        where id = #{id}
+    </delete>
+    <update id="delete">
+        update lw_user
+        set deleted = 1
+        where id = #{id}
+    </update>
+    <update id="enableById">
+        update lw_user
+        set status = 1
+        where id = #{id}
+    </update>
+    <update id="disableById">
+        update lw_user
+        set status = 0
+        where id = #{id}
+    </update>
+    <select id="getByOpenId" resultMap="BaseResultMap">
+        select id,
+               phone,
+               nickname,
+               name,
+               status,
+               header,
+               gender,
+               openid
+        from lw_user
+        where deleted = 0
+          and status = 1
+          and openid = #{openId}
+    </select>
+    <select id="getByPhone" resultMap="BaseResultMap">
+        select id,
+               phone,
+               nickname,
+               name,
+               status,
+               header,
+               gender,
+               openid
+        from lw_user
+        where deleted = 0
+          and status = 1
+          and phone = #{phone}
+    </select>
+    <select id="getByPage" resultMap="BaseResultMap">
+        select
+        id,
+        phone,
+        nickname,
+        name,
+        status,
+        header,
+        gender,
+        create_time,
+        update_time
+        from lw_user
+        where deleted = 0
+        <if test="params.phone!=null and params.phone!=''">
+            and phone = #{params.phone}
+        </if>
+        <if test="params.nickname!=null and params.nickname!=''">
+            and nickName like concat('%', #{params.nickname}, '%')
+        </if>
+        <if test="params.name!=null and params.name!=''">
+            and name like concat('%', #{params.name}, '%')
+        </if>
+        <if test="params.status!=null">
+            and status = #{params.status}
+        </if>
+
+        limit #{index}, #{pageSize}
+    </select>
+    <select id="getCountByPage" resultType="java.lang.Integer">
+        select count(*)
+        from lw_user
+        where deleted = 0
+        <if test="params.phone!=null and params.phone!=''">
+            and phone = #{params.phone}
+        </if>
+        <if test="params.nickname!=null and params.nickname!=''">
+            and nickName like concat('%', #{params.nickname}, '%')
+        </if>
+        <if test="params.name!=null and params.name!=''">
+            and name like concat('%', #{params.name}, '%')
+        </if>
+        <if test="params.status!=null">
+            and status = #{params.status}
+        </if>
+    </select>
+    <select id="get" resultMap="BaseResultMap">
+        select id,
+               phone,
+               nickname,
+               name,
+               status,
+               header,
+               gender,
+               create_time,
+               update_time
+        from lw_user
+        where id = #{id}
+    </select>
+    <select id="getByIds" resultMap="BaseResultMap">
+        select
+        id, phone, nickName,name, status, header, gender, openid, create_time
+        from lw_user
+        where id in (
+        <foreach collection="list" item="item" separator=",">
+            #{item}
+        </foreach>
+        )
+    </select>
+    <update id="update">
+        update lw_user
+        set level=#{level},
+        reviewerType=#{reviewerType},
+        update_time=#{updateTime}
+        <if test="name!=null and name!=''">
+            ,name = #{name}
+        </if>
+        where id=#{id}
+    </update>
+    <select id="getUpdateInfo" resultMap="BaseResultMap">
+        select id, name, level, reviewerType
+        from lw_user
+        where id=#{id}
+    </select>
+</mapper>

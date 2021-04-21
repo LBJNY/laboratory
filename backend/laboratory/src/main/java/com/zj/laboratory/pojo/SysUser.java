@@ -42,6 +42,10 @@ public class SysUser  implements Serializable {
      */
     private String nickName;
     /**
+     * 昵称
+     */
+    private String name;
+    /**
      * 头像
      */
     private String header;

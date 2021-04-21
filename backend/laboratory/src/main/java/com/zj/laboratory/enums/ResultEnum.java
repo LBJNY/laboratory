@@ -27,8 +27,10 @@ public enum ResultEnum {
     CATEGORY_EXISTS(40013,"分类已存在"),
     LOGIN_ERROR(40014,"登录失败"),
     USER_NOT_FOUND(40015, "用户不存在"),
-    USER_REAL_EXISTS(40016, "用户已存在");
+    USER_REAL_EXISTS(40016, "用户已存在"),
+    PASSWORD_ERROR(40017,"原密码可能存在错误请稍后重试!")
     ;
+
     private Integer code;
     private String msg;
 
