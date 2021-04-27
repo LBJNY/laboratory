@@ -36,7 +36,7 @@ mybatis:
 aliyun:
   oss:
     endpoint: http://oss-cn-beijing.aliyuncs.com # oss对外服务的访问域名
-    access-key-id: LTAI5tAs1RSb6MSgdG4vF9Tm # 访问身份验证中用到用户标识
+    access-key-id:  # 访问身份验证中用到用户标识
     access-key-secret: dYABOsCwnxLslBA6CajfmfiNfPvLmP # 用户用于加密签名字符串和oss用来验证签名字符串的密钥
     bucket-name: labweapp # oss的存储空间
     view-url: https://labweapp.oss-cn-beijing.aliyuncs.com # 预览url
@@ -51,6 +51,6 @@ aliyun:
 # 微信配置
 wechat:
   appId: wxb2b5716e82d2e3e6
-  appSecret: a924d5ea8acbef729d5372cdacab75c7
+  appSecret: 
   grantType: authorization_code
   loginUrl: https://api.weixin.qq.com/sns/jscode2session
