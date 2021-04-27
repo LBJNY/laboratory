@@ -15,7 +15,7 @@
     <select id="get" resultMap="BaseResultMap">
         select id, name, order_num
         from lw_order_servicetype
-        where id=#{id}
+        where id = #{id}
     </select>
     <select id="getByPage" resultMap="BaseResultMap">
         select
@@ -55,8 +55,8 @@
         where id = #{id}
     </update>
     <insert id="save">
-        insert lw_order_servicetype(id, name, order_num,create_by,create_time)
-            VALUE (#{id}, #{name}, #{orderNum},#{createBy},#{createTime})
+        insert lw_order_servicetype(id, name, order_num, create_by, create_time)
+            VALUE (#{id}, #{name}, #{orderNum}, #{createBy}, #{createTime})
     </insert>
     <delete id="delete">
         delete
@@ -64,4 +64,8 @@
         where id = #{id}
     </delete>
 
+    <select id="getAll" resultMap="BaseResultMap">
+        select id, name
+        from lw_order_servicetype
+    </select>
 </mapper>

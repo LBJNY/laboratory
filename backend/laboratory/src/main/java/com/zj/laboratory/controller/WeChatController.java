@@ -2,10 +2,14 @@ package com.zj.laboratory.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.zj.laboratory.config.WeChatConfig;
+import com.zj.laboratory.enums.ResultEnum;
 import com.zj.laboratory.pojo.LoginUser;
+import com.zj.laboratory.pojo.LwUser;
 import com.zj.laboratory.pojo.TokenVo;
 import com.zj.laboratory.pojo.WeChatResult;
 import com.zj.laboratory.pojo.dto.WeChatRegisterDto;
+import com.zj.laboratory.service.LwUserService;
+import com.zj.laboratory.shiro.LwUserRealm;
 import com.zj.laboratory.shiro.UserRealm;
 import com.zj.laboratory.shiro.UserToken;
 import com.zj.laboratory.utils.HttpUtils;
@@ -32,15 +36,15 @@ public class WeChatController {
 
     @Autowired
     private WeChatConfig weChatConfig;
-//    @Autowired
-//    private ShopUserService shopUserService;
+    @Autowired
+    private LwUserService lwUserService;
 
     @RequestMapping(value = "/wxLogin/{code}", method = RequestMethod.GET)
     public Result<Object> weLogin(@PathVariable String code) throws IOException {
         String body = HttpUtils.get(weChatConfig.getAuthUrl(code)).body();
         WeChatResult weChatResult = JSON.parseObject(body, WeChatResult.class);
         Subject subject = SecurityUtils.getSubject();
-        AuthenticationToken authenticationToken = new UserToken(weChatResult.getOpenId(), weChatResult.getOpenId(), UserRealm.class);
+        AuthenticationToken authenticationToken = new UserToken(weChatResult.getOpenId(), weChatResult.getOpenId(), LwUserRealm.class);
         try {
             subject.login(authenticationToken);
         } catch (AuthenticationException e) {
@@ -62,24 +66,24 @@ public class WeChatController {
      */
     @RequestMapping(value = "/registerLogin", method = RequestMethod.POST)
     public Result<?> registerLogin(@RequestBody WeChatRegisterDto weChatRegisterDto) {
-//        ShopUser shopUser = shopUserService.getByOpenId(weChatRegisterDto.getOpenId());
-//        if (shopUser == null) {
-//            // 注册
-//            shopUserService.register(weChatRegisterDto.toShopUser());
-//        }
-//        //  剩下的逻辑和登录一模一样
-//        // shiro登录
-//        Subject subject = SecurityUtils.getSubject();
-//        // 我们约定，openid为username，unionid为password
-//        AuthenticationToken authenticationToken = new UserToken(weChatRegisterDto.getOpenId(), weChatRegisterDto.getOpenId(), ShopUserRealm.class);
-//        try {
-//            subject.login(authenticationToken);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            return new Result<>(ResultEnum.LOGIN_ERROR);
-//        }
-//        // 获取sessionId
-//        Serializable token = subject.getSession().getId();
+        LwUser lwUser = lwUserService.getByOpenId(weChatRegisterDto.getOpenId());
+        if (lwUser == null) {
+            // 注册
+            lwUserService.register(weChatRegisterDto.toLwUser());
+        }
+        //  剩下的逻辑和登录一模一样
+        // shiro登录
+        Subject subject = SecurityUtils.getSubject();
+        // 我们约定，openid为username，unionid为password
+        AuthenticationToken authenticationToken = new UserToken(weChatRegisterDto.getOpenId(), weChatRegisterDto.getOpenId(), LwUserRealm.class);
+        try {
+            subject.login(authenticationToken);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new Result<>(ResultEnum.LOGIN_ERROR);
+        }
+        // 获取sessionId
+        Serializable token = subject.getSession().getId();
         return new Result<>(new TokenVo(null));
     }
 

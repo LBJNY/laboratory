@@ -14,9 +14,8 @@
 					@getuserinfo="wxGetUserInfo">
 					授权登录
 				</button> -->
-				<button class='bottom' type='primary' open-type="getUserInfo" withCredentials="true" lang="zh_CN"
-					@click="toHome">
-					授权登录
+				<button class='bottom' type='primary' lang="zh_CN" @click="wxGetUserInfo">
+					登录
 				</button>
 			</view>
 		</view>
@@ -24,110 +23,121 @@
 </template>
 
 <script>
+	import weChatApi from '@/api/wechat.js'
 	export default {
 		data() {
 			return {
 				SessionKey: '',
 				OpenId: '',
-				nickName: null,
-				avatarUrl: null,
+				// 当前登录用户
+				loginUser: null,
+				// 页面类型  0:用户页面  1:管理员界面
+				pageType: 0,
 				isCanUse: uni.getStorageSync('isCanUse') || true //默认为true
 			};
 		},
 		methods: {
 			//第一授权获取用户信息===》按钮触发
 			wxGetUserInfo() {
-				// let _this = this;
-				// uni.getUserInfo({
-				// 	provider: 'weixin',
-				// 	success: function(infoRes) {
-				// 		let nickName = infoRes.userInfo.nickName; //昵称
-				// 		let avatarUrl = infoRes.userInfo.avatarUrl; //头像
-				// 		try {
-				// 			uni.setStorageSync('isCanUse', false); //记录是否第一次授权  false:表示不是第一次授权
-				// 			_this.updateUserInfo();
-				// 		} catch (e) {}
-				// 	},
-				// 	fail(res) {}
-				// });
+				let _this = this;
+				//if (uni.getStorageSync('loginUser') && !_this.isCanUse) {
+				uni.getUserProfile({
+					desc: '登录',
+					success: (res) => {
+						console.log(uni.getStorageSync('loginUser'))
+						if (!uni.getStorageSync('loginUser')) {
+							try {
+								uni.setStorageSync('isCanUse', false); //记录是否第一次授权  false:表示不是第一次授权
+								_this.getUserInfo(res);
+							} catch (e) {}
+							_this.login()
+						}
+					},
+					fail: (res) => {
+						uni.showToast({
+							title: '用户取消授权',
+							duration: 2000
+						});
+					},
+				})
+				//}
 			},
-
-			//登录
+			//预登录  获取用户openId..  授权是向后台注册
 			login() {
 				let _this = this;
 				// uni.showLoading({
 				// 	title: '登录中...'
 				// });
-				// 1.wx获取登录用户code
-				// uni.login({
-				// 	provider: 'weixin',
-				// 	success: function(loginRes) {
-				// 		let code = loginRes.code;
-				// 		if (!_this.isCanUse) {
-				// 			//非第一次授权获取用户信息
-				// 			uni.getUserInfo({
-				// 				provider: 'weixin',
-				// 				success: function(infoRes) {
-				// 					//获取用户信息后向调用信息更新方法
-				// 					let nickName = infoRes.userInfo.nickName; //昵称
-				// 					let avatarUrl = infoRes.userInfo.avatarUrl; //头像
-				// 					_this.updateUserInfo(); //调用更新信息方法
-				// 				}
-				// 			});
-				// 		}
+				// 登录获取
+				uni.login({
+					provider: "weixin",
+					success: (res) => {
+						console.log(res)
+						// 获取微信登录用的code
+						const code = res.code
+						weChatApi.loginByCode(code).then(res => {
+							if (res.data.token) {
+								uni.setStorageSync('Authorization', res.data.token)
+								weChatApi.getLoginInfo().then(res => {
+									uni.setStorageSync('loginUser', res.data)
+									_this.loginUser = res.data
+									_this.navigateTo()
+								})
 
-				// 		//2.将用户登录code传递到后台置换用户SessionKey、OpenId等信息
-				// 		uni.request({
-				// 			url: '服务器地址',
-				// 			data: {
-				// 				code: code,
-				// 			},
-				// 			method: 'GET',
-				// 			header: {
-				// 				'content-type': 'application/json'
-				// 			},
-				// 			success: (res) => {
-				// 				//openId、或SessionKdy存储//隐藏loading
-				// 				uni.hideLoading();
-				// 			}
-				// 		});
-				// 	},
-				// });
-			},
-			//向后台更新信息
-			updateUserInfo() {
-				let _this = this;
-				// uni.request({
-				// 	url: 'url', //服务器端地址
-				// 	data: {
-				// 		appKey: this.$store.state.appKey,
-				// 		customerId: _this.customerId,
-				// 		nickName: _this.nickName,
-				// 		headUrl: _this.avatarUrl
-				// 	},
-				// 	method: 'POST',
-				// 	header: {
-				// 		'content-type': 'application/json'
-				// 	},
-				// 	success: (res) => {
-				// 		if (res.data.state == "success") {
-				// 			uni.reLaunch({ //信息更新成功后跳转到小程序首页
-				// 				url: '/pages/index/index'
-				// 			});
-				// 		}
-				// 	}
+								this.navigateTo()
+								console.log(res.data.token)
+							} else {
+								uni.setStorageSync('openId', res.data.openId)
+								console.log("openid:" + res.data.openId)
+							}
+							console.log(uni.getStorageSync('loginUser'))
+						})
+					}
+				})
 
-				// });
 			},
-			toHome(){
+			navigateTo() {
+				if (this.loginUser) {
+					if (this.loginUser.level > 0) {
+						uni.redirectTo({
+							url: '/pages/selectPage/selectPage'
+						})
+					} else {
+						uni.setStorageSync('pageType', 0)
+						uni.switchTab({
+							url: '/pages/home/home'
+						})
+					}
+				}
+			},
+			//获取用户信息
+			getUserInfo(detail) {
+				const userInfo = detail.userInfo
+				console.log(detail)
+				// 获取到openId
+				const openId = uni.getStorageSync('openId')
+				userInfo.openId = openId
+				weChatApi.regitserLogin(userInfo).then(res => {
+					uni.showToast({
+						title: "登录成功"
+					})
+					uni.setStorageSync('Authorization', res.data.token)
+					console.log(res.data)
+				})
+
+			},
+			toHome() {
 				uni.redirectTo({
-					url:'../home/home'
+					url: '../home/home'
 				})
 			}
 		},
+		onShow() {
+			// 登录获取
+			this.login();
+		},
 		onLoad() { //默认加载
-			// this.login();
-			
+
 		}
 	}
 </script>

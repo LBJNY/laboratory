@@ -63,4 +63,8 @@
         from lw_order_fundsupport
         where id = #{id}
     </delete>
+    <select id="getAll" resultMap="BaseResultMap">
+        select id, name
+        from lw_order_fundsupport
+    </select>
 </mapper>

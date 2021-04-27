@@ -63,4 +63,9 @@ public class LwOrderServiceTypeServiceImpl implements LwOrderServiceTypeService 
     public LwOrderServiceType get(Integer id) {
         return lwOrderServiceTypeMapper.get(id);
     }
+
+    @Override
+    public List<LwOrderServiceType> getAll() {
+        return lwOrderServiceTypeMapper.getAll();
+    }
 }

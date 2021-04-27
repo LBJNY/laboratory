@@ -16,7 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 
-@Component("shopUserRealm")
+@Component("lwUserRealm")
 public class LwUserRealm extends AuthorizingRealm {
 
     @Autowired

@@ -4,6 +4,8 @@ import com.zj.laboratory.pojo.LwOrderFundSupport;
 import com.zj.laboratory.pojo.LwUser;
 import com.zj.laboratory.utils.Page;
 
+import java.util.List;
+
 public interface LwOrderFundSupportService {
     /**
      * 分页获取
@@ -48,4 +50,10 @@ public interface LwOrderFundSupportService {
      * @return
      */
     LwOrderFundSupport get(Integer id);
+
+    /**
+     * 获取所有
+     * @return
+     */
+    List<LwOrderFundSupport> getAll();
 }

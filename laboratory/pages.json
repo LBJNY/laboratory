@@ -1,6 +1,34 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
+			"path": "pages/index/index",
+			"style": {
+				// #ifdef APP-PLUS
+				"navigationStyle": "custom",
+				"app-plus": {
+					"titleNView": false //去掉当前页的顶部导航栏
+				},
+				"navigationBarTextStyle": "white",
+				// #endif
+				// #ifdef MP
+				"navigationBarTitleText": "登录",
+				"navigationBarBackgroundColor": "#FFFFFF",
+				// #endif
+				"h5": {
+					"titleNView": false
+				}
+			}
+		},
+		{
+			"path": "pages/selectPage/selectPage",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+
+		},
+
+		{
 			"path": "pages/entryOrder/entryOrder",
 			"style": {
 				// #ifdef APP-PLUS
@@ -66,25 +94,7 @@
 
 		},
 
-		{
-			"path": "pages/index/index",
-			"style": {
-				// #ifdef APP-PLUS
-				"navigationStyle": "custom",
-				"app-plus": {
-					"titleNView": false //去掉当前页的顶部导航栏
-				},
-				"navigationBarTextStyle": "white",
-				// #endif
-				// #ifdef MP
-				"navigationBarTitleText": "登录",
-				"navigationBarBackgroundColor": "#FFFFFF",
-				// #endif
-				"h5": {
-					"titleNView": false
-				}
-			}
-		},
+
 		// {
 		// 	"path": "pages/test/test",
 		// 	"style": {
@@ -255,44 +265,36 @@
 				"enablePullDownRefresh": false
 			}
 
+		}, {
+			"path": "pages/admin/serviceOrder-examine/serviceOrder-examine",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "pages/admin/entryOrder-examine/entryOrder-examine",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "pages/admin/serviceOrder-info/serviceOrder-info",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "pages/admin/entryOrder-info/entryOrder-info",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+
 		}
-	    ,{
-            "path" : "pages/admin/serviceOrder-examine/serviceOrder-examine",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/admin/entryOrder-examine/entryOrder-examine",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/admin/serviceOrder-info/serviceOrder-info",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/admin/entryOrder-info/entryOrder-info",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-    ],
+	],
 	"tabBar": {
 		//"custom": true,
 		"color": "#78798C",

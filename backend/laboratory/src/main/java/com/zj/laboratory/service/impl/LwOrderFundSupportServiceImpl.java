@@ -64,4 +64,9 @@ public class LwOrderFundSupportServiceImpl implements LwOrderFundSupportService 
     public LwOrderFundSupport get(Integer id) {
         return lwOrderFundSupportMapper.get(id);
     }
+
+    @Override
+    public List<LwOrderFundSupport> getAll() {
+        return lwOrderFundSupportMapper.getAll();
+    }
 }

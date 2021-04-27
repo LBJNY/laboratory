@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zj.laboratory.mapper.LwOrderAuditMapper">
+    <sql id="tableName">
+        lw_order_audit
+    </sql>
+
+    <sql id="baseColumn">
+        id,serviceNo,deptAdvice,deptOfficerId,deptOfficerName,labAdvice,labOfficerId,labOfficerName,CHAdvice,CHOfficerId,CHOfficerName,status
+    </sql>
+    <resultMap id="BaseResultMap" type="com.zj.laboratory.pojo.LwOrderAudit">
+        <id property="id" column="id"/>
+        <result property="serviceNo" column="serviceNo"/>
+        <result property="deptAdvice" column="deptAdvice"/>
+        <result property="deptOfficerId" column="deptOfficerId"/>
+        <result property="deptOfficerName" column="deptOfficerName"/>
+        <result property="labAdvice" column="labAdvice"/>
+        <result property="labOfficerId" column="labOfficerId"/>
+        <result property="labOfficerName" column="labOfficerName"/>
+        <result property="chOfficerId" column="CHAdvice"/>
+        <result property="chOfficerId" column="CHOfficerId"/>
+        <result property="chOfficerName" column="CHOfficerName"/>
+        <result property="status" column="status"/>
+    </resultMap>
+    <select id="getByServiceNo" resultMap="BaseResultMap">
+        select id,
+               serviceNo,
+               deptAdvice,
+               deptOfficerId,
+               deptOfficerName,
+               labAdvice,
+               labOfficerId,
+               labOfficerName,
+               CHAdvice,
+               CHOfficerId,
+               CHOfficerName,
+               status
+        from lw_order_audit
+        where serviceNo = #{serviceNo}
+          and status = 1
+    </select>
+</mapper>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zj.laboratory.mapper.LwOrderFeedbackMapper">
+    <sql id="tableName">
+        lw_order_feedback
+    </sql>
+
+    <sql id="baseColumn">
+        id,serviceNo,serviceAdvance,serviceQuality,serviceCharge,satisfaction,suggestions,signature,completion,status
+    </sql>
+    <resultMap id="BaseResultMap" type="com.zj.laboratory.pojo.LwOrderFeedback">
+        <id column="id" property="id"/>
+        <result column="serviceNo" property="serviceNo"/>
+        <result column="serviceAdvance" property="serviceAdvance"/>
+        <result column="serviceQuality" property="serviceQuality"/>
+        <result column="serviceCharge" property="serviceCharge"/>
+        <result column="satisfaction" property="satisfaction"/>
+        <result column="suggestions" property="suggestions"/>
+        <result column="signature" property="signature"/>
+        <result column="completion" property="completion"/>
+        <result column="status" property="status"/>
+    </resultMap>
+    <select id="get" resultMap="BaseResultMap">
+        select id,
+               serviceNo,
+               serviceAdvance,
+               serviceQuality,
+               serviceCharge,
+               satisfaction,
+               suggestions,
+               signature,
+               completion,
+               status
+        from lw_order_feedback
+        where serviceNo = #{serviceNo}
+          and status = 1
+
+    </select>
+</mapper>

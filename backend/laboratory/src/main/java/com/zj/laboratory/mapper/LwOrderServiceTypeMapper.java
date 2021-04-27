@@ -76,4 +76,9 @@ public interface LwOrderServiceTypeMapper {
      * @return
      */
     LwOrderServiceType get(@Param("id") Integer id);
+
+    /**
+     * 获取所有
+     */
+    List<LwOrderServiceType> getAll();
 }

@@ -8,6 +8,8 @@ import com.zj.laboratory.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("serviceType")
 public class LwOrderServiceTypeController {
@@ -93,5 +95,14 @@ public class LwOrderServiceTypeController {
     public Result<LwOrderServiceType> get(@PathVariable("id") String id) {
         LwOrderServiceType lwOrderServiceType = lwOrderServiceTypeService.get(Integer.parseInt(id));
         return new Result<>(lwOrderServiceType);
+    }
+    /**
+     * 获取所有
+     * @return
+     */
+    @RequestMapping(value = "/getAll", method = RequestMethod.GET)
+    public Result<List<LwOrderServiceType>> getAll() {
+        List<LwOrderServiceType> list = lwOrderServiceTypeService.getAll();
+        return new Result<>(list);
     }
 }

@@ -58,6 +58,8 @@
                phone,
                nickname,
                name,
+               level,
+               reviewerType,
                status,
                header,
                gender,

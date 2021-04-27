@@ -1,0 +1,65 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/selectPage/selectPage",
+    "pages/entryOrder/entryOrder",
+    "pages/serviceOrder/serviceOrder",
+    "pages/home/home",
+    "pages/user/entryOrder-update/entryOrder-update",
+    "pages/user/entryOrder-examine/entryOrder-examine",
+    "pages/user/entryOrder-save/entryOrder-save",
+    "pages/user/serviceOrder-feedback/serviceOrder-feedback",
+    "pages/user/serviceOrder-update/serviceOrder-update",
+    "pages/user/serviceOrder-examine/serviceOrder-examine",
+    "pages/user/serviceOrder-info/serviceOrder-info",
+    "pages/user/serviceOrder-save/serviceOrder-save",
+    "pages/my/my",
+    "pages/user/message/message",
+    "pages/admin/serviceOrder-examine/serviceOrder-examine",
+    "pages/admin/entryOrder-examine/entryOrder-examine",
+    "pages/admin/serviceOrder-info/serviceOrder-info",
+    "pages/admin/entryOrder-info/entryOrder-info"
+  ],
+  "subPackages": [],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "uni-app",
+    "navigationBarBackgroundColor": "#F8F8F8",
+    "backgroundColor": "#F8F8F8"
+  },
+  "tabBar": {
+    "color": "#78798C",
+    "selectedColor": "#5C70FC",
+    "backgroundColor": "#ffffff",
+    "list": [
+      {
+        "iconPath": "/static/image/home.jpg",
+        "selectedIconPath": "/static/image/home-h.jpg",
+        "pagePath": "pages/home/home",
+        "text": "主页"
+      },
+      {
+        "iconPath": "/static/image/entrust.jpg",
+        "selectedIconPath": "/static/image/entrust-h.jpg",
+        "pagePath": "pages/serviceOrder/serviceOrder",
+        "text": "服务委托单"
+      },
+      {
+        "iconPath": "/static/image/entry.jpg",
+        "selectedIconPath": "/static/image/entrust-h.jpg",
+        "pagePath": "pages/entryOrder/entryOrder",
+        "text": "进场单"
+      },
+      {
+        "iconPath": "/static/image/center.jpg",
+        "selectedIconPath": "/static/image/center-h.jpg",
+        "pagePath": "pages/my/my",
+        "text": "个人中心"
+      }
+    ]
+  },
+  "usingComponents": {
+    "cu-custom": "/colorui/components/cu-custom"
+  },
+  "sitemapLocation": "sitemap.json"
+}

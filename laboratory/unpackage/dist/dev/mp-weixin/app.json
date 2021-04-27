@@ -1,9 +1,10 @@
 {
   "pages": [
+    "pages/index/index",
+    "pages/selectPage/selectPage",
     "pages/entryOrder/entryOrder",
     "pages/serviceOrder/serviceOrder",
     "pages/home/home",
-    "pages/index/index",
     "pages/user/entryOrder-update/entryOrder-update",
     "pages/user/entryOrder-examine/entryOrder-examine",
     "pages/user/entryOrder-save/entryOrder-save",

@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zj.laboratory.mapper.LwServiceOrderMapper">
+    <sql id="tableName">
+        lw_order
+    </sql>
+
+    <sql id="baseColumn">
+        id,serviceNo,deptName,projName,contact,tel,email,description,serviceManager,currentDate,applicationId,timeReq,netReq,softReq,deviceReq,personReq,otherReq,serviceType,fundSupport,verifyStatus,status,isLook,isLock,isFeedBack,currentReviewerId,deleted
+    </sql>
+
+    <resultMap id="BaseResultMap" type="com.zj.laboratory.pojo.LwOrder">
+        <id property="id" column="id"/>
+        <result property="serviceNo" column="serviceNo"/>
+        <result property="deptName" column="deptName"/>
+        <result property="projName" column="projName"/>
+        <result property="contact" column="contact"/>
+        <result property="tel" column="tel"/>
+        <result property="email" column="email"/>
+        <result property="description" column="description"/>
+        <result property="serviceManager" column="serviceManager"/>
+        <result property="currentDate" column="currentDate"/>
+        <result property="timeReq" column="timeReq"/>
+        <result property="netReq" column="netReq"/>
+        <result property="softReq" column="softReq"/>
+        <result property="deviceReq" column="deviceReq"/>
+        <result property="personReq" column="personReq"/>
+        <result property="otherReq" column="otherReq"/>
+        <result property="serviceType" column="serviceType"/>
+        <result property="fundSupport" column="fundSupport"/>
+        <result property="verifyStatus" column="verifyStatus"/>
+        <result property="status" column="status"/>
+        <result property="isLook" column="isLook"/>
+        <result property="isLock" column="isLock"/>
+        <result property="applicationId" column="applicationId"/>
+        <result property="applicantName" column="applicantName"/>
+        <result property="isFeedBack" column="isFeedBack"/>
+        <result property="currentReviewerId" column="currentReviewerId"/>
+        <result property="currentReviewerName" column="currentReviewerName"/>
+        <result property="deleted" column="deleted"/>
+        <result column="update_by" property="updateBy"/>
+        <result column="update_time" property="updateTime"/>
+    </resultMap>
+
+    <select id="getByPage" resultMap="BaseResultMap">
+        select
+        id, serviceNo, serviceManager, currentDate, projName, contact,`status`, verifyStatus,
+        applicantName ,currentReviewerName,isFeedBack, update_by, update_time
+        from lw_order
+        where deleted = 0
+        <if test="params.serviceNo!=null and params.serviceNo!=''">
+            and serviceNo like concat('%', #{params.serviceNo}, '%')
+        </if>
+        <if test="params.projName!=null and params.projName!=''">
+            and projName like concat('%', #{params.projName}, '%')
+        </if>
+        <if test="params.contact!=null and params.contact!=''">
+            and contact like concat('%', #{params.contact}, '%')
+        </if>
+        <if test="params.status!=null">
+            and `status` =#{params.status}
+        </if>
+        <if test="params.isFeedBack!=null">
+            and isFeedBack =#{params.isFeedBack}
+        </if>
+        <if test="params.verifyStatus!=null">
+            and verifyStatus =#{params.verifyStatus}
+        </if>
+        limit #{index}, #{pageSize}
+    </select>
+    <select id="getCountByPage" resultType="java.lang.Integer">
+        select count(*)
+        from lw_order
+        where deleted = 0
+        <if test="params.serviceNo!=null and params.serviceNo!=''">
+            and serviceNo like concat('%', #{params.serviceNo}, '%')
+        </if>
+        <if test="params.projName!=null and params.projName!=''">
+            and projName like concat('%', #{params.projName}, '%')
+        </if>
+        <if test="params.contact!=null and params.contact!=''">
+            and contact like concat('%', #{params.contact}, '%')
+        </if>
+        <if test="params.status!=null">
+            and `status` =#{params.status}
+        </if>
+        <if test="params.isFeedBack!=null">
+            and isFeedBack =#{params.isFeedBack}
+        </if>
+        <if test="params.verifyStatus!=null">
+            and verifyStatus =#{params.verifyStatus}
+        </if>
+    </select>
+    <update id="delete">
+        update lw_order
+        set deleted = 1
+        where id = #{id}
+    </update>
+    <update id="enableById">
+        update lw_order
+        set status = 1
+        where id = #{id}
+    </update>
+    <update id="disableById">
+        update lw_order
+        set status = 0
+        where id = #{id}
+    </update>
+    <select id="get" resultMap="BaseResultMap">
+        select id,
+               serviceNo,
+               deptName,
+               projName,
+               contact,
+               tel,
+               email,
+               description,
+               serviceManager,
+               currentDate,
+               applicantName,
+               applicationId,
+               timeReq,
+               netReq,
+               softReq,
+               deviceReq,
+               personReq,
+               otherReq,
+               serviceType,
+               fundSupport,
+               verifyStatus,
+               status,
+               isFeedBack,
+               currentReviewerId,
+               currentReviewerName,
+               deleted,
+               update_by,
+               update_time
+        from lw_order
+        where id = #{id}
+    </select>
+    <insert id="save">
+        insert lw_order(id, serviceNo, deptName, projName, contact, tel, email
+        <if test="description != null and description !=''">
+            ,description
+        </if>
+        ,serviceManager
+        ,currentDate
+        <if test="applicantName != null and applicantName !=''">
+            ,applicantName
+        </if>
+        ,applicationId
+        <if test="timeReq != null and timeReq !=''">
+            ,timeReq
+        </if>
+        <if test="netReq != null and netReq !=''">
+            ,netReq
+        </if>
+        <if test="softReq != null and softReq !=''">
+            ,softReq
+        </if>
+
+        <if test="deviceReq != null and deviceReq !=''">
+            ,deviceReq
+        </if>
+        <if test="personReq != null and personReq !=''">
+            ,personReq
+        </if>
+
+        <if test="otherReq != null and otherReq !=''">
+            ,otherReq
+        </if>
+        <if test="serviceType != null and serviceType !=''">
+            ,serviceType
+        </if>
+
+        <if test="fundSupport != null and fundSupport !=''">
+            ,fundSupport
+        </if>
+        , update_by, update_time)
+        value (#{id}, #{serviceNo}, #{deptName}, #{projName}, #{contact}, #{tel}, #{email}
+        <if test="description != null and description !=''">
+            , #{description}
+        </if>
+        , #{serviceManager}, #{currentDate}
+        <if test="applicantName != null and applicantName !=''">
+            , #{applicantName}
+        </if>
+        , #{applicationId}
+        <if test="timeReq != null and timeReq !=''">
+            , #{timeReq}
+        </if>
+        <if test="netReq != null and netReq !=''">
+            , #{netReq}
+        </if>
+        <if test="softReq != null and softReq !=''">
+            ,#{softReq}
+        </if>
+
+        <if test="deviceReq != null and deviceReq !=''">
+            ,#{deviceReq}
+        </if>
+        <if test="personReq != null and personReq !=''">
+            , #{personReq}
+        </if>
+
+        <if test="otherReq != null and otherReq !=''">
+            , #{otherReq}
+        </if>
+        <if test="serviceType != null and serviceType !=''">
+            , #{serviceType}
+        </if>
+
+        <if test="fundSupport != null and fundSupport !=''">
+            , #{fundSupport}
+        </if>
+        , #{updateBy},
+        #{updateTime})
+    </insert>
+
+    <update id="update">
+        update lw_order set
+        serviceNo=#{serviceNo}, deptName=#{deptName}, projName=#{projName}, contact=#{contact}, tel=#{tel}
+        ,email=#{email}
+        <if test="description != null and description !=''">
+            ,description=#{description}
+        </if>
+        ,serviceManager=#{serviceManager}
+        <if test="timeReq != null and timeReq !=''">
+            ,timeReq=#{timeReq}
+        </if>
+        <if test="netReq != null and netReq !=''">
+            ,netReq=#{netReq}
+        </if>
+        <if test="softReq != null and softReq !=''">
+            ,softReq=#{softReq}
+        </if>
+
+        <if test="deviceReq != null and deviceReq !=''">
+            ,deviceReq=#{deviceReq}
+        </if>
+        <if test="personReq != null and personReq !=''">
+            ,personReq=#{personReq}
+        </if>
+
+        <if test="otherReq != null and otherReq !=''">
+            ,otherReq=#{otherReq}
+        </if>
+        <if test="serviceType != null and serviceType !=''">
+            ,serviceType=#{serviceType}
+        </if>
+
+        <if test="fundSupport != null and fundSupport !=''">
+            ,fundSupport=#{fundSupport}
+        </if>
+        , update_by=#{updateBy}, update_time=#{updateTime}
+        where id=#{id}
+    </update>
+</mapper>

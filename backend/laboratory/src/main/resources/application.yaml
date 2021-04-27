@@ -28,3 +28,29 @@ spring:
 mybatis:
   mapper-locations: classpath:mapper/*Mapper.xml
   type-aliases-package: com.zj.laboratory
+  #打印SQL
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+# OSS相关配置信息
+aliyun:
+  oss:
+    endpoint: http://oss-cn-beijing.aliyuncs.com # oss对外服务的访问域名
+    access-key-id: LTAI5tAs1RSb6MSgdG4vF9Tm # 访问身份验证中用到用户标识
+    access-key-secret: dYABOsCwnxLslBA6CajfmfiNfPvLmP # 用户用于加密签名字符串和oss用来验证签名字符串的密钥
+    bucket-name: labweapp # oss的存储空间
+    view-url: https://labweapp.oss-cn-beijing.aliyuncs.com # 预览url
+    max-size: 10 # 最大文件大小，单位M
+    upload-dirs: # 上传的目录
+      - header
+    image-types: # 上传后缀
+      - JPG
+      - PNG
+      - JPEG
+      - GIF
+# 微信配置
+wechat:
+  appId: wxb2b5716e82d2e3e6
+  appSecret: a924d5ea8acbef729d5372cdacab75c7
+  grantType: authorization_code
+  loginUrl: https://api.weixin.qq.com/sns/jscode2session

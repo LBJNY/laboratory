@@ -1,5 +1,6 @@
 package com.zj.laboratory.pojo.dto;
 
+import com.zj.laboratory.pojo.LwUser;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -50,13 +51,13 @@ public class WeChatRegisterDto implements Serializable {
      *
      * @return
      */
-//    public ShopUser toShopUser() {
-//        ShopUser shopUser = new ShopUser();
-//        shopUser.setHeader(avatarUrl);
-//        shopUser.setGender(gender);
-//        shopUser.setNickname(nickName);
-//        shopUser.setOpenId(openId);
-//        return shopUser;
-//    }
+    public LwUser toLwUser() {
+        LwUser lwUser = new LwUser();
+        lwUser.setHeader(avatarUrl);
+        lwUser.setGender(gender);
+        lwUser.setNickname(nickName);
+        lwUser.setOpenId(openId);
+        return lwUser;
+    }
 
 }

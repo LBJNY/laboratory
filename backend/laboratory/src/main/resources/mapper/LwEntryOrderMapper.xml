@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zj.laboratory.mapper.LwEntryOrderMapper">
+    <sql id="tableName">
+        lw_entry
+    </sql>
+
+    <sql id="baseColumn">
+        id,entryNo,entryManager,currentDate,deptName,projName,contact,tel,email,staff,description,requirement,verifyStatus,lock
+        ,status,officerId,applicantId,officerStatus,applicantStatus,sDate,eDate,isLook,deleted
+    </sql>
+
+    <resultMap id="BaseResultMap" type="com.zj.laboratory.pojo.LwEntry">
+        <id column="id" property="id"/>
+        <result column="entryNo" property="entryNo"/>
+        <result column="entryManager" property="entryManager"/>
+        <result column="currentDate" property="currentDate"/>
+        <result column="deptName" property="deptName"/>
+        <result column="projName" property="projName"/>
+        <result column="contact" property="contact"/>
+        <result column="tel" property="tel"/>
+        <result column="email" property="email"/>
+        <result column="staff" property="staff"/>
+        <result column="description" property="description"/>
+        <result column="requirement" property="requirement"/>
+        <result column="verifyStatus" property="verifyStatus"/>
+        <result column="lock" property="lock"/>
+        <result column="status" property="status"/>
+        <result column="officerId" property="officerId"/>
+        <result column="officerName" property="officerName"/>
+        <result column="applicantId" property="applicantId"/>
+        <result column="applicantName" property="applicantName"/>
+        <result column="officerStatus" property="officerStatus"/>
+        <result column="applicantStatus" property="applicantStatus"/>
+        <result column="sDate" property="sDate"/>
+        <result column="eDate" property="eDate"/>
+        <result column="isLook" property="isLook"/>
+        <result column="deleted" property="deleted"/>
+        <result column="update_by" property="updateBy"/>
+        <result column="update_time" property="updateTime"/>
+    </resultMap>
+
+    <select id="getByPage" resultMap="BaseResultMap">
+        select
+        id, entryNo, entryManager, currentDate, deptName, projName, contact,`status`, tel, verifyStatus,
+        applicantName , update_by, update_time
+        from lw_entry
+        where deleted = 0
+        <if test="params.entryNo!=null and params.entryNo!=''">
+            and entryNo like concat('%', #{params.entryNo}, '%')
+        </if>
+        <if test="params.projName!=null and params.projName!=''">
+            and projName like concat('%', #{params.projName}, '%')
+        </if>
+        <if test="params.contact!=null and params.contact!=''">
+            and contact like concat('%', #{params.contact}, '%')
+        </if>
+        <if test="params.status!=null">
+            and `status` =#{params.status}
+        </if>
+        <if test="params.verifyStatus!=null">
+            and verifyStatus =#{params.verifyStatus}
+        </if>
+        limit #{index}, #{pageSize}
+    </select>
+    <select id="getCountByPage" resultType="java.lang.Integer">
+        select count(*)
+        from lw_entry
+        where deleted = 0
+        <if test="params.entryNo!=null and params.entryNo!=''">
+            and tel like concat('%', #{params.entryNo}, '%')
+        </if>
+        <if test="params.tel!=null and params.tel!=''">
+            and tel= #{params.tel}
+        </if>
+        <if test="params.projName!=null and params.projName!=''">
+            and projName like concat('%', #{params.projName}, '%')
+        </if>
+        <if test="params.contact!=null and params.contact!=''">
+            and contact like concat('%', #{params.contact}, '%')
+        </if>
+    </select>
+    <select id="getUpdateInfo" resultType="com.zj.laboratory.pojo.LwEntry">
+
+    </select>
+    <select id="get" resultMap="BaseResultMap">
+        select id,
+               entryNo,
+               entryManager,
+               currentDate,
+               deptName,
+               projName,
+               contact,
+               tel,
+               email,
+               staff,
+               description,
+               requirement,
+               verifyStatus,
+               status,
+               officerId,
+               officerName,
+               applicantName,
+               officerStatus,
+               applicantStatus,
+               sDate,
+               eDate,
+               update_by,
+               update_time
+        from lw_entry
+        where id = #{id}
+    </select>
+    <update id="delete">
+        update lw_entry
+        set deleted = 1
+        where id = #{id}
+    </update>
+    <insert id="save">
+        insert lw_entry(id, entryNo, entryManager, currentDate, deptName, projName, contact, tel, email, staff,
+                        description, requirement, applicantId, applicantName
+                        <if test="sDate !=null">
+                            ,sDate
+                        </if>
+                        <if test="eDate !=null">
+                            ,eDate
+                        </if>
+                        )
+            value (#{id}, #{entryNo}, #{entryManager}, #{currentDate}, #{deptName}, #{projName}, #{contact}, #{tel},
+                   #{email}, #{staff}, #{description}, #{requirement}, #{applicantId}, #{applicantName}
+                    <if test="sDate !=null">
+                        ,#{sDate}
+                    </if>
+                    <if test="eDate !=null">
+                        ,#{eDate}
+                    </if>
+                  )
+    </insert>
+    <update id="enableById">
+        update lw_entry
+        set status = 1
+        where id = #{id}
+    </update>
+    <update id="disableById">
+        update lw_entry
+        set status = 0
+        where id = #{id}
+    </update>
+    <update id="update">
+        update lw_entry
+        set entryNo=#{entryNo},
+            entryManager=#{entryManager},
+            deptName=#{deptName},
+            projName=#{projName},
+            contact=#{contact},
+            tel=#{tel},
+            email=#{email},
+            staff= #{staff},
+            description= #{description},
+            requirement=#{requirement},
+            sDate=#{sDate},
+            eDate=#{eDate},
+            update_by=#{updateBy},
+            update_time=#{updateTime}
+        where id = #{id}
+    </update>
+</mapper>

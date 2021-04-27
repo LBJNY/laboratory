@@ -68,4 +68,9 @@ public interface LwOrderFundSupportMapper {
      * @return
      */
     LwOrderFundSupport get(@Param("id") Integer id);
+
+    /**
+     * 获取所有
+     */
+    List<LwOrderFundSupport> getAll();
 }

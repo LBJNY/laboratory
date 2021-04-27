@@ -4,14 +4,14 @@
     "ignore": []
   },
   "setting": {
-    "urlCheck": false
+    "urlCheck": false,
+    "postcss": true,
+    "minified": true
   },
   "compileType": "miniprogram",
   "libVersion": "",
   "appid": "wx5902fd0785847676",
   "projectname": "laboratory",
-  "simulatorType": "wechat",
-  "simulatorPluginLibVersion": {},
   "condition": {
     "search": {
       "list": []
