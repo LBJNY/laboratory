@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "服务委托单",
+  "navigationBarBackgroundColor": "#F8F9FB",
+  "usingComponents": {
+    "uni-forms": "/components/uni-forms/uni-forms",
+    "xfl-select": "/components/xfl-select/xfl-select"
+  }
+}
