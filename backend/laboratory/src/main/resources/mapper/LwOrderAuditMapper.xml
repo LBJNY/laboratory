@@ -17,7 +17,7 @@
         <result property="labAdvice" column="labAdvice"/>
         <result property="labOfficerId" column="labOfficerId"/>
         <result property="labOfficerName" column="labOfficerName"/>
-        <result property="chOfficerId" column="CHAdvice"/>
+        <result property="chAdvice" column="CHAdvice"/>
         <result property="chOfficerId" column="CHOfficerId"/>
         <result property="chOfficerName" column="CHOfficerName"/>
         <result property="status" column="status"/>
@@ -39,4 +39,7 @@
         where serviceNo = #{serviceNo}
           and status = 1
     </select>
+    <insert id="save">
+        insert into lw_order_audit (id, serviceNo) value (#{id}, #{serviceNo})
+    </insert>
 </mapper>

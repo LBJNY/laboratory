@@ -27,13 +27,13 @@
 			// 挑选页面  管理员 Or 用户(默认)
 			selectPage(pageNum) {
 				let _this = this;
-				console.log(this.loginUser)
-				if (pageNum=== 1) {
+				console.log('page:'+(pageNum=== this.role.admin_page_num))
+				if (pageNum=== this.role.admin_page_num) {
 					console.log('管理员')
-					uni.setStorageSync('pageType', 1)
+					uni.setStorageSync('pageType', this.role.admin_page_num)
 				} else {
 					console.log('用户')
-					uni.setStorageSync('pageType', 0)
+					uni.setStorageSync('pageType', this.role.user_page_num)
 				}
 				uni.switchTab({
 					url: '/pages/home/home'

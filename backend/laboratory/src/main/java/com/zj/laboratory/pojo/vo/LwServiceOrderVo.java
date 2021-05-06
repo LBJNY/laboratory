@@ -6,6 +6,8 @@ import com.zj.laboratory.pojo.LwUser;
 import lombok.Data;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 
 @Data
 public class LwServiceOrderVo {
@@ -102,8 +104,10 @@ public class LwServiceOrderVo {
             this.verifyStatusName=StateEnums.SERVICE_ORDER_LAB.getMsg();
         } else if (StateEnums.SERVICE_ORDER_CHO.getCode() == verifyStatus) {
             this.verifyStatusName=StateEnums.SERVICE_ORDER_CHO.getMsg();
-        }  else {
+        }  else if (StateEnums.SERVICE_ORDER_FAIL.getCode() == verifyStatus){
             this.verifyStatusName=StateEnums.SERVICE_ORDER_FAIL.getMsg();
+        }else {
+            this.verifyStatusName=StateEnums.SERVICE_ORDER_PENDING.getMsg();
         }
     }
 
@@ -141,6 +145,11 @@ public class LwServiceOrderVo {
      * 更新时间
      */
     private Date updateTime;
+
+    /**
+     * 小程序端 审核进度条
+     */
+    private List<LwOrderProgressVo> progress;
 
     /**
      * 审核信息

@@ -6,7 +6,7 @@
     </sql>
 
     <sql id="baseColumn">
-        id,entryNo,entryManager,currentDate,deptName,projName,contact,tel,email,staff,description,requirement,verifyStatus,lock
+        id,entryNo,entryManager,currentDate,deptName,projName,contact,tel,email,staff,description,requirement,verify_status,lock
         ,status,officerId,applicantId,officerStatus,applicantStatus,sDate,eDate,isLook,deleted
     </sql>
 
@@ -23,7 +23,7 @@
         <result column="staff" property="staff"/>
         <result column="description" property="description"/>
         <result column="requirement" property="requirement"/>
-        <result column="verifyStatus" property="verifyStatus"/>
+        <result column="verify_status" property="verifyStatus"/>
         <result column="lock" property="lock"/>
         <result column="status" property="status"/>
         <result column="officerId" property="officerId"/>
@@ -42,7 +42,7 @@
 
     <select id="getByPage" resultMap="BaseResultMap">
         select
-        id, entryNo, entryManager, currentDate, deptName, projName, contact,`status`, tel, verifyStatus,
+        id, entryNo, entryManager, currentDate, deptName, projName, contact,`status`, tel, verify_status,
         applicantName , update_by, update_time
         from lw_entry
         where deleted = 0
@@ -59,7 +59,7 @@
             and `status` =#{params.status}
         </if>
         <if test="params.verifyStatus!=null">
-            and verifyStatus =#{params.verifyStatus}
+            and verify_status =#{params.verifyStatus}
         </if>
         limit #{index}, #{pageSize}
     </select>
@@ -96,7 +96,7 @@
                staff,
                description,
                requirement,
-               verifyStatus,
+               verify_status,
                status,
                officerId,
                officerName,
@@ -117,23 +117,23 @@
     </update>
     <insert id="save">
         insert lw_entry(id, entryNo, entryManager, currentDate, deptName, projName, contact, tel, email, staff,
-                        description, requirement, applicantId, applicantName
-                        <if test="sDate !=null">
-                            ,sDate
-                        </if>
-                        <if test="eDate !=null">
-                            ,eDate
-                        </if>
-                        )
-            value (#{id}, #{entryNo}, #{entryManager}, #{currentDate}, #{deptName}, #{projName}, #{contact}, #{tel},
-                   #{email}, #{staff}, #{description}, #{requirement}, #{applicantId}, #{applicantName}
-                    <if test="sDate !=null">
-                        ,#{sDate}
-                    </if>
-                    <if test="eDate !=null">
-                        ,#{eDate}
-                    </if>
-                  )
+        description, requirement, applicantId, applicantName
+        <if test="sDate !=null">
+            ,sDate
+        </if>
+        <if test="eDate !=null">
+            ,eDate
+        </if>
+        )
+        value (#{id}, #{entryNo}, #{entryManager}, #{currentDate}, #{deptName}, #{projName}, #{contact}, #{tel},
+        #{email}, #{staff}, #{description}, #{requirement}, #{applicantId}, #{applicantName}
+        <if test="sDate !=null">
+            ,#{sDate}
+        </if>
+        <if test="eDate !=null">
+            ,#{eDate}
+        </if>
+        )
     </insert>
     <update id="enableById">
         update lw_entry
@@ -163,4 +163,42 @@
             update_time=#{updateTime}
         where id = #{id}
     </update>
+
+    <select id="getListByPage" resultMap="BaseResultMap">
+        select id, entryNo, entryManager, currentDate, deptName, projName, contact,`status`, tel, verify_status,
+        applicantName , update_by, update_time
+        from lw_entry
+        where
+        deleted = 0 and `status`=1
+        <if test="params.applicantId!=null and params.applicantId!=''">
+            and applicantId=#{params.applicantId}
+        </if>
+        <if test="params.currentDate !=null">
+            and date_format(currentDate, '%Y-%m-%d') = #{params.currentDate}
+        </if>
+        <if test="params.sortColumn==1">
+            order by verify_status
+        </if>
+        <if test="params.sortColumn==2">
+            order by currentDate
+        </if>
+        <if test="params.sortMethod==2">
+            desc
+        </if>
+        <if test="params.sortMethod==1">
+            asc
+        </if>
+        limit #{index}, #{pageSize}
+    </select>
+
+    <select id="getListCountByPage" resultType="integer">
+        select count(1) from lw_entry where
+        deleted = 0 and `status`=1
+        <if test="params.applicantId!=null and params.applicantId!=''">
+            and applicantId=#{params.applicantId}
+        </if>
+        <if test="params.currentDate !=null">
+            and date_format(currentDate, '%Y-%m-%d') = #{params.currentDate}
+        </if>
+    </select>
 </mapper>

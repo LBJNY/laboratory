@@ -6,7 +6,7 @@
     </sql>
 
     <sql id="baseColumn">
-        id,serviceNo,deptName,projName,contact,tel,email,description,serviceManager,currentDate,applicationId,timeReq,netReq,softReq,deviceReq,personReq,otherReq,serviceType,fundSupport,verifyStatus,status,isLook,isLock,isFeedBack,currentReviewerId,deleted
+        id,serviceNo,deptName,projName,contact,tel,email,description,serviceManager,currentDate,applicationId,timeReq,netReq,softReq,deviceReq,personReq,otherReq,serviceType,fundSupport,verify_status,status,isLook,isLock,isFeedBack,currentReviewerId,deleted
     </sql>
 
     <resultMap id="BaseResultMap" type="com.zj.laboratory.pojo.LwOrder">
@@ -28,7 +28,7 @@
         <result property="otherReq" column="otherReq"/>
         <result property="serviceType" column="serviceType"/>
         <result property="fundSupport" column="fundSupport"/>
-        <result property="verifyStatus" column="verifyStatus"/>
+        <result property="verifyStatus" column="verify_status"/>
         <result property="status" column="status"/>
         <result property="isLook" column="isLook"/>
         <result property="isLock" column="isLock"/>
@@ -44,7 +44,7 @@
 
     <select id="getByPage" resultMap="BaseResultMap">
         select
-        id, serviceNo, serviceManager, currentDate, projName, contact,`status`, verifyStatus,
+        id, serviceNo, serviceManager, currentDate, projName, contact,`status`, verify_status,
         applicantName ,currentReviewerName,isFeedBack, update_by, update_time
         from lw_order
         where deleted = 0
@@ -64,7 +64,7 @@
             and isFeedBack =#{params.isFeedBack}
         </if>
         <if test="params.verifyStatus!=null">
-            and verifyStatus =#{params.verifyStatus}
+            and verify_status =#{params.verifyStatus}
         </if>
         limit #{index}, #{pageSize}
     </select>
@@ -88,7 +88,7 @@
             and isFeedBack =#{params.isFeedBack}
         </if>
         <if test="params.verifyStatus!=null">
-            and verifyStatus =#{params.verifyStatus}
+            and verify_status =#{params.verifyStatus}
         </if>
     </select>
     <update id="delete">
@@ -127,7 +127,7 @@
                otherReq,
                serviceType,
                fundSupport,
-               verifyStatus,
+               verify_status,
                status,
                isFeedBack,
                currentReviewerId,
@@ -254,5 +254,62 @@
         </if>
         , update_by=#{updateBy}, update_time=#{updateTime}
         where id=#{id}
+    </update>
+
+
+    <select id="getListByPage" resultMap="BaseResultMap" parameterType="com.zj.laboratory.utils.Page">
+        select id,
+        serviceNo,
+        serviceManager,
+        currentDate,
+        deptName,
+        projName,
+        contact,
+        `status`,
+        verify_status,
+        applicantName,
+        currentReviewerName,
+        isFeedBack,
+        update_by,
+        update_time
+        from lw_order
+        where deleted = 0 and `status`=1
+        <if test="params.applicationId!=null and params.applicationId!=''">
+            and applicationId=#{params.applicationId}
+        </if>
+        <if test="params.currentDate !=null">
+            and date_format(currentDate, '%Y-%m-%d') = #{params.currentDate}
+        </if>
+        <if test="params.sortColumn==1">
+            order by verify_status
+        </if>
+        <if test="params.sortColumn==2">
+            order by currentDate
+        </if>
+        <if test="params.sortMethod==2">
+            desc
+        </if>
+        <if test="params.sortMethod==1">
+            asc
+        </if>
+        limit #{index}, #{pageSize}
+
+    </select>
+
+    <select id="getListCountByPage" resultType="integer">
+        select count(1)
+        from lw_order
+        where deleted = 0 and `status`=1
+        <if test="params.applicationId!=null and params.applicationId!=''">
+            and applicationId=#{params.applicationId}
+        </if>
+        <if test="params.currentDate !=null">
+            and date_format(currentDate, '%Y-%m-%d') = date_format(now(),'%Y-%m-%d')
+        </if>
+    </select>
+    <update id="updateFeedBack">
+        update lw_order
+        set isFeedBack = 0
+        where serviceNo = #{serviceNo}
     </update>
 </mapper>

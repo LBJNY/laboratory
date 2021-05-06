@@ -52,15 +52,15 @@ public class LwUserServiceImpl implements LwUserService {
     /**
      * 注册
      *
-     * @param shopUser
+     * @param lwUser
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void register(LwUser shopUser) {
+    public void register(LwUser lwUser) {
         //保存用户信息
         long userId = idWorker.nextId();
-        shopUser.setId(userId);
-        lwUserMapper.save(shopUser);
+        lwUser.setId(userId);
+        lwUserMapper.save(lwUser);
 
         //创建用户统计对象
         LwUserStatistic lwUserStatistic = new LwUserStatistic();
@@ -72,15 +72,15 @@ public class LwUserServiceImpl implements LwUserService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public LwUser bindUser(LwUserBindDto shopUserBindDto) {
-        LwUser lwUser = lwUserMapper.getByPhone(shopUserBindDto.getPhone());
+    public LwUser bindUser(LwUserBindDto lwUserBindDto) {
+        LwUser lwUser = lwUserMapper.getByPhone(lwUserBindDto.getPhone());
         if (lwUser != null) {
             throw new LaboratoryException(ResultEnum.USER_REAL_EXISTS);
         }
         LoginUser loginUser = ShiroUtils.getLoginUser();
         String openId = loginUser.getOpenId();
         lwUser = lwUserMapper.getByOpenId(openId);
-        lwUser.setPhone(shopUserBindDto.getPhone());
+        lwUser.setPhone(lwUserBindDto.getPhone());
         lwUserMapper.updateLoginInfo(lwUser);
         return lwUser;
 
@@ -97,9 +97,9 @@ public class LwUserServiceImpl implements LwUserService {
 
     @Override
     public LwUserVo get(Long id) {
-        LwUser shopUser = lwUserMapper.get(id);
+        LwUser lwUser = lwUserMapper.get(id);
         LwUserVo vo = new LwUserVo();
-        BeanUtils.copyProperties(shopUser, vo);
+        BeanUtils.copyProperties(lwUser, vo);
 
         // 查询统计信息
         LwUserStatistic statistic = lwUserStatisticMapper.getByUserId(id);
@@ -130,24 +130,24 @@ public class LwUserServiceImpl implements LwUserService {
         List<LwUser> userList = lwUserMapper.getByIds(userIds);
         List<LwUserStatisticVo> voList = new ArrayList<>();
         for (LwUserStatistic statistic : list) {
-            LwUser shopUser = userList.stream().filter(u -> u.getId().equals(statistic.getUserId())).findFirst().orElse(null);
-            if (shopUser == null) {
+            LwUser lwUser = userList.stream().filter(u -> u.getId().equals(statistic.getUserId())).findFirst().orElse(null);
+            if (lwUser == null) {
                 continue;
             }
             LwUserStatisticVo serviceCount = new LwUserStatisticVo();
-            serviceCount.setUserName(shopUser.getNickname() + shopUser.getPhone());
+            serviceCount.setUserName(lwUser.getNickname() + lwUser.getPhone());
             serviceCount.setName("服务委托单");
             serviceCount.setCount(new BigDecimal(statistic.getServiceCount()));
             voList.add(serviceCount);
 
             LwUserStatisticVo entryCount = new LwUserStatisticVo();
-            entryCount.setUserName(shopUser.getNickname() + shopUser.getPhone());
+            entryCount.setUserName(lwUser.getNickname() + lwUser.getPhone());
             entryCount.setName("进场单");
             entryCount.setCount(new BigDecimal(statistic.getEntryCount()));
             voList.add(entryCount);
 
             LwUserStatisticVo feedCount = new LwUserStatisticVo();
-            feedCount.setUserName(shopUser.getNickname() + shopUser.getPhone());
+            feedCount.setUserName(lwUser.getNickname() + lwUser.getPhone());
             feedCount.setName("反馈数");
             feedCount.setCount(new BigDecimal(statistic.getFeedCount()));
             voList.add(feedCount);
@@ -155,7 +155,7 @@ public class LwUserServiceImpl implements LwUserService {
 
 
             LwUserStatisticVo login = new LwUserStatisticVo();
-            login.setUserName(shopUser.getNickname() + shopUser.getPhone());
+            login.setUserName(lwUser.getNickname() + lwUser.getPhone());
             login.setName("登录次数");
             login.setCount(new BigDecimal(statistic.getLoginCount()));
             voList.add(login);

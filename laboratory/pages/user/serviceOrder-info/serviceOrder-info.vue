@@ -19,73 +19,74 @@
 					<view class="detail">
 						<view class="flex item">
 							<view class="flex-sub radius text-label-grey">单位和部门名称</view>
-							<view class="flex-sub radius text-right text-black">智家</view>
+							<view class="flex-sub radius text-right text-black">{{lwServiceOrder.deptName}}</view>
 						</view>
 						<view class="flex item">
 							<view class="flex-sub radius text-label-grey">服务项目名称</view>
-							<view class="flex-sub radius text-right text-black">IOT测试</view>
+							<view class="flex-sub radius text-right text-black">{{lwServiceOrder.projName}}</view>
 						</view>
 						<view class="flex item">
 							<view class="flex-sub radius text-label-grey">联系人</view>
-							<view class="flex-sub radius text-right text-black">杜宁馨</view>
+							<view class="flex-sub radius text-right text-black">{{lwServiceOrder.contact}}</view>
 						</view>
 						<view class="flex item">
 							<view class="flex-sub radius text-label-grey">电话</view>
-							<view class="flex-sub radius text-right text-black">17639842745</view>
+							<view class="flex-sub radius text-right text-black">{{lwServiceOrder.tel}}</view>
 						</view>
 						<view class="flex item">
 							<view class="flex-sub radius text-label-grey">邮箱</view>
-							<view class="flex-sub radius text-right  text-black">20000@163.com</view>
+							<view class="flex-sub radius text-right  text-black">{{lwServiceOrder.email}}</view>
 						</view>
 						<view class="border-bottom-dashed">
 							<view class="radius text-label-grey">服务内容</view>
-							<textarea class="text-black" value="aaaaaaaaaaaaa" placeholder=""
-								style="height: 200rpx;width: 100%;margin: 20rpx 0rpx;" disabled />
+							<textarea class="text-black"  style="background: #F8F9FB; height: 200rpx;width: 100%;margin: 20rpx 0rpx;" disabled
+								v-model="lwServiceOrder.description" />
 						</view>
 						<view class="flex item">
 							<view class="flex-sub radius text-label-grey">时间和周期要求</view>
-							<view class="flex-sub radius text-right text-black">xxxxxxxxxxxxxx</view>
+							<view class="flex-sub radius text-right text-black">{{lwServiceOrder.timeReq}}</view>
 						</view>
 						<view class="flex item">
 							<view class="flex-sub radius text-label-grey">场地和网络要求</view>
-							<view class="flex-sub radius text-right text-black">xxxxxxxxxxx</view>
+							<view class="flex-sub radius text-right text-black">{{lwServiceOrder.netReq}}</view>
 						</view>
 						<view class="flex item">
 							<view class="flex-sub radius text-label-grey">平台和软件要求</view>
-							<view class="flex-sub radius text-right  text-black">xxxxxxxxxxxxxxxxx</view>
+							<view class="flex-sub radius text-right  text-black">{{lwServiceOrder.softReq}}</view>
 						</view>
 						<view class="flex item">
 							<view class="flex-sub radius text-label-grey">终端和仪表要求</view>
-							<textarea class=" text-black text-right"  value="aaaaaaaaaaaaa" placeholder=""
-								style="height: 160rpx;width: 50%;" disabled />
+							<textarea class=" text-black text-right" value="aaaaaaaaaaaaa" placeholder=""
+								style="height: 160rpx;width: 50%;" disabled v-model="lwServiceOrder.deviceReq" />
 						</view>
 						<view class="flex item">
 							<view class="flex-sub radius text-label-grey">服务人员要求</view>
-							<view class="flex-sub radius text-right  text-black">高级1人</view>
+							<view class="flex-sub radius text-right  text-black">{{personReq}}</view>
 						</view>
 						<view class="flex item">
 							<view class="flex-sub radius text-label-grey">其他服务要求</view>
-							<view class="flex-sub radius text-right text-black">无</view>
+							<view class="flex-sub radius text-right text-black">{{otherReq}}</view>
 						</view>
 						<view class="flex item border-top-dashed">
 							<view class="flex-sub radius text-label-grey">服务类型</view>
-							<view class="flex-sub radius text-right text-black">公司内部创新孵化项目</view>
+							<view class="flex-sub radius text-right text-black">{{lwServiceOrder.serviceType}}</view>
 						</view>
 						<view class="flex item border-bottom-dashed">
 							<view class="flex-sub radius text-label-grey">资金支持和费用承担</view>
-							<view class="flex-sub radius text-right text-black">可承担外包人员成本费</view>
+							<view class="flex-sub radius text-right text-black">{{lwServiceOrder.fundSupport}}</view>
 						</view>
 						<view class="flex item">
 							<view class="flex-sub radius text-label-grey">服务委托单编号</view>
-							<view class="flex-sub radius text-right text-black">xxx00001</view>
+							<view class="flex-sub radius text-right text-black">{{lwServiceOrder.serviceNo}}</view>
 						</view>
 						<view class="flex item">
 							<view class="flex-sub radius text-label-grey">智家对接人</view>
-							<view class="flex-sub radius text-right text-black">杜宁馨</view>
+							<view class="flex-sub radius text-right text-black">{{lwServiceOrder.serviceManager}}</view>
 						</view>
 						<view class="flex item">
 							<view class="flex-sub radius text-label-grey">提交申请日期</view>
-							<view class="flex-sub radius text-right text-black">2020-9-9</view>
+							<view class="flex-sub radius text-right text-black">
+								{{lwServiceOrder.currentDate | date-format}}</view>
 						</view>
 					</view>
 				</view>
@@ -99,15 +100,52 @@
 </template>
 
 <script>
-	export default{
-		data(){
-			return{
-				
+	import serviceOrderApi from '@/api/lw-service-order';
+	export default {
+		data() {
+			return {
+				// 服务委托单详情
+				lwServiceOrder: {},
+				// 所需人员等级
+				level: ['首席', '资深', '高级', '中级', '初级'],
+				// 所需人员字符串
+				personReq: null,
+				activeId: null
 			}
 		},
-		methods:{
-			returnBack: function(){
+		onLoad(params) {
+			this.activeId = params.activeId
+			this.getById(params.activeId)
+			
+		},
+		methods: {
+			returnBack: function() {
 				uni.navigateBack()
+			},
+			// 根据id查询
+			getById(id) {
+				serviceOrderApi.get(id).then(res => {
+					this.lwServiceOrder = res.data
+					console.log(this.lwServiceOrder)
+				})
+			},
+			// 获取人员需求字符串
+			getPersonReq() {
+				var that = this
+				var req = []
+				var strArray = []
+				if (that.lwServiceOrder.personReq != null && that.lwServiceOrder.personReq != '') {
+					req = that.lwServiceOrder.personReq.split('-')
+					for (let index = 0; index < req.length; index++) {
+						const element = req[index]
+						var strNext = ''
+						if (element !== '0') {
+							strNext += that.level[index] + req[index] + '人'
+							strArray.push(strNext)
+						}
+					}
+				}
+				this.personReq = strArray.join(',')
 			}
 		}
 	}

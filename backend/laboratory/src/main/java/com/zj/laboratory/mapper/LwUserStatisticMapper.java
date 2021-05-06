@@ -3,6 +3,7 @@ package com.zj.laboratory.mapper;
 
 import com.zj.laboratory.pojo.LwUserStatistic;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -40,4 +41,68 @@ public interface LwUserStatisticMapper {
      * @return
      */
     List<LwUserStatistic> getTopStatistic();
+
+    /**
+     * 获取服务委托单条数
+     * @return
+     */
+    LwUserStatistic getServcieOrderCountByUserId(@Param("userId") Long userId);
+    /**
+     *获取进场单条数
+     * @return
+     */
+    LwUserStatistic getEntryOrderCountByUserId(@Param("userId")Long userId);
+
+    /**
+     * 增加登陆次数
+     */
+    void increaseLoginCount(@Param("userId")Long userId);
+
+    /**
+     * 增加服务委托单数量
+     * @param userId
+     */
+    void increaseServiceOrderCount(@Param("userId")Long userId);
+
+    /**
+     * 增加服务委托单通过数量
+     * @param userId
+     */
+    void increaseServiceOrderPassCount(@Param("userId")Long userId);
+
+    /**
+     * 增加服务委托单失败数量
+     * @param userId
+     */
+    void increaseServiceOrderFailCount(@Param("userId")Long userId);
+
+    /**
+     * 增加服务进场单总数
+     * @param userId
+     */
+    void increaseEntryOrderCount(@Param("userId")Long userId);
+
+    /**
+     * 增加进场单通过数量
+     * @param userId
+     */
+    void increaseEntryOrderPassCount(@Param("userId")Long userId);
+
+    /**
+     * 增加进场单失败数量
+     * @param userId
+     */
+    void increaseEntryOrderFailCount(@Param("userId")Long userId);
+
+
+    /**
+     * 查询服务委托单各项总条数
+     * @return
+     */
+    LwUserStatistic getServiceTotolCount();
+    /**
+     * 查询进场单各项总条数
+     * @return
+     */
+    LwUserStatistic getEntryTotolCount();
 }

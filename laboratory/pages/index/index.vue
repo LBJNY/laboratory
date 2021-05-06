@@ -9,7 +9,6 @@
 					<view>申请获取以下权限</view>
 					<text>获得你的公开信息(昵称，头像、地区等)</text>
 				</view>
-
 				<!-- <button class='bottom' type='primary' open-type="getUserInfo" withCredentials="true" lang="zh_CN"
 					@getuserinfo="wxGetUserInfo">
 					授权登录
@@ -39,6 +38,9 @@
 		methods: {
 			//第一授权获取用户信息===》按钮触发
 			wxGetUserInfo() {
+				// uni.showLoading({
+				// 	title: '登录中...'
+				// });
 				let _this = this;
 				//if (uni.getStorageSync('loginUser') && !_this.isCanUse) {
 				uni.getUserProfile({
@@ -52,6 +54,7 @@
 							} catch (e) {}
 							_this.login()
 						}
+						// wx.showLoading()
 					},
 					fail: (res) => {
 						uni.showToast({
@@ -90,6 +93,7 @@
 								uni.setStorageSync('openId', res.data.openId)
 								console.log("openid:" + res.data.openId)
 							}
+							// uni.hideLoading()
 							console.log(uni.getStorageSync('loginUser'))
 						})
 					}
@@ -98,12 +102,13 @@
 			},
 			navigateTo() {
 				if (this.loginUser) {
-					if (this.loginUser.level > 0) {
+					console.log('page:'+(this.loginUser.level > this.role.user))
+					if (this.loginUser.level > this.role.user) {
 						uni.redirectTo({
 							url: '/pages/selectPage/selectPage'
 						})
 					} else {
-						uni.setStorageSync('pageType', 0)
+						uni.setStorageSync('pageType', this.role.user_page_num)
 						uni.switchTab({
 							url: '/pages/home/home'
 						})
@@ -135,6 +140,7 @@
 		onShow() {
 			// 登录获取
 			this.login();
+			console.log('admin-reviewer:'+this.role.admin_reviewer)
 		},
 		onLoad() { //默认加载
 

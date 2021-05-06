@@ -6,8 +6,12 @@
         <id column="id" property="id"/>
         <result column="user_id" property="userId"/>
         <result column="service_count" property="serviceCount"/>
-        <result column="entry_count" property="entryCount"/>
+        <result column="service_pass_count" property="servicePassCount"/>
+        <result column="service_fail_count" property="serviceFailCount"/>
+        <result column="entry_pass_count" property="entryPassCount"/>
+        <result column="entry_fail_count" property="entryFailCount"/>
         <result column="feed_count" property="feedCount"/>
+        <result column="entry_count" property="entryCount"/>
         <result column="login_count" property="loginCount"/>
     </resultMap>
     <insert id="save">
@@ -16,19 +20,78 @@
     </insert>
     <update id="update">
         update lw_user_statistic
-        set service_count = #{serviceCount},
-            entry_count   = #{entryCount},
-            feed_count    =#{feedCount},
-            login_count   = #{loginCount}
+        set service_count     = #{serviceCount},
+            entry_count       = #{entryCount},
+            feed_count        =#{feedCount},
+            login_count       = #{loginCount},
+            service_pass_count=#{servicePassCount},
+            service_fail_count=#{serviceFailCount},
+            entry_pass_count=#{entryPassCount},
+            entry_fail_count=#{entryFailCount}
         where id = #{id}
+    </update>
+
+    <update id="increaseLoginCount">
+        update lw_user_statistic
+        set login_count = login_count + 1
+        where user_id = #{userId}
+    </update>
+    <update id="increaseServiceOrderCount">
+        update lw_user_statistic
+        set service_count = service_count + 1
+        where user_id = #{userId}
+    </update>
+    <update id="increaseServiceOrderPassCount">
+        update lw_user_statistic
+        set service_pass_count = service_pass_count + 1
+        where user_id = #{userId}
+    </update>
+    <update id="increaseServiceOrderFailCount">
+        update lw_user_statistic
+        set service_fail_count = service_fail_count + 1
+        where user_id = #{userId}
+    </update>
+
+    <update id="increaseEntryOrderCount">
+        update lw_user_statistic
+        set entry_count = entry_count + 1
+        where user_id = #{userId}
+    </update>
+    <update id="increaseEntryOrderPassCount">
+        update lw_user_statistic
+        set entry_pass_count = entry_pass_count + 1
+        where user_id = #{userId}
+    </update>
+    <update id="increaseEntryOrderFailCount">
+        update lw_user_statistic
+        set entry_fail_count = entry_fail_count + 1
+        where user_id = #{userId}
     </update>
     <select id="getByUserId" resultMap="BaseResultMap">
         select id,
                user_id,
                service_count,
+               service_pass_count,
+               service_fail_count,
                entry_count,
+               entry_pass_count,
+               entry_fail_count,
                feed_count,
                login_count
+        from lw_user_statistic
+        where user_id = #{userId}
+    </select>
+    <select id="getServcieOrderCountByUserId" resultMap="BaseResultMap">
+        select service_count,
+               service_pass_count,
+               service_fail_count
+        from lw_user_statistic
+        where user_id = #{userId}
+    </select>
+    <select id="getEntryOrderCountByUserId" resultMap="BaseResultMap">
+        select entry_count,
+               entry_pass_count,
+               entry_fail_count
         from lw_user_statistic
         where user_id = #{userId}
     </select>
@@ -42,6 +105,10 @@
         from lw_user_statistic
         limit 10
     </select>
-
-
+    <select id="getServiceTotolCount" resultMap="BaseResultMap">
+        SELECT sum(service_count) service_count,sum(service_pass_count) service_pass_count,sum(service_fail_count) service_fail_count FROM `lw_user_statistic`
+    </select>
+    <select id="getEntryTotolCount" resultMap="BaseResultMap">
+        SELECT sum(entry_count) entry_count,sum(entry_pass_count) entry_pass_count,sum(entry_fail_count) entry_fail_count FROM `lw_user_statistic`
+    </select>
 </mapper>

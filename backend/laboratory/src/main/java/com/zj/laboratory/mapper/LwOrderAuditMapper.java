@@ -13,5 +13,16 @@ import org.springframework.stereotype.Component;
 @Component
 public interface LwOrderAuditMapper {
 
-    LwOrderAudit getByServiceNo(Long serviceNo);
+    /**
+     * 根据订单编号查询
+     * @param serviceNo
+     * @return
+     */
+    LwOrderAudit getByServiceNo(String serviceNo);
+
+    /**
+     * 添加
+     * @param lwOrderAudit
+     */
+    void save(LwOrderAudit lwOrderAudit);
 }

@@ -2,8 +2,10 @@ package com.zj.laboratory.mapper;
 
 
 import com.zj.laboratory.pojo.LwEntry;
+import com.zj.laboratory.pojo.LwOrder;
 import com.zj.laboratory.utils.Page;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -13,12 +15,13 @@ import java.util.List;
  *
  * @author lbj
  * @since 2021-04-21 09:59:24
-*/
+ */
 @Component
 public interface LwEntryOrderMapper {
 
     /**
      * 分页查询
+     *
      * @param page
      * @return
      */
@@ -26,6 +29,7 @@ public interface LwEntryOrderMapper {
 
     /**
      * 条件查询条数
+     *
      * @param page
      * @return
      */
@@ -33,6 +37,7 @@ public interface LwEntryOrderMapper {
 
     /**
      * 查询更新信息
+     *
      * @param id
      * @return
      */
@@ -40,6 +45,7 @@ public interface LwEntryOrderMapper {
 
     /**
      * 根据id查询详情
+     *
      * @param id
      * @return
      */
@@ -47,31 +53,56 @@ public interface LwEntryOrderMapper {
 
     /**
      * 删除
+     *
      * @param id
      */
     void delete(Long id);
 
     /**
      * 有效
+     *
      * @param id
      */
     void enableById(Long id);
 
     /**
      * 失效
+     *
      * @param id
      */
     void disableById(Long id);
 
     /**
      * 添加
+     *
      * @param lwEntry
      */
     void save(LwEntry lwEntry);
 
     /**
      * 修改
+     *
      * @param lwEntry
      */
     void update(LwEntry lwEntry);
+
+    /**
+     * 小程序端获取 进场单列表
+     *
+     * @return
+     */
+    List<LwEntry> getListByPage(Page<LwEntry> page);
+
+    /**
+     * 小程序端获取条数
+     * @param page
+     * @return
+     */
+    Integer getListCountByPage(Page<LwEntry> page);
+    /**
+     * 根据类型查询
+     * @param type
+     * @return
+     */
+    Integer selectCountByType(@Param("type") Integer type);
 }

@@ -34,6 +34,12 @@
         from lw_order_feedback
         where serviceNo = #{serviceNo}
           and status = 1
-
     </select>
+    <insert id="save">
+        insert lw_order_feedback(id, serviceNo, serviceAdvance, serviceQuality, serviceCharge, satisfaction,
+                                 suggestions, signature, completion)
+            value (#{id}, #{serviceNo}, #{serviceAdvance}, #{serviceQuality}, #{serviceCharge}, #{satisfaction},
+                   #{suggestions},
+                   #{signature}, #{completion})
+    </insert>
 </mapper>

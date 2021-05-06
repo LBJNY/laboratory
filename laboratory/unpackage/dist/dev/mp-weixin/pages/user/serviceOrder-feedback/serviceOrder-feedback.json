@@ -2,7 +2,6 @@
   "navigationBarTitleText": "",
   "enablePullDownRefresh": false,
   "usingComponents": {
-    "xfl-select": "/components/xfl-select/xfl-select",
     "uni-datetime-picker": "/components/uni-datetime-picker/uni-datetime-picker"
   }
 }

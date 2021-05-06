@@ -128,16 +128,22 @@
 			background-color: #ffff;
 			display: inline-block;
 			box-shadow: 2rpx 8rpx 6rpx #EFF1FF;
-			.item{
-				.headItem{
-					height: 60rpx;
-					border-bottom: #CCCCCC 1rpx solid; 
-					.del{
-						font-size: 20rpx;
-						flex-direction: row;
-						.text-gray{
-							padding-left: 8rpx;
-						}
+			.headItem{
+				height: 60rpx;
+				border-bottom: #CCCCCC 1rpx solid; 
+				.serviceNo {
+					width: 420rpx;
+					overflow: auto;
+				}
+				.entryNo {
+					width: 420rpx;
+					overflow: auto;
+				}
+				.del{
+					font-size: 20rpx;
+					flex-direction: row;
+					.text-gray{
+						padding-left: 8rpx;
 					}
 				}
 			}
@@ -161,7 +167,6 @@
 	}
 	.admin{
 		.listItem{
-			.item{
 				border-radius: 20rpx;
 				margin: 30rpx;
 				overflow: hidden;
@@ -170,13 +175,20 @@
 				padding: 15rpx 30rpx;
 				background-color: #ffff;
 				box-shadow: 2rpx 8rpx 6rpx #EFF1FF;
+				.serviceNo{
+					width: 212rpx;
+				    overflow: hidden;
+				}
+				.entryNo{
+					width: 212rpx;
+					overflow: hidden;
+				} 
 				.number{
 					font-size: 36rpx;
 				}
 				.bot{
 					margin-top: 20rpx;
 				}
-			}
 			.middle{
 				color: #6C6E85;
 				font-size: 26rpx;

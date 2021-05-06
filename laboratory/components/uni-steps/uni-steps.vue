@@ -137,7 +137,7 @@
 	}
 
 	.uni-steps__row-title {
-		font-size: $uni-font-size-base;
+		font-size: 22rpx;
 		line-height: 16px;
 		text-align: center;
 	}

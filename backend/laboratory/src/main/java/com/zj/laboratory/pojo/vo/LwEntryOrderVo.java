@@ -7,6 +7,8 @@ import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 
 @Data
 public class LwEntryOrderVo {
@@ -122,4 +124,9 @@ public class LwEntryOrderVo {
      * 更新时间
      */
     private Date updateTime;
+
+    /**
+     * 小程序端进度条
+     */
+    private List<LwOrderProgressVo> progress;
 }

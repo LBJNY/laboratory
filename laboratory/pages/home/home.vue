@@ -10,18 +10,18 @@
 			<view class="flex-sub bg-white margin-xs radius number box-sizing shadow ">
 				<view class="flex solid-bottom align-center box-sizing">
 					<view class=" padding-xs margin-xs radius basis-xl left-text box-sizing">
-						<view class="grid col-1 align-start" :class="role>0?'text-center':''">
+						<view class="grid col-1 align-start" :class="pageType>0?'text-center':''">
 							<!--管理员居中 text-center -->
 							<view class="flex solid-bottom align-center box-sizing info"
-								:class="role>0?'justify-content-center':''">
+								:class="pageType>0?'justify-content-center':''">
 								<!--管理界面居中 style="justify-content: center;" -->
 								<image src="../../static/image/entrust.jpg" mode="aspectFit" class="img"></image>
-								<view class="cu-item txt">128</view>
+								<view class="cu-item txt">{{serviceOrderStatistic.serviceCount}}</view>
 							</view>
 							<view class="des">服务委托单总数</view>
 						</view>
 					</view>
-					<view class="cu-item　right-icon" v-if="role==0">
+					<view class="cu-item　right-icon" v-if="pageType==0">
 						<view class="lg text-blue cuIcon-roundaddfill addIcon" @click="toAddServiceOrder"></view>
 					</view>
 				</view>
@@ -29,16 +29,16 @@
 			<view class="flex-sub bg-white margin-xs radius number shadow">
 				<view class="flex solid-bottom align-center box-sizing">
 					<view class=" padding-xs margin-xs radius basis-xl left-text box-sizing">
-						<view class="grid col-1 align-start" :class="role>0?'text-center':''">
+						<view class="grid col-1 align-start" :class="pageType>0?'text-center':''">
 							<view class="flex solid-bottom align-center box-sizing info"
-								:class="role>0?'justify-content-center':''">
+								:class="pageType>0?'justify-content-center':''">
 								<image src="../../static/image/entry.jpg" mode="aspectFit" class="img"></image>
-								<view class="cu-item txt">256</view>
+								<view class="cu-item txt">{{entryOrderStatistic.entryCount}}</view>
 							</view>
 							<view class="des">进场单总数</view>
 						</view>
 					</view>
-					<view class="cu-item　right-icon" v-if="role==0">
+					<view class="cu-item　right-icon" v-if="pageType==0">
 						<view class="lg text-blue cuIcon-roundaddfill addIcon" @click="toAddEntryOrder"></view>
 					</view>
 				</view>
@@ -85,34 +85,39 @@
 				</scroll-view>
 				<view class="order box-sizing">
 					<view class="serviceOrder" :class="TabCur==0?'':'display-none'">
-						<view class="user" v-if="role==0">
-							<scroll-view class="scroll-view_H" scroll-x="true" scroll-left="120"
-								v-if="serviceOrderList!=null">
-								<view class="listItem shadow">
-									<view class="item">
-										<view class="bg bg-blue"></view>
-										<view class="headItem flex justify-between align-center">
-											<view class="orderId">xxxxxxx.xxx</view>
-											<view class="del flex box-sizing align-center justify-center">
-												<view class="lg text-gray cuIcon-deletefill addIcon"></view>
-												<view class="text-gray">删除</view>
-											</view>
+						<view class="user" v-if="pageType==0">
+							<scroll-view class="scroll-view_H" scroll-x="true" @scrolltolower="serviceOrderToLower"
+								scroll-left="120" v-if="serviceOrderList.length>0">
+								<view id="demo1" class="listItem shadow item" v-for="item in serviceOrderList"
+									:key="item.id">
+									<view class="bg bg-blue" v-if="item.verifyStatus==3"></view>
+									<view class="bg bg-red" v-else-if="item.verifyStatus==4"></view>
+									<view class="bg bg-orange" v-else></view>
+									<view class="headItem flex justify-between align-center">
+										<view class="serviceNo">{{item.serviceNo}}</view>
+										<view class="del flex box-sizing align-center justify-center">
+											<view class="lg text-gray cuIcon-deletefill addIcon"></view>
+											<view class="text-gray">删除</view>
 										</view>
-										<view class='divider' style="padding-bottom: 10rpx;" />
-										<uni-list class="middle box-sizing">
-											<view>智家接口人：lbj</view>
-											<view>单位部门名称：杭州微纳</view>
-											<view>服务项目名称：IOT预算</view>
-										</uni-list>
-										<view class='divider' style="padding-top: 10rpx;" />
-										<view class="bott flex justify-between align-center">
-											<view class="status">进行中
-											</view>
-											<view class="btnT">
-												<button class="cu-btn round bg-white blue text-blue"
-													style="border: 1rpx #0081FF solid !important;line-height: 60rpx;"
-													@click="toServiceOrderInfo(1)">查看详情</button>
-											</view>
+									</view>
+									<view class='divider' style="padding-bottom: 10rpx;" />
+									<uni-list class="middle box-sizing">
+										<view>智家接口人：{{item.serviceManager}}</view>
+										<view>单位部门名称：{{item.deptName}}</view>
+										<view>服务项目名称：{{item.projName}}</view>
+									</uni-list>
+									<view class='divider' style="padding-top: 10rpx;" />
+									<view class="bott flex justify-between align-center">
+										<view class="status text-blue" v-if="item.verifyStatus==3">审核通过</view>
+										<view class="status text-red" v-else-if="item.verifyStatus==4">
+											{{item.verifyStatusName}}
+										</view>
+										<view class="status text-orange" v-else>{{item.verifyStatusName}}</view>
+										<view class="btnT">
+											<button class="cu-btn round bg-white blue text-blue"
+												style="border: 1rpx #0081FF solid !important;line-height: 60rpx;"
+												:id="item.id"
+												@click="toServiceOrderInfo">查看详情</button>
 										</view>
 									</view>
 								</view>
@@ -122,22 +127,33 @@
 							</view>
 						</view>
 						<view v-else>
-							<view class="admin" v-if="role==1||role==3">
-								<view v-if="serviceOrderList!=null">
-									<view class="listItem">
+							<view class="admin" v-if="level==1||level==3">
+								<view v-if="serviceOrderList.length>0">
+									<view class="listItem" v-for="item in serviceOrderList" :key="item.id">
 										<view class="item">
-											<view class="bg bg-blue"></view>
+											<view class="bg bg-blue" v-if="item.verifyStatus==3"></view>
+											<view class="bg bg-red" v-else-if="item.verifyStatus==4"></view>
+											<view class="bg bg-orange" v-else></view>
 											<view class="adminInfo flex justify-between">
-												<view class="number">aaa</view>
-												<view class="data text-label-grey">提交日期：2019-9-9</view>
+												<view class="serviceNo">{{item.serviceNo}}</view>
+												<view class="data text-label-grey">
+													提交日期：{{item.currentDate | date-format }}</view>
 											</view>
 											<view class="bot flex justify-between">
-												<view class="statusName text-blue">待审核
+												<view class="status text-blue" v-if="item.verifyStatus==3">审核通过</view>
+												<view class="status text-red" v-else-if="item.verifyStatus==4">
+													{{item.verifyStatusName}}
 												</view>
+												<view class="status text-orange" v-else>{{item.verifyStatusName}}</view>
 												<view class="btn">
 													<button class="cu-btn round bg-white blue text-blue"
 														style="border: 1rpx #0081FF solid !important;height: 50rpx;"
-														@click="toServiceOrderExamine(1)">点击审核</button>
+														@click="toServiceOrderExamine(1)"
+														v-if="item.verifyStatus<3">点击审核</button>
+													<button class="cu-btn round bg-white blue text-blue"
+														style="border: 1rpx #0081FF solid !important;height: 50rpx;"
+														@click="toServiceOrderExamine(1)"
+														v-if="item.verifyStatus>=3">查看详情</button>
 												</view>
 											</view>
 										</view>
@@ -153,34 +169,38 @@
 						</view>
 					</view>
 					<view class="entryOrder" :class="TabCur==1?'':'display-none'">
-						<view class="user" v-if="role==0">
-							<scroll-view class="scroll-view_H" scroll-x="true" scroll-left="120"
-								v-if="entryOrderList!=null">
-								<view class="listItem shadow">
-									<view class="item">
-										<view class="bg bg-blue"></view>
-										<view class="headItem flex justify-between align-center">
-											<view class="orderId">xxxxxxx.xxx</view>
-											<view class="del flex box-sizing align-center justify-center">
-												<view class="lg text-gray cuIcon-deletefill addIcon"></view>
-												<view class="text-gray">删除</view>
-											</view>
+						<view class="user" v-if="pageType==0">
+							<scroll-view class="scroll-view_H" scroll-x="true" @scrolltolower="entryOrderToLower"
+								scroll-left="120" v-if="entryOrderList.length>0">
+								<view class="listItem item shadow" v-for="item in entryOrderList" :key="item.id">
+									<view class="bg bg-blue" v-if="item.verifyStatus==1"></view>
+									<view class="bg bg-red" v-else-if="item.verifyStatus==2"></view>
+									<view class="bg bg-orange" v-else></view>
+									<view class="headItem flex justify-between align-center">
+										<view class="entryNo">{{item.entryNo}}</view>
+										<view class="del flex box-sizing align-center justify-center">
+											<view class="lg text-gray cuIcon-deletefill addIcon"></view>
+											<view class="text-gray">删除</view>
 										</view>
-										<view class='divider' style="padding-bottom: 10rpx;" />
-										<uni-list class="middle box-sizing">
-											<view>智家接口人：lbj</view>
-											<view>单位部门名称：杭州微纳</view>
-											<view>服务项目名称：IOT预算</view>
-										</uni-list>
-										<view class='divider' style="padding-top: 10rpx;" />
-										<view class="bott flex justify-between align-center">
-											<view class="status">进行中
-											</view>
-											<view class="btnT">
-												<button class="cu-btn round bg-white blue text-blue"
-													style="border: 1rpx #0081FF solid !important;line-height: 60rpx;"
-													@click="toEntryOrderInfo(1)">查看详情</button>
-											</view>
+									</view>
+									<view class='divider' style="padding-bottom: 10rpx;" />
+									<uni-list class="middle box-sizing">
+										<view>智家接口人：{{item.entryManager}}</view>
+										<view>单位部门名称：{{item.deptName}}</view>
+										<view>服务项目名称：{{item.projName}}</view>
+									</uni-list>
+									<view class='divider' style="padding-top: 10rpx;" />
+									<view class="bott flex justify-between align-center">
+										<view class="status text-blue" v-if="item.verifyStatus==1">审核通过</view>
+										<view class="status text-red" v-else-if="item.verifyStatus==2">
+											{{item.verifyStatusName}}
+										</view>
+										<view class="status text-orange" v-else>{{item.verifyStatusName}}</view>
+										<view class="btnT">
+											<button class="cu-btn round bg-white blue text-blue"
+												style="border: 1rpx #0081FF solid !important;line-height: 60rpx;"
+												:id="item.id"
+												@click="toEntryOrderInfo">查看详情</button>
 										</view>
 									</view>
 								</view>
@@ -190,22 +210,32 @@
 							</view>
 						</view>
 						<view v-else>
-							<view class="admin" v-if="role==2||role==3">
-								<view v-if="entryOrderList!=null">
-									<view class="listItem">
+							<view class="admin" v-if="level==2||level==3">
+								<view v-if="entryOrderList.length>0">
+									<view class="listItem" v-for="item in entryOrderList" :key="item.id">
 										<view class="item">
-											<view class="bg bg-blue"></view>
+											<view class="bg bg-blue" v-if="item.verifyStatus==1"></view>
+											<view class="bg bg-red" v-else-if="item.verifyStatus==2"></view>
+											<view class="bg bg-orange" v-else></view>
 											<view class="adminInfo flex justify-between">
-												<view class="number">aaa</view>
-												<view class="data text-label-grey">提交日期：2019-9-9</view>
+												<view class="entryNo">{{item.entryNo}}</view>
+												<view class="data text-label-grey">
+													提交日期：{{item.currentDate | date-format}}</view>
 											</view>
 											<view class="bot flex justify-between">
-												<view class="statusName text-blue">待审核
+												<view class="status text-blue" v-if="item.verifyStatus==1">审核通过</view>
+												<view class="status text-red" v-else-if="item.verifyStatus==2">
+													{{item.verifyStatusName}}
 												</view>
+												<view class="status text-orange" v-else>{{item.verifyStatusName}}</view>
 												<view class="btn">
 													<button class="cu-btn round bg-white blue text-blue"
 														style="border: 1rpx #0081FF solid !important;height: 50rpx;"
-														@click="toServiceOrderInfo(1)">点击审核</button>
+														@click="toEntryOrderInfo(1)"
+														v-if="item.verifyStatus===0">点击审核</button>
+													<button class="cu-btn round bg-white blue text-blue"
+														style="border: 1rpx #0081FF solid !important;height: 50rpx;"
+														@click="toEntryOrderInfo(1)" v-else>查看详情</button>
 												</view>
 											</view>
 										</view>
@@ -232,28 +262,88 @@
 
 <script>
 	import address from 'utils/page-address.js';
+	import serviceOrderApi from '@/api/lw-service-order';
+	import entryOrderApi from '@/api/lw-entry-order';
 	export default {
 		data() {
 			return {
 				TabCur: 0,
 				scrollLeft: 0,
 				// 0:用户  1:服务委托单  2 进场单  3:顶级权限
-				role: 1,
+				level: 0,
 				// 服务委托单数量
-				serviceOrderNumber: 0,
+				serviceOrderStatistic: {},
 				// 进场单数量
-				entryOrderNumber: 0,
+				entryOrderStatistic: {},
 				// 服务委托单列表
-				serviceOrderList: [{
-					id: 1
-				}],
+				serviceOrderList: [],
 				// 进场单列表
-				entryOrderList: [{
-					id: 1
-				}]
+				entryOrderList: [],
+				// 分页对象
+				servicePage: {
+					// 分页传参
+					params: {
+						role: 0,
+						// currentDate:true
+					},
+					currentPage: 1,
+					pageSize: 5
+				},
+				// 分页对象
+				entryPage: {
+					// 分页传参
+					params: {
+						role: 0,
+						// currentDate:true
+					},
+					currentPage: 1,
+					pageSize: 5
+				},
+				// 页面类型
+				pageType: 0
 			};
 		},
+		onShow() {
+			this.init()
+			serviceOrderApi.getServiceTotalCount().then(res => {
+				console.log(res.data)
+			})
+		},
+		onReachBottom() {
+			if (this.pageType === this.role.admin_page_num) {
+				if (this.TabCur === 0 && (this.level === this.role.service_order_reviewer || this.level === this.role
+						.admin_reviewer)) {
+					this.serviceOrderToBottom()
+				} else if (this.TabCur === 1 && (this.level === this.role.entry_order_reviewer || this.level === this.role
+						.admin_reviewer)) {
+					this.entryOrderToBottom()
+				}
+			}
+		},
 		methods: {
+			/*  日期处理*/
+			dateFormat: function(row, column) {
+				var date = row[column.property]
+				if (date === undefined) {
+					return ''
+				}
+				return this.$moment(date).format('YYYY-MM-DD HH:mm:ss')
+			},
+			// 初始化页面
+			init() {
+				// 获取当前页面类型 0:用户 1管理员
+				this.pageType = uni.getStorageSync('pageType')
+				console.log("pageType:"+this.pageType)
+				if (this.pageType != this.role.user_page_num) {
+					this.level = uni.getStorageSync('loginUser').level
+				}
+				this.servicePage.params.role = uni.getStorageSync('pageType')
+				this.entryPage.params.role = uni.getStorageSync('pageType')
+				this.getEntryOrderList()
+				this.getEntryOrderNumber()
+				this.getServiceOrderList()
+				this.getServiceOrderNumber()
+			},
 			tabSelect(e) {
 				this.TabCur = e.currentTarget.dataset.id;
 				this.scrollLeft = (e.currentTarget.dataset.id - 1) * 60
@@ -282,37 +372,119 @@
 				// })
 			},
 			// 跳转到审核页面
-			toServiceOrderExamine(id){
+			toServiceOrderExamine(event) {
+				var id=event.currentTarget.id
 				uni.navigateTo({
-					url: address.admin_serviceOrder_examine
+					url: address.admin_serviceOrder_examine+'?activeId'+id
 				})
 			},
 			/**
 			 * 跳转到服务委托单详情
 			 * @param {Object} id
 			 */
-			toServiceOrderInfo(id) {
+			toServiceOrderInfo(event) {
+				var id=event.currentTarget.id
 				uni.navigateTo({
-					url: address.user_serviceOrder_info
+					url: address.user_serviceOrder_examine+'?activeId='+id
 				})
 			},
 			/**
 			 * 跳转到添加进场单页面
 			 */
 			toAddEntryOrder() {
-				console.log(111)
 				uni.navigateTo({
 					url: address.user_entryOrder_save
 				})
 			},
 			/**
-			 * 跳转到进场单详情页面
+			 * 跳转到进场单审核页面
 			 */
-			toEntryOrderInfo(id) {
-				console.log(id)
+			toEntryOrderExamine(event) {
 				uni.navigateTo({
 					url: address.user_entryOrder_examine
 				})
+			},
+			/**
+			 * 跳转到进场单详情-修改页面
+			 */
+			toEntryOrderInfo(event) {
+				var id=event.currentTarget.id
+				uni.navigateTo({
+					url: address.user_entryOrder_update+'?activeId='+id
+				})
+			},
+			// 获取进场单数量
+			getEntryOrderNumber() {
+				if (this.pageType == this.role.admin_page_num) {
+					entryOrderApi.getEntryTotalCount().then(res => {
+						this.entryOrderStatistic = res.data
+					})
+				} else {
+					entryOrderApi.getCountList().then(res => {
+						this.entryOrderStatistic = res.data
+					})
+				}
+			},
+			// 获取进场单列表
+			getEntryOrderList() {
+				entryOrderApi.getByPage(this.entryPage).then(res => {
+					this.entryPage = res.data
+					if (this.entryOrderList.length === 0) {
+						this.entryOrderList = res.data.list
+					} else {
+						this.entryOrderList = this.entryOrderList.concat(res.data.list)
+					}
+				})
+			},
+			// 获取服务委托单数量
+			getServiceOrderNumber() {
+				if (this.pageType == this.role.admin_page_num) {
+					serviceOrderApi.getServiceTotalCount().then(res => {
+						this.serviceOrderStatistic = res.data
+					})
+				} else {
+					serviceOrderApi.getCountList().then(res => {
+						this.serviceOrderStatistic = res.data
+					})
+				}
+			},
+			// 获取服务委托单列表
+			getServiceOrderList() {
+				serviceOrderApi.getByPage(this.servicePage).then(res => {
+					this.servicePage = res.data
+					if (this.serviceOrderList.length === 0) {
+						this.serviceOrderList = res.data.list
+					} else {
+						this.serviceOrderList = this.serviceOrderList.concat(res.data.list)
+					}
+				})
+			},
+			// 服务委托单滑动到最右边
+			serviceOrderToLower() {
+				if (this.servicePage.list.length === this.servicePage.pageSize) {
+					this.servicePage.currentPage = this.servicePage.currentPage + 1
+					this.getServiceOrderList()
+				}
+			},
+			entryOrderToLower() {
+				if (this.entryPage.list.length === this.entryPage.pageSize) {
+					this.entryPage.currentPage = this.entryPage.currentPage + 1
+					this.getEntryOrderList()
+				}
+			},
+			// 服务委托单滑动到底部
+			serviceOrderToBottom() {
+				if (this.servicePage.list.length === this.servicePage.pageSize) {
+					this.servicePage.currentPage = this.servicePage.currentPage + 1
+					this.getServiceOrderList()
+				}
+			},
+			// 进场单滑动到底部
+			entryOrderToBottom() {
+				if (this.entryPage.list.length === this.entryPage.pageSize) {
+					this.entryPage.currentPage = this.entryPage.currentPage + 1
+					this.getEntryOrderList()
+				}
 			}
 		}
 	}
@@ -326,6 +498,11 @@
 		width: 100%;
 		color: #987cb9;
 		size: 10;
+	}
+
+	.scroll-view_H {
+		white-space: nowrap;
+		width: 100%;
 	}
 </style>
 <style>

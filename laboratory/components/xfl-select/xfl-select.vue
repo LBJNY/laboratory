@@ -42,7 +42,7 @@
 				>
 					<div>{{item.value}}</div>
 				</div>
-				<div v-show="innerList.length==0" class="data-state item">无数据</div>
+				<!-- <div v-show="innerList.length==0" class="data-state item">无数据</div> -->
 				<!-- <slot></slot> -->
 			</scroll-view>
 		</div>

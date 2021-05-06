@@ -17,8 +17,14 @@ public interface LwOrderFeedbackMapper {
 
     /**
      * 根据serviceNo获取反馈信息
-     * @param id
+     * @param serviceNo
      * @return
      */
     LwOrderFeedback get(@Param("serviceNo") Long serviceNo);
+
+    /**
+     * 添加反馈
+     * @param lwOrderFeedback
+     */
+    void save(LwOrderFeedback lwOrderFeedback);
 }

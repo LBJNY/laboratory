@@ -81,6 +81,14 @@
 		.container{
 			width: 90%;
 		}
+		.admin{
+			.status{
+				padding: 10rpx 20rpx;
+				font-size: 24rpx;
+				border-radius: 30rpx;
+			}
+			
+		}
 		.listItem{
 			width: 100%;
 			height:200rpx;  
@@ -103,6 +111,7 @@
 			}
 			.step{
 				padding-top: 10rpx;
+				font-size: 22rpx !important;
 			}
 			.top{
 			 display: flex;
@@ -119,6 +128,8 @@
 			}
 			.orderId{
 				font-size: 38rpx;
+				width: 346rpx;
+				overflow: hidden;
 			}
 			.orderTime{
 				font-size: 24rpx;

@@ -2,6 +2,7 @@ package com.zj.laboratory.controller;
 
 import com.zj.laboratory.pojo.LwOrderFundSupport;
 import com.zj.laboratory.pojo.LwOrderServiceType;
+import com.zj.laboratory.pojo.vo.LwOrderServiceTypeVo;
 import com.zj.laboratory.service.LwOrderServiceTypeService;
 import com.zj.laboratory.utils.Page;
 import com.zj.laboratory.utils.Result;
@@ -101,8 +102,8 @@ public class LwOrderServiceTypeController {
      * @return
      */
     @RequestMapping(value = "/getAll", method = RequestMethod.GET)
-    public Result<List<LwOrderServiceType>> getAll() {
-        List<LwOrderServiceType> list = lwOrderServiceTypeService.getAll();
+    public Result<List<LwOrderServiceTypeVo>> getAll() {
+        List<LwOrderServiceTypeVo> list = lwOrderServiceTypeService.getAll();
         return new Result<>(list);
     }
 }

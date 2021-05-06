@@ -4,6 +4,7 @@ import com.zj.laboratory.mapper.LwOrderServiceTypeMapper;
 import com.zj.laboratory.pojo.LoginUser;
 import com.zj.laboratory.pojo.LwOrderFundSupport;
 import com.zj.laboratory.pojo.LwOrderServiceType;
+import com.zj.laboratory.pojo.vo.LwOrderServiceTypeVo;
 import com.zj.laboratory.service.LwOrderServiceTypeService;
 import com.zj.laboratory.utils.Page;
 import com.zj.laboratory.utils.ShiroUtils;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class LwOrderServiceTypeServiceImpl implements LwOrderServiceTypeService {
@@ -65,7 +67,13 @@ public class LwOrderServiceTypeServiceImpl implements LwOrderServiceTypeService 
     }
 
     @Override
-    public List<LwOrderServiceType> getAll() {
-        return lwOrderServiceTypeMapper.getAll();
+    public List<LwOrderServiceTypeVo> getAll() {
+        List<LwOrderServiceType> lwOrderServiceTypeList = lwOrderServiceTypeMapper.getAll();
+        return lwOrderServiceTypeList.stream().map(lwOrderServiceType -> {
+            LwOrderServiceTypeVo lwOrderServiceTypeVo = new LwOrderServiceTypeVo();
+            lwOrderServiceTypeVo.setId(lwOrderServiceType.getId());
+            lwOrderServiceTypeVo.setValue(lwOrderServiceType.getName());
+            return lwOrderServiceTypeVo;
+        }).collect(Collectors.toList());
     }
 }

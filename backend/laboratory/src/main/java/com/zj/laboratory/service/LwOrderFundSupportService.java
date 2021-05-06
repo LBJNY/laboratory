@@ -2,6 +2,7 @@ package com.zj.laboratory.service;
 
 import com.zj.laboratory.pojo.LwOrderFundSupport;
 import com.zj.laboratory.pojo.LwUser;
+import com.zj.laboratory.pojo.vo.LwOrderFundSupportVo;
 import com.zj.laboratory.utils.Page;
 
 import java.util.List;
@@ -55,5 +56,5 @@ public interface LwOrderFundSupportService {
      * 获取所有
      * @return
      */
-    List<LwOrderFundSupport> getAll();
+    List<LwOrderFundSupportVo> getAll();
 }

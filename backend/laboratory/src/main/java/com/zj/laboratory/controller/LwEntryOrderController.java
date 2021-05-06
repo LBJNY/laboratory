@@ -1,16 +1,17 @@
 package com.zj.laboratory.controller;
 
-import com.zj.laboratory.pojo.LwEntry;
-import com.zj.laboratory.pojo.LwUser;
-import com.zj.laboratory.pojo.SysBanner;
+import com.zj.laboratory.pojo.*;
 import com.zj.laboratory.pojo.dto.LwEntryOrderDto;
 import com.zj.laboratory.pojo.vo.LwEntryOrderVo;
+import com.zj.laboratory.pojo.vo.LwServiceOrderVo;
 import com.zj.laboratory.pojo.vo.LwUserVo;
 import com.zj.laboratory.service.LwEntryOrderService;
 import com.zj.laboratory.utils.Page;
 import com.zj.laboratory.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("entryOrder")
@@ -106,5 +107,31 @@ public class LwEntryOrderController {
     public Result<?> update(@RequestBody LwEntry lwEntry) {
         lwEntryOrderService.update(lwEntry);
         return new Result<>("修改成功");
+    }
+
+    /**
+     * 获取当前用户[总条数,审批中,已通过]
+     * @return
+     */
+    @RequestMapping(value = "getCountList",method = RequestMethod.GET)
+    public Result<LwUserStatistic> getCountList(){
+        LwUserStatistic list=lwEntryOrderService.getCountList();
+        return new Result<>(list);
+    }
+    /**
+     * 获取列表
+     * @param page
+     * @return
+     */
+    @RequestMapping(value = "getListByPage",method = RequestMethod.POST)
+    public Result<Page<LwEntryOrderVo>> getListByPage(@RequestBody Page<LwEntry> page){
+        Page<LwEntryOrderVo> result=lwEntryOrderService.getListByPage(page);
+        return new Result<>(result);
+    }
+
+    @RequestMapping(value = "getEntryTotalCount",method = RequestMethod.GET)
+    public Result<LwUserStatistic> getEntryTotalCount(){
+        LwUserStatistic count=lwEntryOrderService.getEntryTotolCount();
+        return new Result<>(count);
     }
 }

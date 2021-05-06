@@ -44,6 +44,15 @@ public enum StateEnums {
     NEW_USER(2, "绑定新账户"),
 
     /**
+     * 订单通用状态
+     */
+    ORDER_CONFIRM(0,"已提交"),
+    ORDER_IN_APPROVAL(1,"审核中"),
+    ORDER_AUDIT_SUCCESS(2,"成功"),
+    ORDER_AUDIT_FAILED(3,"失败"),
+    ORDER_AUDIT_OVER(4,"结束"),
+
+    /**
      * 进场单订单审核状态
      */
     ENTRY_ORDER_PENDING(0,"待审核"),

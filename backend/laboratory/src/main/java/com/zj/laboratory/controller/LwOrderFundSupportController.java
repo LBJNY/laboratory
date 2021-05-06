@@ -1,6 +1,7 @@
 package com.zj.laboratory.controller;
 
 import com.zj.laboratory.pojo.LwOrderFundSupport;
+import com.zj.laboratory.pojo.vo.LwOrderFundSupportVo;
 import com.zj.laboratory.service.LwOrderFundSupportService;
 import com.zj.laboratory.utils.Page;
 import com.zj.laboratory.utils.Result;
@@ -101,8 +102,8 @@ public class LwOrderFundSupportController {
      * @return
      */
     @RequestMapping(value = "/getAll", method = RequestMethod.GET)
-    public Result<List<LwOrderFundSupport>> getAll() {
-        List<LwOrderFundSupport> list = lwOrderFundSupportService.getAll();
+    public Result<List<LwOrderFundSupportVo>> getAll() {
+        List<LwOrderFundSupportVo> list = lwOrderFundSupportService.getAll();
         return new Result<>(list);
     }
 

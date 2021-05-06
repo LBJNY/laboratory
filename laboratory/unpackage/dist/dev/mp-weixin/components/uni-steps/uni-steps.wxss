@@ -101,7 +101,7 @@
           flex-direction: column;
 }
 .uni-steps__row-title.data-v-61dda2da {
-  font-size: 28rpx;
+  font-size: 22rpx;
   line-height: 16px;
   text-align: center;
 }

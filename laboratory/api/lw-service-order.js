@@ -6,7 +6,7 @@ export default {
    */
   getByPage(page) {
     return request({
-      url: `/${groupName}/getByPage`,
+      url: `/${groupName}/getListByPage`,
       method: 'post',
       data: page
     })
@@ -75,5 +75,33 @@ export default {
       method: 'put',
       data: lwServiceOrder
     })
+  },
+  /**
+   * 获取用户订单条数
+   */
+  getCountList() {
+  	return request({
+  		url: `/${groupName}/getCountList`,
+  		method: 'get'
+  	})
+  },
+  /**
+   * 获取所有订单条数
+   */
+  getServiceTotalCount() {
+  	return request({
+  		url: `/${groupName}/getServiceTotalCount`,
+  		method: 'get'
+  	})
+  },
+  /**
+   * 获取所有订单条数
+   */
+  addFeedBack(lwOrderFeedBack) {
+  	return request({
+  		url: `/${groupName}/addFeedBack`,
+  		method: 'post',
+		data: lwOrderFeedBack
+  	})
   }
 }

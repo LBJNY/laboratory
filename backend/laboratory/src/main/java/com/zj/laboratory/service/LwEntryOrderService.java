@@ -1,8 +1,11 @@
 package com.zj.laboratory.service;
 
 import com.zj.laboratory.pojo.LwEntry;
+import com.zj.laboratory.pojo.LwUserStatistic;
 import com.zj.laboratory.pojo.vo.LwEntryOrderVo;
 import com.zj.laboratory.utils.Page;
+
+import java.util.List;
 
 public interface LwEntryOrderService {
     /**
@@ -55,4 +58,23 @@ public interface LwEntryOrderService {
      * @param lwEntry
      */
     void update(LwEntry lwEntry);
+
+
+    /**
+     * 获取进场单列表
+     * @param page
+     * @return
+     */
+    Page<LwEntryOrderVo> getListByPage(Page<LwEntry> page);
+
+    /**
+     * 获取当前用户进场单有关条数
+     * @return
+     */
+    LwUserStatistic getCountList();
+    /**
+     * 查询服务委托单总条数
+     * @return
+     */
+    LwUserStatistic getEntryTotolCount();
 }

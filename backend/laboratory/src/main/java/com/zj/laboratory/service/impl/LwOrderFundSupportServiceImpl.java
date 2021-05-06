@@ -4,6 +4,8 @@ import com.zj.laboratory.mapper.LwOrderFundSupportMapper;
 import com.zj.laboratory.pojo.LoginUser;
 import com.zj.laboratory.pojo.LwOrderFundSupport;
 import com.zj.laboratory.pojo.LwUser;
+import com.zj.laboratory.pojo.vo.LwOrderFundSupportVo;
+import com.zj.laboratory.pojo.vo.LwOrderServiceTypeVo;
 import com.zj.laboratory.service.LwOrderFundSupportService;
 import com.zj.laboratory.utils.Page;
 import com.zj.laboratory.utils.ShiroUtils;
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class LwOrderFundSupportServiceImpl implements LwOrderFundSupportService {
@@ -66,7 +69,13 @@ public class LwOrderFundSupportServiceImpl implements LwOrderFundSupportService 
     }
 
     @Override
-    public List<LwOrderFundSupport> getAll() {
-        return lwOrderFundSupportMapper.getAll();
+    public List<LwOrderFundSupportVo> getAll() {
+        List<LwOrderFundSupport> lwOrderFundSupportList = lwOrderFundSupportMapper.getAll();
+        return lwOrderFundSupportList.stream().map(lwOrderFundSupport -> {
+            LwOrderFundSupportVo lwOrderServiceTypeVo = new LwOrderFundSupportVo();
+            lwOrderServiceTypeVo.setId(lwOrderFundSupport.getId());
+            lwOrderServiceTypeVo.setValue(lwOrderFundSupport.getName());
+            return lwOrderServiceTypeVo;
+        }).collect(Collectors.toList());
     }
 }
