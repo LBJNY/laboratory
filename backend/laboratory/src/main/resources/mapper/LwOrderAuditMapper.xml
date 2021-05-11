@@ -21,6 +21,7 @@
         <result property="chOfficerId" column="CHOfficerId"/>
         <result property="chOfficerName" column="CHOfficerName"/>
         <result property="status" column="status"/>
+        <result property="version" column="version"/>
     </resultMap>
     <select id="getByServiceNo" resultMap="BaseResultMap">
         select id,
@@ -34,6 +35,7 @@
                CHAdvice,
                CHOfficerId,
                CHOfficerName,
+               version,
                status
         from lw_order_audit
         where serviceNo = #{serviceNo}
@@ -42,4 +44,37 @@
     <insert id="save">
         insert into lw_order_audit (id, serviceNo) value (#{id}, #{serviceNo})
     </insert>
+    <update id="update">
+        update lw_order_audit set
+        version=version+1
+        <if test="deptAdvice!=null">
+            ,deptAdvice=#{deptAdvice}
+        </if>
+        <if test="deptOfficerId !=null and deptOfficerId!=''">
+            ,deptOfficerId=#{deptOfficerId}
+        </if>
+        <if test="deptOfficerName!=null and deptOfficerName!=''">
+            ,deptOfficerName=#{deptOfficerName}
+        </if>
+        <if test="labAdvice!=null">
+            ,labAdvice=#{labAdvice}
+        </if>
+        <if test="labOfficerId !=null and labOfficerId!=''">
+            ,labOfficerId=#{labOfficerId}
+        </if>
+        <if test="deptOfficerName!=null and deptOfficerName!=''">
+            ,deptOfficerName=#{deptOfficerName}
+        </if>
+        <if test="chAdvice!=null">
+            ,CHAdvice=#{chAdvice}
+        </if>
+        <if test="chOfficerId !=null and chOfficerId!=''">
+            ,CHOfficerId=#{chOfficerId}
+        </if>
+        <if test="chOfficerName!=null and chOfficerName!=''">
+            ,CHOfficerName=#{chOfficerName}
+        </if>
+        where serviceNo=#{serviceNo}
+        and version=#{version}
+    </update>
 </mapper>

@@ -5,13 +5,13 @@ import com.zj.laboratory.enums.RoleEnum;
 import com.zj.laboratory.enums.StateEnums;
 import com.zj.laboratory.exception.LaboratoryException;
 import com.zj.laboratory.mapper.LwEntryOrderMapper;
+import com.zj.laboratory.mapper.LwNoticeMapper;
+import com.zj.laboratory.mapper.LwUserMapper;
 import com.zj.laboratory.mapper.LwUserStatisticMapper;
-import com.zj.laboratory.pojo.LoginUser;
-import com.zj.laboratory.pojo.LwEntry;
-import com.zj.laboratory.pojo.LwUser;
-import com.zj.laboratory.pojo.LwUserStatistic;
+import com.zj.laboratory.pojo.*;
 import com.zj.laboratory.pojo.vo.LwEntryOrderVo;
 import com.zj.laboratory.pojo.vo.LwOrderProgressVo;
+import com.zj.laboratory.pojo.vo.LwReviewerVo;
 import com.zj.laboratory.pojo.vo.LwServiceOrderVo;
 import com.zj.laboratory.service.LwEntryOrderService;
 import com.zj.laboratory.utils.IdWorker;
@@ -37,6 +37,10 @@ public class LwEntryOrderServiceImpl implements LwEntryOrderService {
     private IdWorker idWorker;
     @Autowired
     private LwUserStatisticMapper lwUserStatisticMapper;
+    @Autowired
+    private LwUserMapper lwUserMapper;
+    @Autowired
+    private LwNoticeMapper lwNoticeMapper;
 
     @Override
     public Page<LwEntryOrderVo> getByPage(Page<LwEntry> page) {
@@ -89,26 +93,44 @@ public class LwEntryOrderServiceImpl implements LwEntryOrderService {
         // 查询当前订单信息
         LwEntry lwEntry = lwEntryOrderMapper.get(id);
         // 根据订单状态更新统计信息
-        if (lwEntry.getVerifyStatus()==StateEnums.ENTRY_ORDER_PASS.getCode()){
-            lwUserStatistic.setEntryCount(lwUserStatistic.getEntryPassCount()-1);
-        }else if (lwEntry.getVerifyStatus()==StateEnums.ENTRY_ORDER_FAIL.getCode()){
-            lwUserStatistic.setEntryCount(lwUserStatistic.getEntryFailCount()-1);
+        if (lwEntry.getVerifyStatus() == StateEnums.ENTRY_ORDER_PASS.getCode()) {
+            lwUserStatistic.setEntryCount(lwUserStatistic.getEntryPassCount() - 1);
+        } else if (lwEntry.getVerifyStatus() == StateEnums.ENTRY_ORDER_FAIL.getCode()) {
+            lwUserStatistic.setEntryCount(lwUserStatistic.getEntryFailCount() - 1);
         }
-        lwUserStatistic.setEntryCount(lwUserStatistic.getEntryCount()-1);
+        lwUserStatistic.setEntryCount(lwUserStatistic.getEntryCount() - 1);
         //执行更新统计信息操作
         lwUserStatisticMapper.update(lwUserStatistic);
         // 执行删除操作
-        lwEntryOrderMapper.delete(id);
+        // 1.先查询
+        LwEntry delEntryOrder = lwEntryOrderMapper.get(id);
+        // 2.删除
+        int res = lwEntryOrderMapper.delete(delEntryOrder);
+        if (res == 0) {
+            throw new LaboratoryException("操作失败,请稍后重试!");
+        }
     }
 
     @Override
     public void enableById(Long id) {
-        lwEntryOrderMapper.enableById(id);
+        // 1.先查询
+        LwEntry enableEntryOrder = lwEntryOrderMapper.get(id);
+        // 2.启用
+        int res = lwEntryOrderMapper.enableById(enableEntryOrder);
+        if (res == 0) {
+            throw new LaboratoryException("操作失败,请稍后重试!");
+        }
     }
 
     @Override
     public void disableById(Long id) {
-        lwEntryOrderMapper.disableById(id);
+        // 1.先查询
+        LwEntry enableEntryOrder = lwEntryOrderMapper.get(id);
+        // 2.禁用
+        int res = lwEntryOrderMapper.disableById(enableEntryOrder);
+        if (res == 0) {
+            throw new LaboratoryException("操作失败,请稍后重试!");
+        }
     }
 
     @Override
@@ -117,7 +139,7 @@ public class LwEntryOrderServiceImpl implements LwEntryOrderService {
         // 保存进场单信息
         lwEntry.setId(idWorker.nextId());
         LoginUser loginUser = ShiroUtils.getLoginUser();
-        if (StringUtils.isBlank(lwEntry.getEntryNo())){
+        if (StringUtils.isBlank(lwEntry.getEntryNo())) {
             lwEntry.setEntryNo(String.valueOf(idWorker.nextId()));
         }
         lwEntry.setApplicantId(loginUser.getId());
@@ -134,6 +156,36 @@ public class LwEntryOrderServiceImpl implements LwEntryOrderService {
 
         // 添加统计表信息
         lwUserStatisticMapper.increaseEntryOrderCount(loginUser.getId());
+
+        // 添加通知消息
+        // 1.查询所有审查员
+        List<LwUser> reviewerList = lwUserMapper.getByLevel(RoleEnum.LEVEL_ENTRY_ORDER.getType());
+        List<LwUser> adminReviewerList = lwUserMapper.getByLevel(RoleEnum.LEVEL_ADMIN.getType());
+        if (reviewerList.size()<=0&&adminReviewerList.size()<=0){
+            throw new LaboratoryException("暂无审核员,请联系负责人添加审核员!");
+        }
+        List<Long> idList=new ArrayList<>();
+        //普通审核人
+        reviewerList.forEach(lwUser -> {
+            idList.add(lwUser.getId());
+        });
+        //顶级审核人
+        adminReviewerList.forEach(lwUser -> {
+            idList.add(lwUser.getId());
+        });
+        // 2.构建通知信息
+        LwNotice lwNotice=new LwNotice();
+        lwNotice.setId(idWorker.nextId());
+        lwNotice.setCreatedBy(getName(loginUser));
+        lwNotice.setNoticeTitle("新增一条进场单!");
+        lwNotice.setNoticeContent("新增进场单:订单编号是"+lwEntry.getId()+",创建人为"+lwEntry.getApplicantName());
+        lwNotice.setRole(StateEnums.NOTICE_ROLE_ADMIN.getCode());
+        List<LwNotice> lwNoticeList = idList.stream().map(id -> {
+            lwNotice.setUserId(id);
+            return lwNotice;
+        }).collect(Collectors.toList());
+        // 3.调用方法
+        lwNoticeMapper.saveBatch(lwNoticeList);
     }
 
     @Override
@@ -145,6 +197,8 @@ public class LwEntryOrderServiceImpl implements LwEntryOrderService {
         } else {
             lwEntry.setUpdateBy(loginUser.getNickName());
         }
+        LwEntry selEntryOrder = lwEntryOrderMapper.get(lwEntry.getId());
+        lwEntry.setVersion(selEntryOrder.getVersion());
         lwEntryOrderMapper.update(lwEntry);
     }
 
@@ -199,5 +253,52 @@ public class LwEntryOrderServiceImpl implements LwEntryOrderService {
     @Override
     public LwUserStatistic getEntryTotolCount() {
         return lwUserStatisticMapper.getEntryTotolCount();
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void examine(LwEntry lwEntry) {
+        // 查询当前用户是否有权限
+        LoginUser loginUser = ShiroUtils.getLoginUser();
+        // 判断是否有审查权限
+        if (!(loginUser.getLevel() == RoleEnum.LEVEL_ENTRY_ORDER.getType() || loginUser.getLevel() == RoleEnum.LEVEL_ADMIN.getType())) {
+            throw new LaboratoryException("您未拥有审查权限!");
+        }
+        if (!(loginUser.getReviewerType() == RoleEnum.REVIEWER_TYPE_LAB.getType() || loginUser.getReviewerType() == RoleEnum.REVIEWER_TYPE_ADMIN.getType())) {
+            throw new LaboratoryException("您未拥有审查权限!");
+        }
+        LwEntry getEntryOrder = lwEntryOrderMapper.get(lwEntry.getId());
+        // 判断是否审核完成
+        if (getEntryOrder.getVerifyStatus() > StateEnums.ENTRY_ORDER_PENDING.getCode()) {
+            throw new LaboratoryException("该订单已审核完成,请勿重复审核!");
+        }
+
+        // 对象赋值
+        lwEntry.setVersion(getEntryOrder.getVersion());
+        lwEntry.setOfficerId(loginUser.getId());
+        if (!StringUtils.isBlank(loginUser.getName())) {
+            lwEntry.setOfficerName(loginUser.getName());
+            lwEntry.setUpdateBy(loginUser.getName());
+        } else {
+            lwEntry.setOfficerName(loginUser.getNickName());
+            lwEntry.setUpdateBy(loginUser.getNickName());
+        }
+        lwEntry.setUpdateTime(new Date());
+        // 执行操作并判断
+        int res = lwEntryOrderMapper.examine(lwEntry);
+        if (res == 0) {
+            lwUserStatisticMapper.increaseEntryOrderFailCount(loginUser.getId());
+            throw new LaboratoryException("审核失败,请稍后重试");
+        } else {
+            lwUserStatisticMapper.increaseEntryOrderPassCount(loginUser.getId());
+        }
+    }
+    // 获取名称
+    protected String getName(LoginUser lwUser) {
+        if (lwUser.getName() != null) {
+            return lwUser.getName();
+        } else {
+            return lwUser.getNickName();
+        }
     }
 }

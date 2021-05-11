@@ -122,4 +122,18 @@ public interface LwUserMapper {
      * @return
      */
     LwUser getUpdateInfo(@Param("id") Long id);
+
+    /**
+     * 根据类型获取审核人列表
+     * @param reviewerType
+     * @return
+     */
+    List<LwUser> getByReviewerType(@Param("reviewerType")Integer reviewerType);
+
+    /**
+     * 根据等级获取审核人列表
+     * @param level
+     * @return
+     */
+    List<LwUser> getByLevel(@Param("level")Integer level);
 }

@@ -364,7 +364,7 @@ var _lwEntryOrder = _interopRequireDefault(__webpack_require__(/*! @/api/lw-entr
 //
 //
 var _default = { data: function data() {return { // 进场单详情
-      lwEntryOrder: {}, activeId: null };}, onLoad: function onLoad(params) {this.activeId = params.activeId;this.getById(params.activeId);}, methods: { returnBack: function returnBack() {uni.navigateBack();}, toUpdate: function toUpdate(id) {uni.navigateTo({ url: _pageAddress.default.user_entryOrder_save });}, // 根据id查询
+      lwEntryOrder: {}, activeId: null };}, onLoad: function onLoad(params) {this.activeId = params.activeId;this.getById(params.activeId);}, methods: { returnBack: function returnBack() {uni.navigateBack();}, toUpdate: function toUpdate(id) {uni.navigateTo({ url: _pageAddress.default.user_entryOrder_save + '?activeId=' + this.lwEntryOrder.id });}, // 根据id查询
     getById: function getById(id) {var _this = this;_lwEntryOrder.default.get(id).then(function (res) {_this.lwEntryOrder = res.data;});} } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

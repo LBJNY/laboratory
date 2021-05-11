@@ -171,8 +171,8 @@ var _default =
       // 页面类型
       pageType: 0,
       pageName: '用户',
-      // 0:用户  1:服务委托单  2 进场单  3:顶级权限
-      level: 0,
+      // 1:用户  2:服务委托单  3:进场单  0:顶级权限
+      level: 1,
       // 当前登录用户信息
       loginUser: null };
 

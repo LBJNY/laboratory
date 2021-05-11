@@ -85,7 +85,12 @@
 						<view class="detail bg-white border-radius">
 							<view class="flex item">
 								<view class="flex-sub radius text-label-grey">实验室审核意见</view>
-								<view class="flex-sub radius text-right text-light-blue">审核通过</view>
+								<view class="flex-sub radius text-right text-orange"
+									v-if="lwEntryOrder.verifyStatus==0">待审核</view>
+								<view class="flex-sub radius text-right text-light-blue"
+									v-if="lwEntryOrder.verifyStatus==1">审核通过</view>
+								<view class="flex-sub radius text-right text-red" v-if="lwEntryOrder.verifyStatus==2">
+									审核失败</view>
 							</view>
 						</view>
 					</view>
@@ -102,10 +107,10 @@
 
 <script>
 	import address from 'utils/page-address.js';
-		import entryOrderApi from '@/api/lw-entry-order';
-	export default{
-		data(){
-			return{
+	import entryOrderApi from '@/api/lw-entry-order';
+	export default {
+		data() {
+			return {
 				// 进场单详情
 				lwEntryOrder: {},
 				activeId: null
@@ -115,11 +120,11 @@
 			this.activeId = params.activeId
 			this.getById(params.activeId)
 		},
-		methods:{
-			returnBack: function(){
+		methods: {
+			returnBack: function() {
 				uni.navigateBack()
 			},
-			toUpdate(id){
+			toUpdate(id) {
 				uni.navigateTo({
 					url: address.admin_entryOrder_examine
 				})

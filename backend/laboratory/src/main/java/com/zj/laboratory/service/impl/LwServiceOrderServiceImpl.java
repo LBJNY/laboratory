@@ -4,10 +4,7 @@ import com.zj.laboratory.enums.ResultEnum;
 import com.zj.laboratory.enums.RoleEnum;
 import com.zj.laboratory.enums.StateEnums;
 import com.zj.laboratory.exception.LaboratoryException;
-import com.zj.laboratory.mapper.LwOrderAuditMapper;
-import com.zj.laboratory.mapper.LwOrderFeedbackMapper;
-import com.zj.laboratory.mapper.LwServiceOrderMapper;
-import com.zj.laboratory.mapper.LwUserStatisticMapper;
+import com.zj.laboratory.mapper.*;
 import com.zj.laboratory.pojo.*;
 import com.zj.laboratory.pojo.vo.LwEntryOrderVo;
 import com.zj.laboratory.pojo.vo.LwOrderFeedbackVo;
@@ -40,6 +37,8 @@ public class LwServiceOrderServiceImpl implements LwServiceOrderService {
     @Autowired
     private LwUserStatisticMapper lwUserStatisticMapper;
     @Autowired
+    private LwUserMapper lwUserMapper;
+    @Autowired
     private IdWorker idWorker;
 
     @Override
@@ -69,7 +68,7 @@ public class LwServiceOrderServiceImpl implements LwServiceOrderService {
         // 查询当前订单信息
         LwOrder lwOrder = lwServiceOrderMapper.get(id);
         // 根据订单状态更新统计信息
-        if ( lwOrder.getVerifyStatus()== StateEnums.SERVICE_ORDER_CHO.getCode()) {
+        if (lwOrder.getVerifyStatus() == StateEnums.SERVICE_ORDER_CHO.getCode()) {
             lwUserStatistic.setEntryCount(lwUserStatistic.getServicePassCount() - 1);
         } else if (lwOrder.getVerifyStatus() == StateEnums.SERVICE_ORDER_FAIL.getCode()) {
             lwUserStatistic.setEntryCount(lwUserStatistic.getEntryFailCount() - 1);
@@ -213,5 +212,136 @@ public class LwServiceOrderServiceImpl implements LwServiceOrderService {
         lwOrderFeedback.setId(idWorker.nextId());
         lwOrderFeedbackMapper.save(lwOrderFeedback);
         lwServiceOrderMapper.updateFeedBack(lwOrderFeedback.getServiceNo());
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void examine(LwOrderAudit lwOrderAudit) {
+        // 1.获取当前用户权限信息--并进行比对
+        LoginUser loginUser = ShiroUtils.getLoginUser();
+        //最新的用户信息--权限
+        assert loginUser != null;
+        //获取最新用户信息
+        LwUser newLwUser = lwUserMapper.getUpdateInfo(loginUser.getId());
+        // 获取最新订单信息
+        LwOrder lwOrder = lwServiceOrderMapper.getByServiceNo(lwOrderAudit.getServiceNo());
+        //获取最新审核信息
+        LwOrderAudit auditByServiceNo = lwOrderAuditMapper.getByServiceNo(lwOrderAudit.getServiceNo());
+        //获取审核人名称
+        String reviewerName = getName(newLwUser);
+        // 判断最新审核状态订单是否完成
+        if (lwOrder.getVerifyStatus().equals(StateEnums.SERVICE_ORDER_CHO.getCode()) || lwOrder.getVerifyStatus().equals(StateEnums.SERVICE_ORDER_FAIL.getCode())){
+            throw new LaboratoryException("该订单审核完成,请返回查看!");
+        }
+        // 判断审核--普通审核员
+        if (!(newLwUser.getReviewerType().equals(RoleEnum.REVIEWER_TYPE_ADMIN.getType())
+                && newLwUser.getLevel().equals(RoleEnum.LEVEL_ADMIN.getType()))){
+            //   1.当前用户是否是服务委托单审核人员
+            if (!(newLwUser.getLevel().equals(RoleEnum.LEVEL_SERVICE_ORDER.getType()) || newLwUser.getLevel().equals(RoleEnum.LEVEL_ADMIN.getType()))) {
+                throw new LaboratoryException("您未拥有该权限!");
+            }
+            // 2.获取当前订单详细信息
+            //   1.如果是待审批状态--判断当前用户是否是部门审核员
+            if (lwOrder.getVerifyStatus().equals(StateEnums.SERVICE_ORDER_PENDING.getCode())) {// 判断审批状态
+                if (!(newLwUser.getReviewerType().equals(RoleEnum.REVIEWER_TYPE_DEPT.getType())
+                        || newLwUser.getReviewerType().equals(RoleEnum.REVIEWER_TYPE_ADMIN.getType()))) {
+                    throw new LaboratoryException("您未拥有该权限!");
+                }
+            } else if (lwOrder.getVerifyStatus() > StateEnums.SERVICE_ORDER_PENDING.getCode()
+                    && lwOrder.getVerifyStatus() < StateEnums.SERVICE_ORDER_CHO.getCode()) {
+                //   2.已经经过审批---根据当前审核状态+指定审核人
+                if (lwOrder.getVerifyStatus().equals(StateEnums.SERVICE_ORDER_DEPT.getCode())) {  //实验室审核
+                    if (!(auditByServiceNo.getLabOfficerId().equals(loginUser.getId())
+                            && (newLwUser.getReviewerType().equals(RoleEnum.REVIEWER_TYPE_LAB.getType())
+                            || newLwUser.getReviewerType().equals(RoleEnum.REVIEWER_TYPE_ADMIN.getType())))) {
+                        throw new LaboratoryException("您未拥有该权限!");
+                    }
+                } else if (lwOrder.getVerifyStatus().equals(StateEnums.SERVICE_ORDER_LAB.getCode())) {
+                    if (!(auditByServiceNo.getChOfficerId().equals(loginUser.getId())
+                            && (newLwUser.getReviewerType().equals(RoleEnum.REVIEWER_TYPE_CH.getType())
+                            || newLwUser.getReviewerType().equals(RoleEnum.REVIEWER_TYPE_ADMIN.getType())))) {
+                        throw new LaboratoryException("您未拥有该权限!");
+                    }
+                }
+            }
+        }
+        //设置审核信息
+        if (lwOrder.getVerifyStatus().equals(StateEnums.SERVICE_ORDER_PENDING.getCode())){
+            lwOrderAudit.setDeptOfficerId(newLwUser.getId());
+            lwOrderAudit.setDeptOfficerName(reviewerName);
+        }else if (lwOrder.getVerifyStatus().equals(StateEnums.SERVICE_ORDER_DEPT.getCode())){
+            lwOrderAudit.setLabOfficerId(newLwUser.getId());
+            lwOrderAudit.setLabOfficerName(reviewerName);
+        }else if (lwOrder.getVerifyStatus().equals(StateEnums.SERVICE_ORDER_LAB.getCode())){
+            lwOrderAudit.setChOfficerId(newLwUser.getId());
+            lwOrderAudit.setChOfficerName(reviewerName);
+        }
+        //3.更新审核状态 status
+        getLwOrder(lwOrderAudit, lwOrder);
+        lwOrder.setCurrentReviewerId(loginUser.getId());
+        lwOrder.setCurrentReviewerName(getName(newLwUser));
+        lwOrder.setUpdateBy(reviewerName);
+        lwOrder.setUpdateTime(new Date());
+        // 执行更新状态
+        int res = lwServiceOrderMapper.updateVerifyStatus(lwOrder);
+        if (res < 0) {
+            throw new LaboratoryException("请稍后重试");
+        }
+        //4.更新审核表信息
+        lwOrderAudit.setVersion(auditByServiceNo.getVersion());
+        int auditRes = lwOrderAuditMapper.update(lwOrderAudit);
+        if (auditRes <= 0) {
+            throw new LaboratoryException("请刷新后重试!");
+        }
+        //5.更新统计信息--判断是否存在通过与否
+        if (lwOrder.getVerifyStatus().equals(StateEnums.SERVICE_ORDER_CHO.getCode())) {
+            lwUserStatisticMapper.increaseServiceOrderPassCount(lwOrder.getApplicationId());
+        } else if (lwOrder.getVerifyStatus().equals(StateEnums.SERVICE_ORDER_FAIL.getCode())) {
+            lwUserStatisticMapper.increaseServiceOrderFailCount(lwOrder.getApplicationId());
+        }
+    }
+
+    // 获取名称
+    protected String getName(LwUser lwUser) {
+        if (lwUser.getName() != null) {
+            return lwUser.getName();
+        } else {
+            return lwUser.getNickname();
+        }
+    }
+
+    /**
+     * 根据审核结果  更新订单状态
+     *
+     * @param lwOrderAudit
+     * @param lwOrder
+     * @return
+     */
+    protected void getLwOrder(LwOrderAudit lwOrderAudit, LwOrder lwOrder) {
+        if (lwOrderAudit.getDeptAdvice() != null) {
+            if (lwOrderAudit.getDeptAdvice().equals(StateEnums.EXAMINE_PASS.getCode())) {
+                lwOrder.setVerifyStatus(StateEnums.SERVICE_ORDER_DEPT.getCode());
+            } else {
+                lwOrder.setVerifyStatus(StateEnums.SERVICE_ORDER_FAIL.getCode());
+            }
+        } else if (lwOrderAudit.getLabAdvice() != null) {
+            if (lwOrderAudit.getLabAdvice().equals(StateEnums.EXAMINE_PASS.getCode())) {
+                lwOrder.setVerifyStatus(StateEnums.SERVICE_ORDER_LAB.getCode());
+                LwUser lwUser = lwUserMapper.get(lwOrderAudit.getLabOfficerId());
+                lwOrder.setCurrentReviewerId(lwOrder.getId());
+                lwOrder.setCurrentReviewerName(getName(lwUser));
+            } else {
+                lwOrder.setVerifyStatus(StateEnums.SERVICE_ORDER_FAIL.getCode());
+            }
+        } else if (lwOrderAudit.getChAdvice() != null) {
+            if (lwOrderAudit.getChAdvice().equals(StateEnums.EXAMINE_PASS.getCode())) {
+                lwOrder.setVerifyStatus(StateEnums.SERVICE_ORDER_CHO.getCode());
+                LwUser lwUser = lwUserMapper.get(lwOrderAudit.getChOfficerId());
+                lwOrder.setCurrentReviewerId(lwOrder.getId());
+                lwOrder.setCurrentReviewerName(getName(lwUser));
+            } else {
+                lwOrder.setVerifyStatus(StateEnums.SERVICE_ORDER_FAIL.getCode());
+            }
+        }
     }
 }

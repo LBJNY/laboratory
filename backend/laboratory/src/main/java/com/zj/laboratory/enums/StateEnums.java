@@ -44,6 +44,11 @@ public enum StateEnums {
     NEW_USER(2, "绑定新账户"),
 
     /**
+     * 通用审核状态
+     */
+    EXAMINE_PASS(0,"成功"),
+    EXAMINE_FAIL(1,"失败"),
+    /**
      * 订单通用状态
      */
     ORDER_CONFIRM(0,"已提交"),
@@ -96,6 +101,21 @@ public enum StateEnums {
     TEST_SATISFACTION_SATISFIED(0,"非常满意"),
     TEST_SATISFACTION_ORDINARY(1,"基本满意"),
     TEST_SATISFACTION_NO(2,"不太满意"),
+
+    /**
+     * 公告类型
+     */
+    NOTICE_ALL(0,"所有"),
+    NOTICE_SERVICE_ORDER(1,"服务委托单"),
+    NOTICE_ENTRY_ORDER(2,"进场单"),
+    NOTICE_RESOURCES(3,"资源预定"),
+
+    /**
+     * 页面
+     */
+    NOTICE_ROLE_ADMIN(0,"管理员页面"),
+    NOTICE_ROLE_USER(1,"用户页面"),
+
     ;
 
     private Integer code;

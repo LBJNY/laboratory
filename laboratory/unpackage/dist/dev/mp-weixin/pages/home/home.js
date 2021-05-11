@@ -101,9 +101,9 @@ var render = function() {
   var _c = _vm._self._c || _h
   var l0 =
     !(_vm.pageType == 0) &&
-    (_vm.level == 1 || _vm.level == 3) &&
+    (_vm.level == 0 || _vm.level == 2) &&
     _vm.serviceOrderList.length > 0
-      ? _vm.__map(_vm.serviceOrderList, function(item, __i1__) {
+      ? _vm.__map(_vm.serviceOrderList, function(item, __i2__) {
           var $orig = _vm.__get_orig(item)
 
           var f0 = _vm._f("date-format")(item.currentDate)
@@ -116,9 +116,9 @@ var render = function() {
       : null
   var l1 =
     !(_vm.pageType == 0) &&
-    (_vm.level == 2 || _vm.level == 3) &&
+    (_vm.level == 0 || _vm.level == 3) &&
     _vm.entryOrderList.length > 0
-      ? _vm.__map(_vm.entryOrderList, function(item, __i3__) {
+      ? _vm.__map(_vm.entryOrderList, function(item, __i4__) {
           var $orig = _vm.__get_orig(item)
 
           var f1 = _vm._f("date-format")(item.currentDate)
@@ -434,316 +434,333 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
 var _pageAddress = _interopRequireDefault(__webpack_require__(/*! utils/page-address.js */ 204));
 var _lwServiceOrder = _interopRequireDefault(__webpack_require__(/*! @/api/lw-service-order */ 214));
-var _lwEntryOrder = _interopRequireDefault(__webpack_require__(/*! @/api/lw-entry-order */ 205));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-var _default = { data: function data() {return { TabCur: 0, scrollLeft: 0, // 0:用户  1:服务委托单  2 进场单  3:顶级权限
-      level: 0, // 服务委托单数量
-      serviceOrderStatistic: {}, // 进场单数量
-      entryOrderStatistic: {}, // 服务委托单列表
-      serviceOrderList: [], // 进场单列表
-      entryOrderList: [], // 分页对象
-      servicePage: { // 分页传参
-        params: { role: 0 // currentDate:true
-        }, currentPage: 1, pageSize: 5 }, // 分页对象
-      entryPage: { // 分页传参
-        params: { role: 0 // currentDate:true
-        }, currentPage: 1, pageSize: 5 }, // 页面类型
-      pageType: 0 };}, onShow: function onShow() {this.init();_lwServiceOrder.default.getServiceTotalCount().then(function (res) {console.log(res.data);});}, onReachBottom: function onReachBottom() {if (this.pageType === this.role.admin_page_num) {if (this.TabCur === 0 && (this.level === this.role.service_order_reviewer || this.level === this.role.admin_reviewer)) {this.serviceOrderToBottom();} else if (this.TabCur === 1 && (this.level === this.role.entry_order_reviewer || this.level === this.role.admin_reviewer)) {this.entryOrderToBottom();}}}, methods: { /*  日期处理*/dateFormat: function dateFormat(row, column) {var date = row[column.property];if (date === undefined) {return '';}return this.$moment(date).format('YYYY-MM-DD HH:mm:ss');}, // 初始化页面
-    init: function init() {// 获取当前页面类型 0:用户 1管理员
-      this.pageType = uni.getStorageSync('pageType');console.log("pageType:" + this.pageType);if (this.pageType != this.role.user_page_num) {this.level = uni.getStorageSync('loginUser').level;}this.servicePage.params.role = uni.getStorageSync('pageType');this.entryPage.params.role = uni.getStorageSync('pageType');this.getEntryOrderList();this.getEntryOrderNumber();this.getServiceOrderList();this.getServiceOrderNumber();}, tabSelect: function tabSelect(e) {this.TabCur = e.currentTarget.dataset.id;this.scrollLeft = (e.currentTarget.dataset.id - 1) * 60; // uni.getSystemInfogetSystemInfo({
+var _lwEntryOrder = _interopRequireDefault(__webpack_require__(/*! @/api/lw-entry-order */ 205));var _methods;function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}var _default =
+{
+  data: function data() {
+    return {
+      TabCur: 0,
+      scrollLeft: 0,
+      // 1:用户  2:服务委托单  3:进场单  0:顶级权限
+      level: 1,
+      // 服务委托单数量
+      serviceOrderStatistic: {},
+      // 进场单数量
+      entryOrderStatistic: {},
+      // 服务委托单列表
+      serviceOrderList: [],
+      // 进场单列表
+      entryOrderList: [],
+      // 通知信息列表
+      noticeList: [],
+      // 分页对象
+      servicePage: {
+        // 分页传参
+        params: {
+          role: 0
+          // currentDate:true
+        },
+        currentPage: 1,
+        pageSize: 5 },
+
+      // 分页对象
+      entryPage: {
+        // 分页传参
+        params: {
+          role: 0
+          // currentDate:true
+        },
+        currentPage: 1,
+        pageSize: 5 },
+
+      noticePage: {
+        // 分页传参
+        params: {
+          role: 0 },
+
+        currentPage: 1,
+        pageSize: 5 },
+
+      // 页面类型
+      pageType: 0 };
+
+  },
+  onShow: function onShow() {
+    this.init();
+    _lwServiceOrder.default.getServiceTotalCount().then(function (res) {
+      console.log(res.data);
+    });
+  },
+  onReachBottom: function onReachBottom() {
+    if (this.pageType === this.role.admin_page_num) {
+      if (this.TabCur === 0 && (this.level === this.role.service_order_reviewer || this.level === this.role.
+      admin_reviewer)) {
+        this.serviceOrderToBottom();
+      } else if (this.TabCur === 1 && (this.level === this.role.entry_order_reviewer || this.level === this.role.
+      admin_reviewer)) {
+        this.entryOrderToBottom();
+      }
+    }
+  },
+  methods: (_methods = {
+    /*  日期处理*/
+    dateFormat: function dateFormat(row, column) {
+      var date = row[column.property];
+      if (date === undefined) {
+        return '';
+      }
+      return this.$moment(date).format('YYYY-MM-DD HH:mm:ss');
+    },
+    // 初始化页面
+    init: function init() {
+      // 获取当前页面类型 0:用户 1管理员
+      this.pageType = uni.getStorageSync('pageType');
+      console.log("pageType:" + this.pageType);
+      if (this.pageType != this.role.user_page_num) {
+        this.level = uni.getStorageSync('loginUser').level;
+        console.log('level:' + this.level);
+      }
+      this.servicePage.params.role = uni.getStorageSync('pageType');
+      this.entryPage.params.role = uni.getStorageSync('pageType');
+      this.noticePage.params.role = uni.getStorageSync('pageType');
+      this.getEntryOrderList();
+      this.getEntryOrderNumber();
+      this.getServiceOrderList();
+      this.getServiceOrderNumber();
+      this.getNoticeList();
+    },
+    tabSelect: function tabSelect(e) {
+      this.TabCur = e.currentTarget.dataset.id;
+      this.scrollLeft = (e.currentTarget.dataset.id - 1) * 60;
+      // uni.getSystemInfogetSystemInfo({
       // 	success: function(res) {
       // 		that.setData({
       // 			"wh": res.windowHeight
       // 		})
       // 	}
       // })
-    }, /**
-        * 跳转到添加服务委托单页面
-        */toAddServiceOrder: function toAddServiceOrder() {uni.navigateTo({ url: _pageAddress.default.user_serviceOrder_save });}, /**
-                                                                                                                                    * 删除服务委托单
-                                                                                                                                    */toDeleteServiceOrder: function toDeleteServiceOrder() {// uni.navigateTo({
-      // 	url: address.user_serviceOrder_save
-      // })
-    }, // 跳转到审核页面
-    toServiceOrderExamine: function toServiceOrderExamine(event) {var id = event.currentTarget.id;uni.navigateTo({ url: _pageAddress.default.admin_serviceOrder_examine + '?activeId' + id });}, /**
-                                                                                                                                                                                                  * 跳转到服务委托单详情
-                                                                                                                                                                                                  * @param {Object} id
-                                                                                                                                                                                                  */toServiceOrderInfo: function toServiceOrderInfo(event) {var id = event.currentTarget.id;uni.navigateTo({ url: _pageAddress.default.user_serviceOrder_examine + '?activeId=' + id });}, /**
-                                                                                                                                                                                                                                                                                                                                                                                            * 跳转到添加进场单页面
-                                                                                                                                                                                                                                                                                                                                                                                            */toAddEntryOrder: function toAddEntryOrder() {uni.navigateTo({ url: _pageAddress.default.user_entryOrder_save });}, /**
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  * 跳转到进场单审核页面
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  */toEntryOrderExamine: function toEntryOrderExamine(event) {uni.navigateTo({ url: _pageAddress.default.user_entryOrder_examine });}, /**
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        * 跳转到进场单详情-修改页面
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        */toEntryOrderInfo: function toEntryOrderInfo(event) {var id = event.currentTarget.id;uni.navigateTo({ url: _pageAddress.default.user_entryOrder_update + '?activeId=' + id });}, // 获取进场单数量
-    getEntryOrderNumber: function getEntryOrderNumber() {var _this = this;if (this.pageType == this.role.admin_page_num) {_lwEntryOrder.default.getEntryTotalCount().then(function (res) {_this.entryOrderStatistic = res.data;});} else {_lwEntryOrder.default.getCountList().then(function (res) {_this.entryOrderStatistic = res.data;});}}, // 获取进场单列表
-    getEntryOrderList: function getEntryOrderList() {var _this2 = this;_lwEntryOrder.default.getByPage(this.entryPage).then(function (res) {_this2.entryPage = res.data;if (_this2.entryOrderList.length === 0) {_this2.entryOrderList = res.data.list;} else {_this2.entryOrderList = _this2.entryOrderList.concat(res.data.list);}});}, // 获取服务委托单数量
-    getServiceOrderNumber: function getServiceOrderNumber() {var _this3 = this;if (this.pageType == this.role.admin_page_num) {_lwServiceOrder.default.getServiceTotalCount().then(function (res) {_this3.serviceOrderStatistic = res.data;});} else {_lwServiceOrder.default.getCountList().then(function (res) {_this3.serviceOrderStatistic = res.data;});}}, // 获取服务委托单列表
-    getServiceOrderList: function getServiceOrderList() {var _this4 = this;_lwServiceOrder.default.getByPage(this.servicePage).then(function (res) {_this4.servicePage = res.data;if (_this4.serviceOrderList.length === 0) {_this4.serviceOrderList = res.data.list;} else {_this4.serviceOrderList = _this4.serviceOrderList.concat(res.data.list);}});}, // 服务委托单滑动到最右边
-    serviceOrderToLower: function serviceOrderToLower() {if (this.servicePage.list.length === this.servicePage.pageSize) {this.servicePage.currentPage = this.servicePage.currentPage + 1;this.getServiceOrderList();}}, entryOrderToLower: function entryOrderToLower() {if (this.entryPage.list.length === this.entryPage.pageSize) {this.entryPage.currentPage = this.entryPage.currentPage + 1;this.getEntryOrderList();}}, // 服务委托单滑动到底部
-    serviceOrderToBottom: function serviceOrderToBottom() {if (this.servicePage.list.length === this.servicePage.pageSize) {this.servicePage.currentPage = this.servicePage.currentPage + 1;this.getServiceOrderList();}}, // 进场单滑动到底部
-    entryOrderToBottom: function entryOrderToBottom() {if (this.entryPage.list.length === this.entryPage.pageSize) {this.entryPage.currentPage = this.entryPage.currentPage + 1;this.getEntryOrderList();}} } };exports.default = _default;
+    },
+
+    // 获取进场单数量
+    getEntryOrderNumber: function getEntryOrderNumber() {var _this = this;
+      if (this.pageType == this.role.admin_page_num) {
+        _lwEntryOrder.default.getEntryTotalCount().then(function (res) {
+          _this.entryOrderStatistic = res.data;
+        });
+      } else {
+        _lwEntryOrder.default.getCountList().then(function (res) {
+          _this.entryOrderStatistic = res.data;
+        });
+      }
+    },
+    // 获取进场单列表
+    getEntryOrderList: function getEntryOrderList() {var _this2 = this;
+      _lwEntryOrder.default.getByPage(this.entryPage).then(function (res) {
+        _this2.entryPage = res.data;
+        if (_this2.entryOrderList.length === 0) {
+          _this2.entryOrderList = res.data.list;
+        } else {
+          _this2.entryOrderList = _this2.entryOrderList.concat(res.data.list);
+        }
+      });
+    },
+    // 获取服务委托单数量
+    getServiceOrderNumber: function getServiceOrderNumber() {var _this3 = this;
+      if (this.pageType == this.role.admin_page_num) {
+        _lwServiceOrder.default.getServiceTotalCount().then(function (res) {
+          _this3.serviceOrderStatistic = res.data;
+        });
+      } else {
+        _lwServiceOrder.default.getCountList().then(function (res) {
+          _this3.serviceOrderStatistic = res.data;
+        });
+      }
+    },
+    // 获取服务委托单列表
+    getServiceOrderList: function getServiceOrderList() {var _this4 = this;
+      _lwServiceOrder.default.getByPage(this.servicePage).then(function (res) {
+        _this4.servicePage = res.data;
+        if (_this4.serviceOrderList.length === 0) {
+          _this4.serviceOrderList = res.data.list;
+        } else {
+          _this4.serviceOrderList = _this4.serviceOrderList.concat(res.data.list);
+        }
+      });
+    },
+    // 服务委托单滑动到最右边
+    serviceOrderToLower: function serviceOrderToLower() {
+      if (this.servicePage.list !== undefined) {
+        if (this.servicePage.list.length === this.servicePage.pageSize) {
+          this.servicePage.currentPage = this.servicePage.currentPage + 1;
+          this.getServiceOrderList();
+        }
+      }
+    },
+    entryOrderToLower: function entryOrderToLower() {
+      if (this.entryPage.list !== undefined) {
+        if (this.entryPage.list.length === this.entryPage.pageSize) {
+          this.entryPage.currentPage = this.entryPage.currentPage + 1;
+          this.getEntryOrderList();
+        }
+      }
+    },
+    // 服务委托单滑动到底部
+    serviceOrderToBottom: function serviceOrderToBottom() {
+      if (this.servicePage.list !== undefined) {
+        if (this.servicePage.list.length === this.servicePage.pageSize) {
+          this.servicePage.currentPage = this.servicePage.currentPage + 1;
+          this.getServiceOrderList();
+        }
+      }
+    },
+    // 进场单滑动到底部
+    entryOrderToBottom: function entryOrderToBottom() {
+      if (this.entryPage.list !== undefined) {
+        if (this.entryPage.list.length === this.entryPage.pageSize) {
+          this.entryPage.currentPage = this.entryPage.currentPage + 1;
+          this.getEntryOrderList();
+        }
+      }
+    },
+    // 获取公告列表
+    getNoticeList: function getNoticeList() {var _this5 = this;
+      _lwServiceOrder.default.getByPage(this.servicePage).then(function (res) {
+        _this5.noticeList = [];
+
+        _this5.noticeList = res.data;
+      });
+    },
+
+    /**
+        * 服务委托单---用户
+        */
+
+    // 跳转到添加服务委托单页面---用户
+    toAddServiceOrder: function toAddServiceOrder() {
+      uni.navigateTo({
+        url: _pageAddress.default.user_serviceOrder_save });
+
+    },
+    // 跳转到服务委托单审核详情---用户
+    toServiceOrderInfo: function toServiceOrderInfo(event) {
+      var id = event.currentTarget.id;
+      uni.navigateTo({
+        url: _pageAddress.default.user_serviceOrder_examine + '?activeId=' + id });
+
+    },
+    // 删除服务委托单---用户
+    del: function del(event) {var _this6 = this;
+      var id = event.currentTarget.id;
+      _lwServiceOrder.default.deleteById(id).then(function (res) {
+        uni.showToast({
+          title: '删除成功!',
+          duration: 3000,
+          success: function success() {
+            uni.switchTab({
+              url: _pageAddress.default.serviceOrder });
+
+          } });
+
+        _this6.init();
+      }).catch(function (err) {
+        uni.showToast({
+          title: '删除失败,请稍后重试',
+          duration: 2000,
+          icon: none });
+
+      });
+    },
+
+
+    /**
+        * 服务委托单---管理员
+        */
+
+    // 跳转到服务委托单审核页面---管理员
+    toServiceOrderExamine: function toServiceOrderExamine(event) {
+      var id = event.currentTarget.id;
+      uni.navigateTo({
+        url: _pageAddress.default.admin_serviceOrder_examine + '?activeId' + id });
+
+    },
+    // 跳转到服务委托单审核详情---管理员
+    toAdminServiceOrderInfo: function toAdminServiceOrderInfo(event) {
+      var id = event.currentTarget.id;
+      uni.navigateTo({
+        url: _pageAddress.default.admin_serviceOrder_info + '?activeId=' + id });
+
+    } }, _defineProperty(_methods, "del", function del(
+
+
+
+
+
+
+  event) {var _this7 = this;
+    var id = event.currentTarget.id;
+    console.log(id);
+    _lwEntryOrder.default.deleteById(id).then(function (res) {
+      uni.showToast({
+        title: '删除成功!',
+        duration: 3000,
+        success: function success() {
+          uni.switchTab({
+            url: _pageAddress.default.entryOrder });
+
+        } });
+
+      _this7.init();
+    }).catch(function (err) {
+      uni.showToast({
+        title: '删除失败,请稍后重试',
+        duration: 2000,
+        icon: none });
+
+    });
+  }), _defineProperty(_methods, "toAddEntryOrder", function toAddEntryOrder()
+
+
+  {
+    uni.navigateTo({
+      url: _pageAddress.default.user_entryOrder_save });
+
+  }), _defineProperty(_methods, "toEntryOrderExamine", function toEntryOrderExamine(
+
+  event) {
+    var id = event.currentTarget.id;
+    console.log(_pageAddress.default.user_entryOrder_examine);
+    uni.navigateTo({
+      url: _pageAddress.default.user_entryOrder_examine + '?activeId=' + id });
+
+  }), _defineProperty(_methods, "toEntryOrderInfo", function toEntryOrderInfo(
+
+  event) {
+    var id = event.currentTarget.id;
+    uni.navigateTo({
+      url: _pageAddress.default.user_entryOrder_update + '?activeId=' + id });
+
+  }), _defineProperty(_methods, "toAdminEntryOrderInfo", function toAdminEntryOrderInfo(
+
+
+
+
+
+  event) {
+    var id = event.currentTarget.id;
+    uni.navigateTo({
+      url: _pageAddress.default.admin_entryOrder_info + '?activeId=' + id });
+
+  }), _defineProperty(_methods, "toAdminEntryOrderExamine", function toAdminEntryOrderExamine(
+
+  event) {
+    var id = event.currentTarget.id;
+    uni.navigateTo({
+      url: _pageAddress.default.admin_entryOrder_examine + '?activeId=' + id });
+
+  }), _methods) };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),

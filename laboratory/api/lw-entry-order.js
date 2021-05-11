@@ -90,5 +90,16 @@ export default {
 			url: `/${groupName}/getEntryTotalCount`,
 			method: 'get'
 		})
+	},
+	/**
+	 * 审核
+	 * @param {Object} lwEntryOrder
+	 */
+	examine(lwEntryOrder){
+		return request({
+			url: `/${groupName}/examine`,
+			method: 'put',
+			data: lwEntryOrder
+		})
 	}
 }

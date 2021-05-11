@@ -77,4 +77,10 @@ public interface LwEntryOrderService {
      * @return
      */
     LwUserStatistic getEntryTotolCount();
+
+    /**
+     * 审核
+     * @param lwEntry
+     */
+    void examine(LwEntry lwEntry);
 }

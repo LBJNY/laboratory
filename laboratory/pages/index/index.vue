@@ -13,7 +13,7 @@
 					@getuserinfo="wxGetUserInfo">
 					授权登录
 				</button> -->
-				<button class='bottom' type='primary' lang="zh_CN" @click="wxGetUserInfo">
+				<button class='bottom' type='primary' lang="zh_CN" @click="wxGetUserInfo" :disabled="isDisabled==true?'true':'false'">
 					登录
 				</button>
 			</view>
@@ -30,6 +30,8 @@
 				OpenId: '',
 				// 当前登录用户
 				loginUser: null,
+				//登录按钮是否不可用
+				isDisabled:true,
 				// 页面类型  0:用户页面  1:管理员界面
 				pageType: 0,
 				isCanUse: uni.getStorageSync('isCanUse') || true //默认为true
@@ -86,12 +88,12 @@
 									_this.loginUser = res.data
 									_this.navigateTo()
 								})
-
 								this.navigateTo()
 								console.log(res.data.token)
 							} else {
 								uni.setStorageSync('openId', res.data.openId)
 								console.log("openid:" + res.data.openId)
+								this.$set(this,'isDisabled',false)
 							}
 							// uni.hideLoading()
 							console.log(uni.getStorageSync('loginUser'))
@@ -103,7 +105,7 @@
 			navigateTo() {
 				if (this.loginUser) {
 					console.log('page:'+(this.loginUser.level > this.role.user))
-					if (this.loginUser.level > this.role.user) {
+					if (this.loginUser.level != this.role.user) {
 						uni.redirectTo({
 							url: '/pages/selectPage/selectPage'
 						})

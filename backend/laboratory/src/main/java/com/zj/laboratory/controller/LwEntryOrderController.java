@@ -129,9 +129,23 @@ public class LwEntryOrderController {
         return new Result<>(result);
     }
 
+    /**
+     * 获取进场单有关数量
+     * @return
+     */
     @RequestMapping(value = "getEntryTotalCount",method = RequestMethod.GET)
     public Result<LwUserStatistic> getEntryTotalCount(){
         LwUserStatistic count=lwEntryOrderService.getEntryTotolCount();
         return new Result<>(count);
+    }
+
+    /**
+     * 审核进场单
+     * @return
+     */
+    @RequestMapping(value = "examine",method = RequestMethod.PUT)
+    public Result<?> toExamine(@RequestBody LwEntry lwEntry){
+        lwEntryOrderService.examine(lwEntry);
+        return new Result<>("审核成功!");
     }
 }

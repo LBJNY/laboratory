@@ -29368,10 +29368,10 @@ webpackContext.id = 14;
 
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = {
-  user: 0,
-  service_order_reviewer: 1,
-  entry_order_reviewer: 2,
-  admin_reviewer: 3,
+  user: 1,
+  service_order_reviewer: 2,
+  entry_order_reviewer: 3,
+  admin_reviewer: 0,
 
   admin_page_num: 1,
   user_page_num: 0 };exports.default = _default;
@@ -31723,7 +31723,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
   user_serviceOrder_examine: '/pages/user/serviceOrder-examine/serviceOrder-examine',
   user_serviceOrder_info: '/pages/user/serviceOrder-info/serviceOrder-info',
   user_serviceOrder_save: '/pages/user/serviceOrder-save/serviceOrder-save',
-  user_serviceOrder_update: '/pages/user/serviceOrder-info/serviceOrder-update',
+  user_serviceOrder_update: '/pages/user/serviceOrder-update/serviceOrder-update',
   user_serviceOrder_feedback: '/pages/user/serviceOrder-feedback/serviceOrder-feedback',
   user_entryOrder_examine: '/pages/user/entryOrder-examine/entryOrder-examine',
   user_entryOrder_save: '/pages/user/entryOrder-save/entryOrder-save',
@@ -31838,6 +31838,17 @@ var groupName = 'entryOrder';var _default =
     return (0, _request.default)({
       url: "/".concat(groupName, "/getEntryTotalCount"),
       method: 'get' });
+
+  },
+  /**
+      * 审核
+      * @param {Object} lwEntryOrder
+      */
+  examine: function examine(lwEntryOrder) {
+    return (0, _request.default)({
+      url: "/".concat(groupName, "/examine"),
+      method: 'put',
+      data: lwEntryOrder });
 
   } };exports.default = _default;
 
@@ -31962,6 +31973,17 @@ var groupName = 'serviceOrder';var _default =
       url: "/".concat(groupName, "/addFeedBack"),
       method: 'post',
       data: lwOrderFeedBack });
+
+  },
+  /**
+      * 审核
+      * @param {Object} lwEntryOrder
+      */
+  examine: function examine(lwServiceOrderAudit) {
+    return (0, _request.default)({
+      url: "/".concat(groupName, "/examine"),
+      method: 'put',
+      data: lwServiceOrderAudit });
 
   } };exports.default = _default;
 
@@ -32238,7 +32260,93 @@ var groupName = 'serviceType';var _default =
 /* 310 */,
 /* 311 */,
 /* 312 */,
-/* 313 */,
+/* 313 */
+/*!****************************************************!*\
+  !*** D:/study/MyDev/小程序/laboratory/api/lw-user.js ***!
+  \****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _request = _interopRequireDefault(__webpack_require__(/*! @/utils/request */ 158));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+var groupName = 'user';var _default =
+{
+  /**
+   * 分页
+   */
+  getByPage: function getByPage(page) {
+    return (0, _request.default)({
+      url: "/".concat(groupName, "/getByPage"),
+      method: 'post',
+      data: page });
+
+  },
+  /**
+      * 启用
+      */
+  enableById: function enableById(id) {
+    return (0, _request.default)({
+      url: "/".concat(groupName, "/enableById/").concat(id),
+      method: 'put' });
+
+  },
+  /**
+      * 禁用
+      */
+  disableById: function disableById(id) {
+    return (0, _request.default)({
+      url: "/".concat(groupName, "/disableById/").concat(id),
+      method: 'put' });
+
+  },
+  /**
+      * 删除
+      */
+  deleteById: function deleteById(id) {
+    return (0, _request.default)({
+      url: "/".concat(groupName, "/delete/").concat(id),
+      method: 'delete' });
+
+  },
+  /**
+      * 根据id查询
+      */
+  get: function get(id) {
+    return (0, _request.default)({
+      url: "/".concat(groupName, "/get/").concat(id),
+      method: 'get' });
+
+  },
+  /**
+      * 根据id查询更新信息
+      */
+  getUpdateInfo: function getUpdateInfo(id) {
+    return (0, _request.default)({
+      url: "/".concat(groupName, "/getUpdateInfo/").concat(id),
+      method: 'get' });
+
+  },
+  /**
+      * 更新用户权限,名称
+      */
+  update: function update(lwUser) {
+    return (0, _request.default)({
+      url: "/".concat(groupName, "/update"),
+      method: 'put',
+      data: lwUser });
+
+  },
+  /**
+      * 根据订单编号查询审核人员列表
+      */
+  getReviewerList: function getReviewerList(serviceNo) {
+    return (0, _request.default)({
+      url: "/".concat(groupName, "/getReviewerList/").concat(serviceNo),
+      method: 'get' });
+
+  } };exports.default = _default;
+
+/***/ }),
 /* 314 */,
 /* 315 */,
 /* 316 */,
@@ -32279,17 +32387,20 @@ var groupName = 'serviceType';var _default =
 /* 351 */,
 /* 352 */,
 /* 353 */,
-/* 354 */
+/* 354 */,
+/* 355 */,
+/* 356 */,
+/* 357 */
 /*!**********************************************************!*\
   !*** ./node_modules/@babel/runtime/regenerator/index.js ***!
   \**********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! regenerator-runtime */ 355);
+module.exports = __webpack_require__(/*! regenerator-runtime */ 358);
 
 /***/ }),
-/* 355 */
+/* 358 */
 /*!************************************************************!*\
   !*** ./node_modules/regenerator-runtime/runtime-module.js ***!
   \************************************************************/
@@ -32320,7 +32431,7 @@ var oldRuntime = hadRuntime && g.regeneratorRuntime;
 // Force reevalutation of runtime.js.
 g.regeneratorRuntime = undefined;
 
-module.exports = __webpack_require__(/*! ./runtime */ 356);
+module.exports = __webpack_require__(/*! ./runtime */ 359);
 
 if (hadRuntime) {
   // Restore the original runtime.
@@ -32336,7 +32447,7 @@ if (hadRuntime) {
 
 
 /***/ }),
-/* 356 */
+/* 359 */
 /*!*****************************************************!*\
   !*** ./node_modules/regenerator-runtime/runtime.js ***!
   \*****************************************************/
@@ -33067,7 +33178,7 @@ if (hadRuntime) {
 
 
 /***/ }),
-/* 357 */
+/* 360 */
 /*!**********************************************************************!*\
   !*** D:/study/MyDev/小程序/laboratory/components/uni-forms/validate.js ***!
   \**********************************************************************/
@@ -33075,7 +33186,7 @@ if (hadRuntime) {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 354));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _inherits(subClass, superClass) {if (typeof superClass !== "function" && superClass !== null) {throw new TypeError("Super expression must either be null or a function");}subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } });if (superClass) _setPrototypeOf(subClass, superClass);}function _setPrototypeOf(o, p) {_setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {o.__proto__ = p;return o;};return _setPrototypeOf(o, p);}function _createSuper(Derived) {var hasNativeReflectConstruct = _isNativeReflectConstruct();return function _createSuperInternal() {var Super = _getPrototypeOf(Derived),result;if (hasNativeReflectConstruct) {var NewTarget = _getPrototypeOf(this).constructor;result = Reflect.construct(Super, arguments, NewTarget);} else {result = Super.apply(this, arguments);}return _possibleConstructorReturn(this, result);};}function _possibleConstructorReturn(self, call) {if (call && (typeof call === "object" || typeof call === "function")) {return call;}return _assertThisInitialized(self);}function _assertThisInitialized(self) {if (self === void 0) {throw new ReferenceError("this hasn't been initialised - super() hasn't been called");}return self;}function _isNativeReflectConstruct() {if (typeof Reflect === "undefined" || !Reflect.construct) return false;if (Reflect.construct.sham) return false;if (typeof Proxy === "function") return true;try {Date.prototype.toString.call(Reflect.construct(Date, [], function () {}));return true;} catch (e) {return false;}}function _getPrototypeOf(o) {_getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {return o.__proto__ || Object.getPrototypeOf(o);};return _getPrototypeOf(o);}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}function _classCallCheck(instance, Constructor) {if (!(instance instanceof Constructor)) {throw new TypeError("Cannot call a class as a function");}}function _defineProperties(target, props) {for (var i = 0; i < props.length; i++) {var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);}}function _createClass(Constructor, protoProps, staticProps) {if (protoProps) _defineProperties(Constructor.prototype, protoProps);if (staticProps) _defineProperties(Constructor, staticProps);return Constructor;}
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 357));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _inherits(subClass, superClass) {if (typeof superClass !== "function" && superClass !== null) {throw new TypeError("Super expression must either be null or a function");}subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } });if (superClass) _setPrototypeOf(subClass, superClass);}function _setPrototypeOf(o, p) {_setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {o.__proto__ = p;return o;};return _setPrototypeOf(o, p);}function _createSuper(Derived) {var hasNativeReflectConstruct = _isNativeReflectConstruct();return function _createSuperInternal() {var Super = _getPrototypeOf(Derived),result;if (hasNativeReflectConstruct) {var NewTarget = _getPrototypeOf(this).constructor;result = Reflect.construct(Super, arguments, NewTarget);} else {result = Super.apply(this, arguments);}return _possibleConstructorReturn(this, result);};}function _possibleConstructorReturn(self, call) {if (call && (typeof call === "object" || typeof call === "function")) {return call;}return _assertThisInitialized(self);}function _assertThisInitialized(self) {if (self === void 0) {throw new ReferenceError("this hasn't been initialised - super() hasn't been called");}return self;}function _isNativeReflectConstruct() {if (typeof Reflect === "undefined" || !Reflect.construct) return false;if (Reflect.construct.sham) return false;if (typeof Proxy === "function") return true;try {Date.prototype.toString.call(Reflect.construct(Date, [], function () {}));return true;} catch (e) {return false;}}function _getPrototypeOf(o) {_getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {return o.__proto__ || Object.getPrototypeOf(o);};return _getPrototypeOf(o);}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}function _classCallCheck(instance, Constructor) {if (!(instance instanceof Constructor)) {throw new TypeError("Cannot call a class as a function");}}function _defineProperties(target, props) {for (var i = 0; i < props.length; i++) {var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);}}function _createClass(Constructor, protoProps, staticProps) {if (protoProps) _defineProperties(Constructor.prototype, protoProps);if (staticProps) _defineProperties(Constructor, staticProps);return Constructor;}
 var pattern = {
   email: /^\S+?@\S+?\.\S+?$/,
   idcard: /^[1-9]\d{5}(18|19|([23]\d))\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$/,
@@ -33548,9 +33659,6 @@ SchemaValidator.message = new Message();var _default =
 SchemaValidator;exports.default = _default;
 
 /***/ }),
-/* 358 */,
-/* 359 */,
-/* 360 */,
 /* 361 */,
 /* 362 */,
 /* 363 */,
@@ -33569,7 +33677,10 @@ SchemaValidator;exports.default = _default;
 /* 376 */,
 /* 377 */,
 /* 378 */,
-/* 379 */
+/* 379 */,
+/* 380 */,
+/* 381 */,
+/* 382 */
 /*!*******************************************************************!*\
   !*** D:/study/MyDev/小程序/laboratory/components/uni-icons/icons.js ***!
   \*******************************************************************/

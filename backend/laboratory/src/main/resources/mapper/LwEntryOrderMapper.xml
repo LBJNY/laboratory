@@ -6,7 +6,7 @@
     </sql>
 
     <sql id="baseColumn">
-        id,entryNo,entryManager,currentDate,deptName,projName,contact,tel,email,staff,description,requirement,verify_status,lock
+        id,entryNo,entryManager,currentDate,deptName,projName,contact,tel,email,staff,description,requirement,verify_status,version
         ,status,officerId,applicantId,officerStatus,applicantStatus,sDate,eDate,isLook,deleted
     </sql>
 
@@ -24,7 +24,7 @@
         <result column="description" property="description"/>
         <result column="requirement" property="requirement"/>
         <result column="verify_status" property="verifyStatus"/>
-        <result column="lock" property="lock"/>
+        <result column="version" property="version"/>
         <result column="status" property="status"/>
         <result column="officerId" property="officerId"/>
         <result column="officerName" property="officerName"/>
@@ -105,6 +105,7 @@
                applicantStatus,
                sDate,
                eDate,
+               version,
                update_by,
                update_time
         from lw_entry
@@ -112,8 +113,10 @@
     </select>
     <update id="delete">
         update lw_entry
-        set deleted = 1
+        set deleted = 1,
+            version=version + 1
         where id = #{id}
+          and version = #{version}
     </update>
     <insert id="save">
         insert lw_entry(id, entryNo, entryManager, currentDate, deptName, projName, contact, tel, email, staff,
@@ -137,13 +140,17 @@
     </insert>
     <update id="enableById">
         update lw_entry
-        set status = 1
+        set status = 1,
+            version=version + 1
         where id = #{id}
+          and version = #{version}
     </update>
     <update id="disableById">
         update lw_entry
-        set status = 0
+        set status = 0,
+            version=version + 1
         where id = #{id}
+          and version = #{version}
     </update>
     <update id="update">
         update lw_entry
@@ -160,10 +167,23 @@
             sDate=#{sDate},
             eDate=#{eDate},
             update_by=#{updateBy},
-            update_time=#{updateTime}
+            update_time=#{updateTime},
+            version=version + 1
         where id = #{id}
+          and version = #{version}
     </update>
-
+    <update id="examine">
+        update lw_entry
+        set officerId=#{officerId},
+            officerName=#{officerName},
+            verify_status=#{verifyStatus},
+            version=version + 1,
+            update_by=#{updateBy},
+            update_time=#{updateTime},
+            version=version + 1
+        where id = #{id}
+          and version = #{version}
+    </update>
     <select id="getListByPage" resultMap="BaseResultMap">
         select id, entryNo, entryManager, currentDate, deptName, projName, contact,`status`, tel, verify_status,
         applicantName , update_by, update_time

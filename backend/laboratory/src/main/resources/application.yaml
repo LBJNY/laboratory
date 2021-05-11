@@ -51,6 +51,6 @@ aliyun:
 # 微信配置
 wechat:
   appId:
-  appSecret: 
+  appSecret:
   grantType: authorization_code
   loginUrl: https://api.weixin.qq.com/sns/jscode2session

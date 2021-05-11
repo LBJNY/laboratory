@@ -2,23 +2,27 @@ package com.zj.laboratory.service.impl;
 
 
 import com.zj.laboratory.enums.ResultEnum;
+import com.zj.laboratory.enums.RoleEnum;
+import com.zj.laboratory.enums.StateEnums;
 import com.zj.laboratory.exception.LaboratoryException;
+import com.zj.laboratory.mapper.LwServiceOrderMapper;
 import com.zj.laboratory.mapper.LwUserMapper;
 import com.zj.laboratory.mapper.LwUserStatisticMapper;
-import com.zj.laboratory.pojo.LoginUser;
-import com.zj.laboratory.pojo.LwUser;
-import com.zj.laboratory.pojo.LwUserStatistic;
+import com.zj.laboratory.pojo.*;
 import com.zj.laboratory.pojo.dto.LwUserBindDto;
+import com.zj.laboratory.pojo.vo.LwReviewerVo;
 import com.zj.laboratory.pojo.vo.LwUserStatisticVo;
 import com.zj.laboratory.pojo.vo.LwUserVo;
 import com.zj.laboratory.service.LwUserService;
 import com.zj.laboratory.utils.IdWorker;
 import com.zj.laboratory.utils.Page;
 import com.zj.laboratory.utils.ShiroUtils;
+import org.apache.commons.lang.ArrayUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -37,6 +41,8 @@ public class LwUserServiceImpl implements LwUserService {
     private IdWorker idWorker;
     @Autowired
     private LwUserStatisticMapper lwUserStatisticMapper;
+    @Autowired
+    private LwServiceOrderMapper lwServiceOrderMapper;
 
     /**
      * 根据用户ID查询用户是否存在
@@ -175,5 +181,49 @@ public class LwUserServiceImpl implements LwUserService {
         LwUserVo lwUserVo=new LwUserVo();
         BeanUtils.copyProperties(updateInfo,lwUserVo);
         return lwUserVo;
+    }
+    @Override
+    public List<LwReviewerVo> getReviewerList(String serviceNo) {
+        //LwOrderAudit byServiceNo = lwOrderAuditMapper.getByServiceNo(serviceNo);
+        LwOrder lwServiceOrderByServiceNo = lwServiceOrderMapper.getByServiceNo(serviceNo);
+        List<LwUser> lwUserList=null;
+        // 判断订单状态
+        if (lwServiceOrderByServiceNo.getVerifyStatus()== StateEnums.SERVICE_ORDER_PENDING.getCode()){
+            //如果是待审核状态---查询实验室审核人员
+            lwUserList=lwUserMapper.getByReviewerType(RoleEnum.REVIEWER_TYPE_LAB.getType());
+        }else if (lwServiceOrderByServiceNo.getVerifyStatus()==StateEnums.SERVICE_ORDER_DEPT.getCode()){
+            //如果是部门审核通过状态---查询创新合作部审核人员
+            lwUserList=lwUserMapper.getByReviewerType(RoleEnum.REVIEWER_TYPE_CH.getType());
+        }
+        List<LwUser> adminReviewer = lwUserMapper.getByReviewerType(RoleEnum.REVIEWER_TYPE_ADMIN.getType());
+        assert lwUserList != null;
+        if (lwUserList.size()<=0&&adminReviewer.size()<=0){
+            throw new LaboratoryException("暂无审核员,请联系负责人添加审核员!");
+        }
+        // 创建审核人列表
+        List<LwReviewerVo> reviewerList=new ArrayList<>();
+        //普通审核人
+        lwUserList.forEach(lwUser -> {
+            LwReviewerVo lwReviewerVo=new LwReviewerVo();
+            lwReviewerVo.setId(lwUser.getId());
+            lwReviewerVo.setValue(getName(lwUser));
+            reviewerList.add(lwReviewerVo);
+        });
+        //顶级审核人
+        adminReviewer.forEach(lwUser -> {
+            LwReviewerVo lwReviewerVo=new LwReviewerVo();
+            lwReviewerVo.setId(lwUser.getId());
+            lwReviewerVo.setValue(getName(lwUser));
+            reviewerList.add(lwReviewerVo);
+        });
+        return reviewerList;
+    }
+    // 获取名称
+    protected String getName(LwUser lwUser) {
+        if (lwUser.getName() != null) {
+            return lwUser.getName();
+        } else {
+            return lwUser.getNickname();
+        }
     }
 }

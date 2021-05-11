@@ -96,10 +96,10 @@ var components
 try {
   components = {
     uniForms: function() {
-      return Promise.all(/*! import() | components/uni-forms/uni-forms */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-forms/uni-forms")]).then(__webpack_require__.bind(null, /*! @/components/uni-forms/uni-forms.vue */ 349))
+      return Promise.all(/*! import() | components/uni-forms/uni-forms */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-forms/uni-forms")]).then(__webpack_require__.bind(null, /*! @/components/uni-forms/uni-forms.vue */ 352))
     },
     uniDatetimePicker: function() {
-      return __webpack_require__.e(/*! import() | components/uni-datetime-picker/uni-datetime-picker */ "components/uni-datetime-picker/uni-datetime-picker").then(__webpack_require__.bind(null, /*! @/components/uni-datetime-picker/uni-datetime-picker.vue */ 360))
+      return __webpack_require__.e(/*! import() | components/uni-datetime-picker/uni-datetime-picker */ "components/uni-datetime-picker/uni-datetime-picker").then(__webpack_require__.bind(null, /*! @/components/uni-datetime-picker/uni-datetime-picker.vue */ 363))
     }
   }
 } catch (e) {
@@ -123,9 +123,11 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  var f0 = _vm._f("date-format")(_vm.lwEntryOrder.sDate)
+  var f0 = _vm._f("date-format")(_vm.lwEntryOrder.currentDate)
 
-  var f1 = _vm._f("date-format")(_vm.lwEntryOrder.currentDate)
+  var f1 = _vm._f("date-format")(_vm.lwEntryOrder.sDate)
+
+  var f2 = _vm._f("date-format")(_vm.lwEntryOrder.currentDate)
 
   if (!_vm._isMounted) {
     _vm.e0 = function($event) {
@@ -138,7 +140,8 @@ var render = function() {
     {
       $root: {
         f0: f0,
-        f1: f1
+        f1: f1,
+        f2: f2
       }
     }
   )
@@ -176,6 +179,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
+
 
 
 
@@ -665,6 +669,7 @@ var _lwEntryOrder = _interopRequireDefault(__webpack_require__(/*! @/api/lw-entr
 //
 //
 //
+//
 var _default = { data: function data() {return { //当前步骤
       step: 1, // 进场单详情
       lwEntryOrder: {}, rules: {// // 对name字段进行必填验证
@@ -684,9 +689,9 @@ var _default = { data: function data() {return { //当前步骤
     getNowFormatDate: function getNowFormatDate() {var date = new Date();var seperator1 = "-";var year = date.getFullYear();var month = date.getMonth() + 1;var strDate = date.getDate();if (month >= 1 && month <= 9) {month = "0" + month;}if (strDate >= 0 && strDate <= 9) {strDate = "0" + strDate;}var currentdate = year + seperator1 + month + seperator1 + strDate;return currentdate;}, // 下一步
     nextStep: function nextStep() {this.step++;console.log(this.step);}, // 上一步
     preStep: function preStep() {this.step--;}, // 根据id查询
-    getById: function getById(id) {var _this = this;_lwEntryOrder.default.get(id).then(function (res) {_this.lwEntryOrder = res.data;});}, // 添加
+    getById: function getById(id) {var _this = this;_lwEntryOrder.default.get(id).then(function (res) {_this.lwEntryOrder = res.data;console.log(_this.lwEntryOrder);});}, // 添加
     add: function add() {console.log('add');_lwEntryOrder.default.save(this.lwEntryOrder).then(function (res) {console.log('表单数据信息：', res);uni.showToast({ title: '表单提交成功!', duration: 3000, success: function success() {uni.switchTab({ url: _pageAddress.default.entryOrder });} });}).catch(function (err) {console.log('表单错误信息：', err);uni.showToast({ title: '表单信息错误,请检查后重新提交!', duration: 2000, icon: none });});}, // 更新操作
-    update: function update() {console.log('update');} } };exports.default = _default;
+    update: function update() {console.log('update');_lwEntryOrder.default.update(this.lwEntryOrder).then(function (res) {console.log('表单数据信息：', res);uni.showToast({ title: '订单修改成功!', duration: 3000, success: function success() {uni.switchTab({ url: _pageAddress.default.entryOrder });} });}).catch(function (err) {console.log('表单错误信息：', err);uni.showToast({ title: '订单信息错误,请检查后重新提交!', duration: 2000, icon: none });});} } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),

@@ -178,7 +178,8 @@ var _wechat = _interopRequireDefault(__webpack_require__(/*! @/api/wechat.js */ 
 //
 //
 var _default = { data: function data() {return { SessionKey: '', OpenId: '', // 当前登录用户
-      loginUser: null, // 页面类型  0:用户页面  1:管理员界面
+      loginUser: null, //登录按钮是否不可用
+      isDisabled: true, // 页面类型  0:用户页面  1:管理员界面
       pageType: 0, isCanUse: uni.getStorageSync('isCanUse') || true //默认为true
     };}, methods: { //第一授权获取用户信息===》按钮触发
     wxGetUserInfo: function wxGetUserInfo() {// uni.showLoading({
@@ -186,7 +187,8 @@ var _default = { data: function data() {return { SessionKey: '', OpenId: '', // 
       // });
       var _this = this; //if (uni.getStorageSync('loginUser') && !_this.isCanUse) {
       uni.getUserProfile({ desc: '登录', success: function success(res) {console.log(uni.getStorageSync('loginUser'));if (!uni.getStorageSync('loginUser')) {try {uni.setStorageSync('isCanUse', false); //记录是否第一次授权  false:表示不是第一次授权
-              _this.getUserInfo(res);} catch (e) {}_this.login();} // wx.showLoading()
+              _this.getUserInfo(res);} catch (e) {}_this.login();}
+          // wx.showLoading()
         },
         fail: function fail(res) {
           uni.showToast({
@@ -218,12 +220,12 @@ var _default = { data: function data() {return { SessionKey: '', OpenId: '', // 
                 _this.loginUser = res.data;
                 _this.navigateTo();
               });
-
               _this2.navigateTo();
               console.log(res.data.token);
             } else {
               uni.setStorageSync('openId', res.data.openId);
               console.log("openid:" + res.data.openId);
+              _this2.$set(_this2, 'isDisabled', false);
             }
             // uni.hideLoading()
             console.log(uni.getStorageSync('loginUser'));
@@ -235,7 +237,7 @@ var _default = { data: function data() {return { SessionKey: '', OpenId: '', // 
     navigateTo: function navigateTo() {
       if (this.loginUser) {
         console.log('page:' + (this.loginUser.level > this.role.user));
-        if (this.loginUser.level > this.role.user) {
+        if (this.loginUser.level != this.role.user) {
           uni.redirectTo({
             url: '/pages/selectPage/selectPage' });
 

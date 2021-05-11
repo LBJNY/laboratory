@@ -96,10 +96,10 @@ var components
 try {
   components = {
     uniForms: function() {
-      return Promise.all(/*! import() | components/uni-forms/uni-forms */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-forms/uni-forms")]).then(__webpack_require__.bind(null, /*! @/components/uni-forms/uni-forms.vue */ 349))
+      return Promise.all(/*! import() | components/uni-forms/uni-forms */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-forms/uni-forms")]).then(__webpack_require__.bind(null, /*! @/components/uni-forms/uni-forms.vue */ 352))
     },
     xflSelect: function() {
-      return __webpack_require__.e(/*! import() | components/xfl-select/xfl-select */ "components/xfl-select/xfl-select").then(__webpack_require__.bind(null, /*! @/components/xfl-select/xfl-select.vue */ 367))
+      return __webpack_require__.e(/*! import() | components/xfl-select/xfl-select */ "components/xfl-select/xfl-select").then(__webpack_require__.bind(null, /*! @/components/xfl-select/xfl-select.vue */ 370))
     }
   }
 } catch (e) {
@@ -125,11 +125,20 @@ var render = function() {
   var _c = _vm._self._c || _h
   var f0 = _vm._f("date-format")(_vm.lwServiceOrder.currentDate)
 
+  var f1 = _vm._f("date-format")(_vm.lwServiceOrder.currentDate)
+
+  if (!_vm._isMounted) {
+    _vm.e0 = function($event) {
+      _vm.activeId == null ? _vm.add() : _vm.update()
+    }
+  }
+
   _vm.$mp.data = Object.assign(
     {},
     {
       $root: {
-        f0: f0
+        f0: f0,
+        f1: f1
       }
     }
   )
@@ -167,6 +176,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
+
 
 
 
@@ -987,7 +997,8 @@ var _lwServiceType = _interopRequireDefault(__webpack_require__(/*! @/api/lw-ser
 //
 //
 //
-var xflSelect = function xflSelect() {__webpack_require__.e(/*! require.ensure | components/xfl-select/xfl-select */ "components/xfl-select/xfl-select").then((function () {return resolve(__webpack_require__(/*! ../../../components/xfl-select/xfl-select */ 367));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default = { data: function data() {return { //当前步骤
+//
+var xflSelect = function xflSelect() {__webpack_require__.e(/*! require.ensure | components/xfl-select/xfl-select */ "components/xfl-select/xfl-select").then((function () {return resolve(__webpack_require__(/*! ../../../components/xfl-select/xfl-select */ 370));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default = { data: function data() {return { //当前步骤
       step: 1, //人员字符串
       personReq: null, // 所需人员等级
       level: ['首席', '资深', '高级', '中级', '初级'], /**
@@ -1015,11 +1026,11 @@ var xflSelect = function xflSelect() {__webpack_require__.e(/*! require.ensure |
     getNowFormatDate: function getNowFormatDate() {var date = new Date();var seperator1 = "-";var year = date.getFullYear();var month = date.getMonth() + 1;var strDate = date.getDate();if (month >= 1 && month <= 9) {month = "0" + month;}if (strDate >= 0 && strDate <= 9) {strDate = "0" + strDate;}var currentdate = year + seperator1 + month + seperator1 + strDate;return currentdate;}, // 获取人员需求字符串
     getPersonReq: function getPersonReq() {var that = this;var req = [];var strArray = [];if (that.lwServiceOrder.personReq != null && that.lwServiceOrder.personReq != '') {req = that.lwServiceOrder.personReq.split('-');for (var index = 0; index < req.length; index++) {var element = req[index];var strNext = '';if (element !== '0' && element !== '') {strNext += that.level[index] + req[index] + '人';strArray.push(strNext);}}}this.personReq = strArray.join(',');}, // 下一步
     nextStep: function nextStep() {this.step++;console.log(this.step);}, // 上一步
-    preStep: function preStep() {this.step--;}, /**
-                                                 * 复写 binddata 方法，如果只是为了校验，无复杂自定义操作，可忽略此方法
-                                                 * @param {String} name 字段名称
-                                                 * @param {String} value 表单域的值
-                                                 */ // binddata(name,value){
+    preStep: function preStep() {this.step--;}, init_checkBox: function init_checkBox() {var that = this;var req = [];if (that.lwServiceOrder.personReq != null && that.lwServiceOrder.personReq != '') {req = that.lwServiceOrder.personReq.split('-');for (var index = 0; index < req.length; index++) {if (req[index] !== '0') {that.checkbox[index].checked = true;that.checkbox[index].number = req[index];}console.log(req[index] === '0');}}}, /**
+                                                                                                                                                                                                                                                                                                                                                                                                                                                       * 复写 binddata 方法，如果只是为了校验，无复杂自定义操作，可忽略此方法
+                                                                                                                                                                                                                                                                                                                                                                                                                                                       * @param {String} name 字段名称
+                                                                                                                                                                                                                                                                                                                                                                                                                                                       * @param {String} value 表单域的值
+                                                                                                                                                                                                                                                                                                                                                                                                                                                       */ // binddata(name,value){
     // 通过 input 事件设置表单指定 name 的值
     //   this.$refs.form.setValue(name, value)
     // },
@@ -1037,10 +1048,11 @@ var xflSelect = function xflSelect() {__webpack_require__.e(/*! require.ensure |
     fundSupportChange: function fundSupportChange(_ref2) {var newVal = _ref2.newVal,index = _ref2.index;console.log(newVal, index);this.$set(this.lwServiceOrder, 'fundSupport', newVal);}, /**
                                                                                                                                                                                              * 返回
                                                                                                                                                                                              */returnBack: function returnBack() {uni.navigateBack();}, // 根据id查询
-    getById: function getById(id) {var _this = this;_lwServiceOrder.default.get(id).then(function (res) {_this.lwServiceOrder = res.data;});}, // 获取所有资金支持类型
+    getById: function getById(id) {var _this = this;_lwServiceOrder.default.get(id).then(function (res) {_this.lwServiceOrder = res.data;_this.init_checkBox();console.log(_this.lwServiceOrder);});}, // 获取所有资金支持类型
     getAllFundSupports: function getAllFundSupports() {var _this2 = this;_lwFundSupport.default.getAll().then(function (res) {_this2.fundSupportList = res.data;});}, // 获取所有服务委托类型
     getAllServiceTypes: function getAllServiceTypes() {var _this3 = this;_lwServiceType.default.getAll().then(function (res) {_this3.serviceTypeList = res.data;console.log("长度" + _this3.serviceTypeList.length);});}, // 添加
-    add: function add() {_lwServiceOrder.default.save(this.lwServiceOrder).then(function (res) {console.log('表单数据信息：', res);uni.showToast({ title: '表单提交成功!', duration: 3000, success: function success() {uni.switchTab({ url: _pageAddress.default.serviceOrder });} });}).catch(function (err) {console.log('表单错误信息：', err);uni.showToast({ title: '表单信息错误,请检查后重新提交!', duration: 2000, icon: none });});} }, components: { xflSelect: xflSelect } };exports.default = _default;
+    add: function add() {_lwServiceOrder.default.save(this.lwServiceOrder).then(function (res) {console.log('表单数据信息：', res);uni.showToast({ title: '表单提交成功!', duration: 3000, success: function success() {uni.switchTab({ url: _pageAddress.default.serviceOrder });} });}).catch(function (err) {console.log('表单错误信息：', err);uni.showToast({ title: '表单信息错误,请检查后重新提交!', duration: 2000, icon: none });});}, // 更新操作
+    update: function update() {console.log('update');_lwServiceOrder.default.update(this.lwServiceOrder).then(function (res) {console.log('表单数据信息：', res);uni.showToast({ title: '订单修改成功!', duration: 3000, success: function success() {uni.switchTab({ url: _pageAddress.default.serviceOrder });} });}).catch(function (err) {console.log('表单错误信息：', err);uni.showToast({ title: '订单信息错误,请检查后重新提交!', duration: 2000, icon: none });});} }, components: { xflSelect: xflSelect } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),

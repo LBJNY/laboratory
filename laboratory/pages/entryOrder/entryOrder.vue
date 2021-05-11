@@ -29,7 +29,7 @@
 					</view>
 				</view>
 				<view class="btn add flex-direction flex align-center" v-if="pageType==0">
-					<button class="cu-btn bg-blue xs">
+					<button class="cu-btn bg-blue xs" @click="toAddEntryOrder">
 						<view class="lg text-white cuIcon-roundaddfill addIcon"></view>添加进场单
 					</button>
 				</view>
@@ -101,7 +101,7 @@
 					</view>
 				</view>
 				<view v-else class="flex justify-center admin" style="width: 100%;">
-					<view class="container" v-if="level==2||level==3">
+					<view class="container" v-if="level==0||level==3">
 						<view v-if="entryOrderList.length>0">
 							<view class="listItem align-center justify-center box-sizing" v-for="item in entryOrderList"
 								:key="item.id">
@@ -126,12 +126,12 @@
 									<view class="choose flex">
 										<view class="flex-sub btnT" v-if="item.verifyStatus==0">
 											<button class="cu-btn round bg-white blue text-blue" :id="item.id"
-												@click="toOrderExamine">
+												@click="toAdminEntryOrderExamine">
 												点击审核
 											</button>
 										</view>
 										<view class="flex-sub btnT">
-											<button class="cu-btn round bg-white blue text-blue" @click="toOrderinfo(1)"
+											<button class="cu-btn round bg-white blue text-blue" @click="toAdminEntryOrderInfo"
 												:id="item.id">
 												查看进度
 											</button>
@@ -170,8 +170,8 @@
 					// 每页条数
 					pageSize: 10
 				},
-				// 0:用户  1:服务委托单  2 进场单  3:顶级权限
-				level: 0,
+				// 1:用户  2:服务委托单  3:进场单  0:顶级权限
+				level: 1,
 				// 进场单数量
 				entryOrderStatistic: {},
 				// 进场单列表
@@ -213,7 +213,7 @@
 				this.getEntryOrderList()
 				this.getEntryOrderNumber()
 			},
-			// 获取服务委托单数量
+			// 获取进场单数量
 			getEntryOrderNumber() {
 				if (this.pageType == this.role.admin_page_num) {
 					entryOrderApi.getEntryTotalCount().then(res => {
@@ -225,7 +225,7 @@
 					})
 				}
 			},
-			// 获取服务委托单列表
+			// 获取进场单列表
 			getEntryOrderList() {
 				entryOrderApi.getByPage(this.entryPage).then(res => {
 					this.entryPage = res.data
@@ -237,7 +237,7 @@
 					// console.log(this.serviceOrderList)
 				})
 			},
-			// 服务委托单滑动到底部
+			// 进场单滑动到底部
 			entryOrderToBottom() {
 				if (this.entryPage.list.length === this.entryPage.pageSize) {
 					this.entryPage.currentPage = this.entryPage.currentPage + 1
@@ -245,7 +245,7 @@
 				}
 			},
 			/**
-			 * 删除
+			 * 删除---用户
 			 */
 			del(event) {
 				var id = event.currentTarget.id
@@ -267,6 +267,14 @@
 						duration: 2000,
 						icon: none
 					});
+				})
+			},
+			/**
+			 * 跳转到添加进场单页面---用户
+			 */
+			toAddEntryOrder() {
+				uni.navigateTo({
+					url: address.user_entryOrder_save
 				})
 			},
 			// 处理排序
@@ -303,10 +311,9 @@
 				this.getEntryOrderList()
 			},
 			/**
-			 * 跳转到进场单审核
+			 * 跳转到进场单审核详情---用户
 			 */
 			toOrderExamine(event) {
-				console.log(111111111)
 				var id = event.currentTarget.id
 				console.log(address.user_entryOrder_examine)
 				uni.navigateTo({
@@ -314,7 +321,7 @@
 				})
 			},
 			/**
-			 * 跳转到进场单审核详情
+			 * 跳转到进场单审核详情---用户
 			 */
 			toOrderinfo(event) {
 				var id = event.currentTarget.id
@@ -324,6 +331,20 @@
 				})
 			},
 
+			// 跳转到订单详情页面---管理员
+			toAdminEntryOrderInfo(event) {
+				var id = event.currentTarget.id
+				uni.navigateTo({
+					url: address.admin_entryOrder_info + '?activeId=' + id
+				})
+			},
+			// 跳转到审核页面---管理员
+			toAdminEntryOrderExamine(event){
+				var id = event.currentTarget.id
+				uni.navigateTo({
+					url: address.admin_entryOrder_examine + '?activeId=' + id
+				})
+			}
 		},
 		mounted() {
 			this.handleSort(1)

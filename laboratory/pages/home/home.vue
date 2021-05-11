@@ -53,12 +53,12 @@
 				</view>
 				<view class="info">
 					<swiper class="swiper" :circular="true" :vertical="true" :indicator-dots="false" :autoplay="true"
-						:interval="3000" :duration="1000">
-						<!-- <swiper-item class="flex align-center" v-for="item in  noticeList" :key='item.noticeId'>
+						:interval="3000" :duration="1000" v-if="noticeList.length>0">
+						<swiper-item class="flex align-center" v-for="item in  noticeList" :key='item.id'>
 							<view class="swiper-item" @click="getNoticeInfo(item.noticeId)">
 								<text class="one-omit">{{item.noticeTitle}}</text>
 							</view>
-						</swiper-item> -->
+						</swiper-item>
 					</swiper>
 				</view>
 			</view>
@@ -96,8 +96,9 @@
 									<view class="headItem flex justify-between align-center">
 										<view class="serviceNo">{{item.serviceNo}}</view>
 										<view class="del flex box-sizing align-center justify-center">
-											<view class="lg text-gray cuIcon-deletefill addIcon"></view>
-											<view class="text-gray">删除</view>
+											<button class="cu-btn block text-gray bg-white delete btn" :id="item.id"
+												@click="del">
+												<text class="lg text-gray cuIcon-deletefill addIcon"></text> 删除</button>
 										</view>
 									</view>
 									<view class='divider' style="padding-bottom: 10rpx;" />
@@ -116,8 +117,7 @@
 										<view class="btnT">
 											<button class="cu-btn round bg-white blue text-blue"
 												style="border: 1rpx #0081FF solid !important;line-height: 60rpx;"
-												:id="item.id"
-												@click="toServiceOrderInfo">查看详情</button>
+												:id="item.id" @click="toServiceOrderInfo">查看详情</button>
 										</view>
 									</view>
 								</view>
@@ -127,7 +127,7 @@
 							</view>
 						</view>
 						<view v-else>
-							<view class="admin" v-if="level==1||level==3">
+							<view class="admin" v-if="level==0||level==2">
 								<view v-if="serviceOrderList.length>0">
 									<view class="listItem" v-for="item in serviceOrderList" :key="item.id">
 										<view class="item">
@@ -152,7 +152,7 @@
 														v-if="item.verifyStatus<3">点击审核</button>
 													<button class="cu-btn round bg-white blue text-blue"
 														style="border: 1rpx #0081FF solid !important;height: 50rpx;"
-														@click="toServiceOrderExamine(1)"
+														:id="item.id" @click="toAdminServiceOrderInfo"
 														v-if="item.verifyStatus>=3">查看详情</button>
 												</view>
 											</view>
@@ -179,8 +179,9 @@
 									<view class="headItem flex justify-between align-center">
 										<view class="entryNo">{{item.entryNo}}</view>
 										<view class="del flex box-sizing align-center justify-center">
-											<view class="lg text-gray cuIcon-deletefill addIcon"></view>
-											<view class="text-gray">删除</view>
+											<button class="cu-btn block text-gray bg-white delete btn" :id="item.id"
+												@click="del">
+												<text class="lg text-gray cuIcon-deletefill addIcon"></text> 删除</button>
 										</view>
 									</view>
 									<view class='divider' style="padding-bottom: 10rpx;" />
@@ -199,8 +200,7 @@
 										<view class="btnT">
 											<button class="cu-btn round bg-white blue text-blue"
 												style="border: 1rpx #0081FF solid !important;line-height: 60rpx;"
-												:id="item.id"
-												@click="toEntryOrderInfo">查看详情</button>
+												:id="item.id" @click="toEntryOrderExamine">查看详情</button>
 										</view>
 									</view>
 								</view>
@@ -210,7 +210,7 @@
 							</view>
 						</view>
 						<view v-else>
-							<view class="admin" v-if="level==2||level==3">
+							<view class="admin" v-if="level==0||level==3">
 								<view v-if="entryOrderList.length>0">
 									<view class="listItem" v-for="item in entryOrderList" :key="item.id">
 										<view class="item">
@@ -231,11 +231,13 @@
 												<view class="btn">
 													<button class="cu-btn round bg-white blue text-blue"
 														style="border: 1rpx #0081FF solid !important;height: 50rpx;"
-														@click="toEntryOrderInfo(1)"
+														:id="item.id"
+														@click="toAdminEntryOrderExamine"
 														v-if="item.verifyStatus===0">点击审核</button>
 													<button class="cu-btn round bg-white blue text-blue"
 														style="border: 1rpx #0081FF solid !important;height: 50rpx;"
-														@click="toEntryOrderInfo(1)" v-else>查看详情</button>
+														:id="item.id" @click="toAdminEntryOrderInfo"
+														v-else>查看详情</button>
 												</view>
 											</view>
 										</view>
@@ -269,8 +271,8 @@
 			return {
 				TabCur: 0,
 				scrollLeft: 0,
-				// 0:用户  1:服务委托单  2 进场单  3:顶级权限
-				level: 0,
+				// 1:用户  2:服务委托单  3:进场单  0:顶级权限
+				level: 1,
 				// 服务委托单数量
 				serviceOrderStatistic: {},
 				// 进场单数量
@@ -279,6 +281,8 @@
 				serviceOrderList: [],
 				// 进场单列表
 				entryOrderList: [],
+				// 通知信息列表
+				noticeList:[],
 				// 分页对象
 				servicePage: {
 					// 分页传参
@@ -295,6 +299,14 @@
 					params: {
 						role: 0,
 						// currentDate:true
+					},
+					currentPage: 1,
+					pageSize: 5
+				},
+				noticePage: {
+					// 分页传参
+					params: {
+						role: 0,
 					},
 					currentPage: 1,
 					pageSize: 5
@@ -333,16 +345,19 @@
 			init() {
 				// 获取当前页面类型 0:用户 1管理员
 				this.pageType = uni.getStorageSync('pageType')
-				console.log("pageType:"+this.pageType)
+				console.log("pageType:" + this.pageType)
 				if (this.pageType != this.role.user_page_num) {
 					this.level = uni.getStorageSync('loginUser').level
+					console.log('level:'+this.level)
 				}
 				this.servicePage.params.role = uni.getStorageSync('pageType')
 				this.entryPage.params.role = uni.getStorageSync('pageType')
+				this.noticePage.params.role = uni.getStorageSync('pageType')
 				this.getEntryOrderList()
 				this.getEntryOrderNumber()
 				this.getServiceOrderList()
 				this.getServiceOrderNumber()
+				this.getNoticeList()
 			},
 			tabSelect(e) {
 				this.TabCur = e.currentTarget.dataset.id;
@@ -355,64 +370,7 @@
 				// 	}
 				// })
 			},
-			/**
-			 * 跳转到添加服务委托单页面
-			 */
-			toAddServiceOrder() {
-				uni.navigateTo({
-					url: address.user_serviceOrder_save
-				})
-			},
-			/**
-			 * 删除服务委托单
-			 */
-			toDeleteServiceOrder() {
-				// uni.navigateTo({
-				// 	url: address.user_serviceOrder_save
-				// })
-			},
-			// 跳转到审核页面
-			toServiceOrderExamine(event) {
-				var id=event.currentTarget.id
-				uni.navigateTo({
-					url: address.admin_serviceOrder_examine+'?activeId'+id
-				})
-			},
-			/**
-			 * 跳转到服务委托单详情
-			 * @param {Object} id
-			 */
-			toServiceOrderInfo(event) {
-				var id=event.currentTarget.id
-				uni.navigateTo({
-					url: address.user_serviceOrder_examine+'?activeId='+id
-				})
-			},
-			/**
-			 * 跳转到添加进场单页面
-			 */
-			toAddEntryOrder() {
-				uni.navigateTo({
-					url: address.user_entryOrder_save
-				})
-			},
-			/**
-			 * 跳转到进场单审核页面
-			 */
-			toEntryOrderExamine(event) {
-				uni.navigateTo({
-					url: address.user_entryOrder_examine
-				})
-			},
-			/**
-			 * 跳转到进场单详情-修改页面
-			 */
-			toEntryOrderInfo(event) {
-				var id=event.currentTarget.id
-				uni.navigateTo({
-					url: address.user_entryOrder_update+'?activeId='+id
-				})
-			},
+
 			// 获取进场单数量
 			getEntryOrderNumber() {
 				if (this.pageType == this.role.admin_page_num) {
@@ -461,30 +419,174 @@
 			},
 			// 服务委托单滑动到最右边
 			serviceOrderToLower() {
-				if (this.servicePage.list.length === this.servicePage.pageSize) {
-					this.servicePage.currentPage = this.servicePage.currentPage + 1
-					this.getServiceOrderList()
+				if (this.servicePage.list !== undefined) {
+					if (this.servicePage.list.length === this.servicePage.pageSize) {
+						this.servicePage.currentPage = this.servicePage.currentPage + 1
+						this.getServiceOrderList()
+					}
 				}
 			},
 			entryOrderToLower() {
-				if (this.entryPage.list.length === this.entryPage.pageSize) {
-					this.entryPage.currentPage = this.entryPage.currentPage + 1
-					this.getEntryOrderList()
+				if (this.entryPage.list !== undefined) {
+					if (this.entryPage.list.length === this.entryPage.pageSize) {
+						this.entryPage.currentPage = this.entryPage.currentPage + 1
+						this.getEntryOrderList()
+					}
 				}
 			},
 			// 服务委托单滑动到底部
 			serviceOrderToBottom() {
-				if (this.servicePage.list.length === this.servicePage.pageSize) {
-					this.servicePage.currentPage = this.servicePage.currentPage + 1
-					this.getServiceOrderList()
+				if (this.servicePage.list !== undefined) {
+					if (this.servicePage.list.length === this.servicePage.pageSize) {
+						this.servicePage.currentPage = this.servicePage.currentPage + 1
+						this.getServiceOrderList()
+					}
 				}
 			},
 			// 进场单滑动到底部
 			entryOrderToBottom() {
-				if (this.entryPage.list.length === this.entryPage.pageSize) {
-					this.entryPage.currentPage = this.entryPage.currentPage + 1
-					this.getEntryOrderList()
+				if (this.entryPage.list !== undefined) {
+					if (this.entryPage.list.length === this.entryPage.pageSize) {
+						this.entryPage.currentPage = this.entryPage.currentPage + 1
+						this.getEntryOrderList()
+					}
 				}
+			},
+			// 获取公告列表
+			getNoticeList() {
+				serviceOrderApi.getByPage(this.servicePage).then(res => {
+					this.noticeList=[]
+					
+					this.noticeList = res.data
+				})
+			},
+
+			/**
+			 * 服务委托单---用户
+			 */
+
+			// 跳转到添加服务委托单页面---用户
+			toAddServiceOrder() {
+				uni.navigateTo({
+					url: address.user_serviceOrder_save
+				})
+			},
+			// 跳转到服务委托单审核详情---用户
+			toServiceOrderInfo(event) {
+				var id = event.currentTarget.id
+				uni.navigateTo({
+					url: address.user_serviceOrder_examine + '?activeId=' + id
+				})
+			},
+			// 删除服务委托单---用户
+			del(event) {
+				var id = event.currentTarget.id
+				serviceOrderApi.deleteById(id).then(res => {
+					uni.showToast({
+						title: '删除成功!',
+						duration: 3000,
+						success() {
+							uni.switchTab({
+								url: address.serviceOrder
+							})
+						}
+					})
+					this.init()
+				}).catch(err => {
+					uni.showToast({
+						title: '删除失败,请稍后重试',
+						duration: 2000,
+						icon: none
+					});
+				})
+			},
+
+
+			/**
+			 * 服务委托单---管理员
+			 */
+
+			// 跳转到服务委托单审核页面---管理员
+			toServiceOrderExamine(event) {
+				var id = event.currentTarget.id
+				uni.navigateTo({
+					url: address.admin_serviceOrder_examine + '?activeId' + id
+				})
+			},
+			// 跳转到服务委托单审核详情---管理员
+			toAdminServiceOrderInfo(event) {
+				var id = event.currentTarget.id
+				uni.navigateTo({
+					url: address.admin_serviceOrder_info + '?activeId=' + id
+				})
+			},
+
+			/**
+			 * 进场单---用户
+			 */
+
+			// 删除进场单---用户
+			del(event) {
+				var id = event.currentTarget.id
+				console.log(id)
+				entryOrderApi.deleteById(id).then(res => {
+					uni.showToast({
+						title: '删除成功!',
+						duration: 3000,
+						success() {
+							uni.switchTab({
+								url: address.entryOrder
+							})
+						}
+					})
+					this.init()
+				}).catch(err => {
+					uni.showToast({
+						title: '删除失败,请稍后重试',
+						duration: 2000,
+						icon: none
+					});
+				})
+			},
+
+			// 跳转到添加进场单页面---用户
+			toAddEntryOrder() {
+				uni.navigateTo({
+					url: address.user_entryOrder_save
+				})
+			},
+			// 跳转到进场单审核---用户
+			toEntryOrderExamine(event) {
+				var id = event.currentTarget.id
+				console.log(address.user_entryOrder_examine)
+				uni.navigateTo({
+					url: address.user_entryOrder_examine + '?activeId=' + id
+				})
+			},
+			// 跳转到进场单详情-修改页面---用户
+			toEntryOrderInfo(event) {
+				var id = event.currentTarget.id
+				uni.navigateTo({
+					url: address.user_entryOrder_update + '?activeId=' + id
+				})
+			},
+
+			/**
+			 * 进场单---管理员
+			 */
+			// 跳转到订单详情页面---管理员
+			toAdminEntryOrderInfo(event) {
+				var id = event.currentTarget.id
+				uni.navigateTo({
+					url: address.admin_entryOrder_info + '?activeId=' + id
+				})
+			},
+			// 跳转到审核页面---管理员
+			toAdminEntryOrderExamine(event){
+				var id = event.currentTarget.id
+				uni.navigateTo({
+					url: address.admin_entryOrder_examine + '?activeId=' + id
+				})
 			}
 		}
 	}

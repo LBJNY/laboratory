@@ -1,9 +1,6 @@
 package com.zj.laboratory.controller;
 
-import com.zj.laboratory.pojo.LwEntry;
-import com.zj.laboratory.pojo.LwOrder;
-import com.zj.laboratory.pojo.LwOrderFeedback;
-import com.zj.laboratory.pojo.LwUserStatistic;
+import com.zj.laboratory.pojo.*;
 import com.zj.laboratory.pojo.vo.LwEntryOrderVo;
 import com.zj.laboratory.pojo.vo.LwServiceOrderVo;
 import com.zj.laboratory.service.LwServiceOrderService;
@@ -138,5 +135,14 @@ public class LwServiceOrderController {
     public Result<LwUserStatistic> addFeedBack(@RequestBody LwOrderFeedback lwOrderFeedback){
         lwServiceOrderService.save(lwOrderFeedback);
         return new Result<>("反馈成功");
+    }
+    /**
+     * 审核进场单
+     * @return
+     */
+    @RequestMapping(value = "examine",method = RequestMethod.PUT)
+    public Result<?> toExamine(@RequestBody LwOrderAudit lwOrderAudit){
+        lwServiceOrderService.examine(lwOrderAudit);
+        return new Result<>("审核成功!");
     }
 }

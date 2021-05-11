@@ -41,8 +41,9 @@
 									<view class="label text-label-grey">
 										提交申请日期
 									</view>
-									<input type="text" v-model="lwServiceOrder.currentDate" class="text-right"
-										disabled />
+									<view>
+										{{lwServiceOrder.currentDate|date-format}}
+									</view>
 								</view>
 							</view>
 						</view>
@@ -244,9 +245,9 @@
 								</view>
 								<view>
 									<xfl-select :list="serviceTypeList" :clearable="false" :showItemNum="5"
-										:isCanInput="true" :style_Container="listBoxStyle" :placeholder="'placeholder'"
-										:initValue="'--请选择--'" :selectHideType="'independent'" :props="item.id"
-										@change="serviceTypeChange"
+										:isCanInput="true" :style_Container="listBoxStyle" :placeholder="'请选择服务类型'"
+										:initValue="lwServiceOrder.serviceType" :selectHideType="'independent'"
+										:props="item.id" @change="serviceTypeChange"
 										style_Container="height:50rpx;border: 1px solid #919EFF;">
 									</xfl-select>
 								</view>
@@ -256,9 +257,9 @@
 									资金类型费用承担
 								</view>
 								<xfl-select :list="fundSupportList" :clearable="false" :showItemNum="5"
-									:isCanInput="true" :style_Container="listBoxStyle" :placeholder="'placeholder'"
-									:initValue="'--请选择--'" :selectHideType="'independent'" :props="item.id"
-									@change="fundSupportChange"
+									:isCanInput="true" :style_Container="listBoxStyle" :placeholder="'请选择资金类型费承担'"
+									:initValue="lwServiceOrder.fundSupport"
+									:selectHideType="'independent'" :props="item.id" @change="fundSupportChange"
 									style_Container="height:50rpx;border: 1px solid #919EFF;">
 								</xfl-select>
 							</view>
@@ -396,7 +397,7 @@
 						</view>
 						<view class="flex justify-between next-step" style="">
 							<button class="cu-btn lg text-white return" @click="preStep">返回</button>
-							<button class="cu-btn bg-blue lg next" @click="add">确认提交</button>
+							<button class="cu-btn bg-blue lg next" @click="activeId==null?add():update()">确认提交</button>
 						</view>
 					</view>
 				</view>
@@ -498,7 +499,6 @@
 				this.activeId = params.activeId
 				this.getById(params.activeId)
 			}
-
 		},
 		onShow() {
 			this.getAllFundSupports()
@@ -548,6 +548,20 @@
 			// 上一步
 			preStep() {
 				this.step--
+			},
+			init_checkBox() {
+				var that = this
+				var req = []
+				if (that.lwServiceOrder.personReq != null && that.lwServiceOrder.personReq != '') {
+					req = that.lwServiceOrder.personReq.split('-')
+					for (let index = 0; index < req.length; index++) {
+						if (req[index] !== '0') {
+							that.checkbox[index].checked = true
+							that.checkbox[index].number = req[index]
+						}
+						console.log(req[index] === '0')
+					}
+				}
 			},
 			/**
 			 * 复写 binddata 方法，如果只是为了校验，无复杂自定义操作，可忽略此方法
@@ -607,6 +621,8 @@
 			getById(id) {
 				serviceOrderApi.get(id).then(res => {
 					this.lwServiceOrder = res.data
+					this.init_checkBox()
+					console.log(this.lwServiceOrder)
 				})
 			},
 			// 获取所有资金支持类型
@@ -640,6 +656,29 @@
 					console.log('表单错误信息：', err);
 					uni.showToast({
 						title: '表单信息错误,请检查后重新提交!',
+						duration: 2000,
+						icon: none
+					});
+				})
+			},
+			// 更新操作
+			update() {
+				console.log('update')
+				serviceOrderApi.update(this.lwServiceOrder).then(res => {
+					console.log('表单数据信息：', res);
+					uni.showToast({
+						title: '订单修改成功!',
+						duration: 3000,
+						success() {
+							uni.switchTab({
+								url: address.serviceOrder
+							})
+						}
+					})
+				}).catch(err => {
+					console.log('表单错误信息：', err);
+					uni.showToast({
+						title: '订单信息错误,请检查后重新提交!',
 						duration: 2000,
 						icon: none
 					});

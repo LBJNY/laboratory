@@ -175,8 +175,9 @@
   -webkit-flex-direction: row;
           flex-direction: row;
 }
-.bottom .user .listItem .headItem .del .text-gray.data-v-92bb8f34 {
-  padding-left: 8rpx;
+.bottom .user .listItem .headItem .del .btn.data-v-92bb8f34 {
+  height: 20rpx;
+  font-size: 22rpx;
 }
 .bottom .user .listItem .middle.data-v-92bb8f34 {
   color: #6C6E85;

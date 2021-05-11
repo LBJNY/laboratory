@@ -54,23 +54,23 @@ public interface LwEntryOrderMapper {
     /**
      * 删除
      *
-     * @param id
+     * @param lwEntry
      */
-    void delete(Long id);
+    int delete(LwEntry lwEntry);
 
     /**
      * 有效
      *
-     * @param id
+     * @param lwEntry
      */
-    void enableById(Long id);
+    int enableById(LwEntry lwEntry);
 
     /**
      * 失效
      *
-     * @param id
+     * @param lwEntry
      */
-    void disableById(Long id);
+    int disableById(LwEntry lwEntry);
 
     /**
      * 添加
@@ -84,7 +84,7 @@ public interface LwEntryOrderMapper {
      *
      * @param lwEntry
      */
-    void update(LwEntry lwEntry);
+    int update(LwEntry lwEntry);
 
     /**
      * 小程序端获取 进场单列表
@@ -104,5 +104,7 @@ public interface LwEntryOrderMapper {
      * @param type
      * @return
      */
-    Integer selectCountByType(@Param("type") Integer type);
+//    Integer selectCountByType(@Param("type") Integer type);
+
+    int examine(LwEntry lwEntry);
 }

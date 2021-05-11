@@ -83,7 +83,7 @@
   position: absolute;
   width: 100%;
   left: 0;
-  top: 50px;
+  top: 60rpx !important;
   box-sizing: border-box;
   z-index: 100;
 }

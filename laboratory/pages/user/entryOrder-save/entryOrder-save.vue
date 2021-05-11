@@ -41,8 +41,9 @@
 									<view class="label text-label-grey">
 										提交申请日期
 									</view>
-									<input type="text" v-model="lwEntryOrder.currentDate" disabled class="text-right"
-										value="2019-9-9" />
+									<view class="">
+										{{lwEntryOrder.currentDate|date-format}}
+									</view>
 								</view>
 							</view>
 						</view>
@@ -309,6 +310,7 @@
 			getById(id) {
 				entryOrderApi.get(id).then(res => {
 					this.lwEntryOrder = res.data
+					console.log(this.lwEntryOrder)
 				})
 			},
 			// 添加
@@ -337,6 +339,25 @@
 			// 更新操作
 			update() {
 				console.log('update')
+				entryOrderApi.update(this.lwEntryOrder).then(res => {
+					console.log('表单数据信息：', res);
+					uni.showToast({
+						title: '订单修改成功!',
+						duration: 3000,
+						success() {
+							uni.switchTab({
+								url: address.entryOrder
+							})
+						}
+					})
+				}).catch(err => {
+					console.log('表单错误信息：', err);
+					uni.showToast({
+						title: '订单信息错误,请检查后重新提交!',
+						duration: 2000,
+						icon: none
+					});
+				})
 			}
 		}
 	}

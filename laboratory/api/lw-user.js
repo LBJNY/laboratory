@@ -65,5 +65,14 @@ export default {
       method: 'put',
       data: lwUser 
     })
-  }
+  },
+  /**
+   * 根据订单编号查询审核人员列表
+   */
+   getReviewerList(serviceNo) {
+    return request({
+      url: `/${groupName}/getReviewerList/${serviceNo}`,
+      method: 'get'
+    })
+  },
 }

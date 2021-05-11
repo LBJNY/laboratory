@@ -91,7 +91,7 @@
 				</view>
 				<view class="flex justify-between next-step" style="">
 					<button class="cu-btn lg text-white return" @click="returnBack">返回</button>
-					<button class="cu-btn lg bg-blue update" @click="toUpdate">确认修改</button>
+					<button class="cu-btn lg bg-blue update" :id="lw" @click="toUpdate">确认修改</button>
 				</view>
 			</view>
 
@@ -101,21 +101,39 @@
 
 <script>
 	import address from 'utils/page-address.js';
+	import serviceOrderApi from '@/api/lw-service-order';
 	export default {
 		data() {
-			return {}
+			return {
+				// 服务委托单详情
+				lwServiceOrder: {},
+				// 订单ID
+				activeId: null
+			}
+		},
+		onLoad(params) {
+			this.activeId = params.activeId
+			this.getById(params.activeId)
 		},
 		methods: {
-			toUpdate() {
-				console.log(1111)
+			// 根据id查询
+			getById(id) {
+				serviceOrderApi.get(id).then(res => {
+					this.lwServiceOrder = res.data
+					console.log(res.data)
+				})
+			},
+			// 跳转到确认修改页面
+			toUpdate(event) {
+				var id = event.currentTarget.id
 				uni.navigateTo({
-					url: address.user_serviceOrder_save
+					url: address.user_serviceOrder_save + '?activeId=' + this.lwServiceOrder.id
 				})
 			},
 			/**
 			 * 返回
 			 */
-			returnBack: function(){
+			returnBack: function() {
 				uni.navigateBack()
 			}
 		}

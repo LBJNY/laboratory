@@ -64,6 +64,14 @@ public interface LwServiceOrderMapper {
     LwOrder get(Long id);
 
     /**
+     * 根据id获取详细信息
+     *
+     * @param serviceNo
+     * @return
+     */
+    LwOrder getByServiceNo(String serviceNo);
+
+    /**
      * 添加
      *
      * @param lwOrder
@@ -96,4 +104,10 @@ public interface LwServiceOrderMapper {
      * @param serviceNo
      */
     void updateFeedBack(@Param("serviceNo")String serviceNo);
+
+    /**
+     * 更新状态
+     * @param lwOrder
+     */
+    int updateVerifyStatus(LwOrder lwOrder);
 }

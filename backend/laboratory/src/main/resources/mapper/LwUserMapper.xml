@@ -164,6 +164,16 @@
     <select id="getUpdateInfo" resultMap="BaseResultMap">
         select id, name, level, reviewerType
         from lw_user
-        where id=#{id}
+        where id = #{id}
+    </select>
+    <select id="getByReviewerType" resultMap="BaseResultMap">
+        select id, name, nickName
+        from lw_user
+        where reviewerType = #{reviewerType}
+    </select>
+    <select id="getByLevel" resultMap="BaseResultMap">
+        select id, name, nickName
+        from lw_user
+        where level = #{level}
     </select>
 </mapper>

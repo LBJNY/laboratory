@@ -103,5 +103,16 @@ export default {
   		method: 'post',
 		data: lwOrderFeedBack
   	})
+  },
+  /**
+   * 审核
+   * @param {Object} lwEntryOrder
+   */
+  examine(lwServiceOrderAudit){
+  	return request({
+  		url: `/${groupName}/examine`,
+  		method: 'put',
+  		data: lwServiceOrderAudit
+  	})
   }
 }

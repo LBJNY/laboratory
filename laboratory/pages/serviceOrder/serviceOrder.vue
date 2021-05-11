@@ -84,7 +84,7 @@
 							<view class="bott flex justify-between">
 								<view class="choose flex">
 									<view class="flex-sub btnT" v-if="item.verifyStatus!=3">
-										<button class="cu-btn round bg-white blue text-blue" :id="item.id" @click="toOrderInfo">
+										<button class="cu-btn round bg-white blue text-blue" :id="item.id" @click="toOrderUpdate">
 											查看详情
 										</button>
 									</view>
@@ -111,7 +111,7 @@
 					</view>
 				</view>
 				<view v-else class="flex justify-center admin" style="width: 100%;">
-					<view class="container" v-if="level==1||level==3">
+					<view class="container" v-if="level==0||level==2">
 						<view v-if="serviceOrderList.length>0" >
 							<view class="listItem align-center justify-center box-sizing"
 								v-for="item in serviceOrderList" :key="item.id">
@@ -136,19 +136,22 @@
 									<view class="choose flex">
 										<view class="flex-sub btnT"  v-if="item.verifyStatus<3">
 											<button class="cu-btn round bg-white blue text-blue"
-												@click="toServiceOrderExamine(1)">
+											:id="item.id"
+												@click="toAdminEntryOrderExamine">
 												点击审核
 											</button>
 										</view>
 										<view class="flex-sub btnT"  v-if="item.verifyStatus<3">
 											<button class="cu-btn round bg-white blue text-blue"
-												@click="toOrderExamine">
+											:id="item.id"
+												@click="toAdminEntryOrderInfo">
 												查看进度
 											</button>
 										</view>
 										<view class="flex-sub btnT"  v-if="item.verifyStatus>=3">
 											<button class="cu-btn round bg-white blue text-blue"
-												@click="toOrderExamine">
+											:id="item.id"
+												@click="toAdminEntryOrderInfo">
 												查看详情
 											</button>
 										</view>
@@ -175,8 +178,8 @@
 	export default {
 		data() {
 			return {
-				// 0:用户  1:服务委托单  2 进场单  3:顶级权限
-				level: 0,
+				// 1:用户  2:服务委托单  3:进场单  0:顶级权限
+				level: 1,
 				// 服务委托单数量
 				serviceOrderStatistic: {},
 				// 服务委托单列表
@@ -280,6 +283,14 @@
 					});
 				})
 			},
+			// 跳转到修改页面
+			toOrderUpdate(event){
+				console.log(11111)
+				var id = event.currentTarget.id
+				uni.navigateTo({
+					url: address.user_serviceOrder_update + '?activeId=' + id
+				})
+			},
 			// 处理排序
 			handleSort(type) {
 				let _this = this
@@ -331,7 +342,7 @@
 				})
 			},
 			/**
-			 * 跳转到服务委托单审核详情
+			 * 跳转到服务委托单审核详情---用户
 			 */
 			toOrderExamine(event) {
 				var id=event.currentTarget.id
@@ -339,14 +350,21 @@
 					url: address.user_serviceOrder_examine+'?activeId='+id
 				})
 			},
-			// 跳转到审核页面
-			toServiceOrderExamine(event) {
-				var id=event.currentTarget.id
+			// 跳转到订单详情页面---管理员
+			toAdminEntryOrderInfo(event) {
+				var id = event.currentTarget.id
 				uni.navigateTo({
-					url: address.admin_serviceOrder_examine+'?activeId='+id
+					url: address.admin_serviceOrder_info + '?activeId=' + id
 				})
 			},
-			// 跳转到反馈页面
+			// 跳转到审核页面---管理员
+			toAdminEntryOrderExamine(event){
+				var id = event.currentTarget.id
+				uni.navigateTo({
+					url: address.admin_serviceOrder_examine + '?activeId=' + id
+				})
+			},
+			// 跳转到反馈页面---用户
 			toOrderFeedBack(event){
 				var id=event.currentTarget.id
 				uni.navigateTo({

@@ -25,7 +25,7 @@
 				</view>
 			</view>
 		</view>
-		<view class="flex  justify-center btn" v-if="level !== 0">
+		<view class="flex  justify-center btn" v-if="level !== 1">
 			<button class="cu-btn bg-blue margin-tb-sm lg" style="width: 90%;"
 				@click="changePage">切换界面(当前:{{pageName}})</button>
 		</view>
@@ -39,8 +39,8 @@
 				// 页面类型
 				pageType: 0,
 				pageName: '用户',
-				// 0:用户  1:服务委托单  2 进场单  3:顶级权限
-				level: 0,
+				// 1:用户  2:服务委托单  3:进场单  0:顶级权限
+				level: 1,
 				// 当前登录用户信息
 				loginUser: null
 			}

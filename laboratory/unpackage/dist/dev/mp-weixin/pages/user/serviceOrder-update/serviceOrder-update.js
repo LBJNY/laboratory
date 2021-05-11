@@ -232,7 +232,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var _pageAddress = _interopRequireDefault(__webpack_require__(/*! utils/page-address.js */ 204));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
+var _pageAddress = _interopRequireDefault(__webpack_require__(/*! utils/page-address.js */ 204));
+var _lwServiceOrder = _interopRequireDefault(__webpack_require__(/*! @/api/lw-service-order */ 214));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
 //
 //
 //
@@ -333,9 +334,13 @@ var _pageAddress = _interopRequireDefault(__webpack_require__(/*! utils/page-add
 //
 //
 //
-var _default = { data: function data() {return {};}, methods: { toUpdate: function toUpdate() {console.log(1111);uni.navigateTo({ url: _pageAddress.default.user_serviceOrder_save });}, /**
-                                                                                                                                                                                          * 返回
-                                                                                                                                                                                          */returnBack: function returnBack() {uni.navigateBack();} } };exports.default = _default;
+var _default = { data: function data() {return { // 服务委托单详情
+      lwServiceOrder: {}, // 订单ID
+      activeId: null };}, onLoad: function onLoad(params) {this.activeId = params.activeId;this.getById(params.activeId);}, methods: { // 根据id查询
+    getById: function getById(id) {var _this = this;_lwServiceOrder.default.get(id).then(function (res) {_this.lwServiceOrder = res.data;console.log(res.data);});}, // 跳转到确认修改页面
+    toUpdate: function toUpdate(event) {var id = event.currentTarget.id;uni.navigateTo({ url: _pageAddress.default.user_serviceOrder_save + '?activeId=' + this.lwServiceOrder.id });}, /**
+                                                                                                                                                                                         * 返回
+                                                                                                                                                                                         */returnBack: function returnBack() {uni.navigateBack();} } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),

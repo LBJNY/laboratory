@@ -801,7 +801,7 @@
 		
 		/****** 列表框部分样式 *****/
 		.list-container{
-			position: absolute; width: 100%; left: 0; top: 50px;
+			position: absolute; width: 100%; left: 0; top: 60rpx !important;
 			box-sizing: border-box; z-index: 100;
 			
 			//***************************  弹出框上面的小三角  ***************************

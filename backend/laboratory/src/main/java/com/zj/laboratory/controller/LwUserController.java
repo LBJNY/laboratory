@@ -2,6 +2,7 @@ package com.zj.laboratory.controller;
 
 
 import com.zj.laboratory.pojo.LwUser;
+import com.zj.laboratory.pojo.vo.LwReviewerVo;
 import com.zj.laboratory.pojo.vo.LwUserStatisticVo;
 import com.zj.laboratory.pojo.vo.LwUserVo;
 import com.zj.laboratory.service.LwUserService;
@@ -110,5 +111,15 @@ public class LwUserController {
     public Result<List<LwUserStatisticVo>> getTopStatistic() {
         List<LwUserStatisticVo> list = lwUserService.getTopStatistic();
         return new Result<>(list);
+    }
+    /**
+     * 查询审核人列表
+     * @param serviceNo
+     * @return
+     */
+    @RequestMapping(value = "/getReviewerList/{serviceNo}",method = RequestMethod.GET)
+    public Result<List<LwReviewerVo>> getReviewerList(@PathVariable String serviceNo){
+        List<LwReviewerVo> lwUserList=lwUserService.getReviewerList(serviceNo);
+        return new Result<>(lwUserList);
     }
 }

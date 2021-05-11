@@ -25,4 +25,10 @@ public interface LwOrderAuditMapper {
      * @param lwOrderAudit
      */
     void save(LwOrderAudit lwOrderAudit);
+
+    /**
+     * 更新审核信息
+     * @param lwOrderAudit
+     */
+    int update(LwOrderAudit lwOrderAudit);
 }

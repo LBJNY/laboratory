@@ -4,6 +4,7 @@ package com.zj.laboratory.service;
 
 import com.zj.laboratory.pojo.LwUser;
 import com.zj.laboratory.pojo.dto.LwUserBindDto;
+import com.zj.laboratory.pojo.vo.LwReviewerVo;
 import com.zj.laboratory.pojo.vo.LwUserStatisticVo;
 import com.zj.laboratory.pojo.vo.LwUserVo;
 import com.zj.laboratory.utils.Page;
@@ -94,4 +95,10 @@ public interface LwUserService {
      * @return
      */
     LwUserVo getUpdateInfo(Long id);
+    /**
+     * 获取指定审核人列表
+     * @param serviceNo
+     * @return
+     */
+    List<LwReviewerVo> getReviewerList(String serviceNo);
 }

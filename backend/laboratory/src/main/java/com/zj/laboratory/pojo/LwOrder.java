@@ -111,9 +111,9 @@ public class LwOrder implements Serializable {
      */
     private Integer isLook;
     /**
-     * 是否上锁（0：未锁  1：上锁）
+     * 版本号
      */
-    private Integer isLock;
+    private Integer version;
     /**
      * 是否反馈过（0：反馈过  1：没有反馈过）
      */

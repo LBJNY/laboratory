@@ -32,7 +32,7 @@ public class LwOrderAudit implements Serializable {
     /**
      * 申请单位和部门审核人id
      */
-    private String deptOfficerId;
+    private Long deptOfficerId;
     /**
      * 申请单位和部门审核人名称
      */
@@ -44,7 +44,7 @@ public class LwOrderAudit implements Serializable {
     /**
      * 实验室审核意见人id
      */
-    private String labOfficerId;
+    private Long labOfficerId;
     /**
      * 实验室审核意见人名称
      */
@@ -56,7 +56,7 @@ public class LwOrderAudit implements Serializable {
     /**
      * 创新合作部审核意见人id
      */
-    private String chOfficerId;
+    private Long chOfficerId;
     /**
      * 创新合作部审核意见人名称
      */
@@ -66,4 +66,8 @@ public class LwOrderAudit implements Serializable {
      */
     private String status;
 
+    /**
+     * 版本号
+     */
+    private Integer version;
 }

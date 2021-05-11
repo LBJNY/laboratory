@@ -128,7 +128,7 @@
 			},
 			toUpdate(id) {
 				uni.navigateTo({
-					url: address.user_entryOrder_save
+					url: address.user_entryOrder_save+'?activeId='+this.lwEntryOrder.id
 				})
 			},
 			// 根据id查询

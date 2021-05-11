@@ -1,8 +1,6 @@
 package com.zj.laboratory.service;
 
-import com.zj.laboratory.pojo.LwOrder;
-import com.zj.laboratory.pojo.LwOrderFeedback;
-import com.zj.laboratory.pojo.LwUserStatistic;
+import com.zj.laboratory.pojo.*;
 import com.zj.laboratory.pojo.vo.LwServiceOrderVo;
 import com.zj.laboratory.utils.Page;
 
@@ -75,4 +73,11 @@ public interface LwServiceOrderService {
      * @param lwOrderFeedback
      */
     void save(LwOrderFeedback lwOrderFeedback);
+
+
+    /**
+     * 订单审核
+     * @param lwOrderAudit
+     */
+    void examine(LwOrderAudit lwOrderAudit);
 }

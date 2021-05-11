@@ -6,7 +6,7 @@
 					天翼智慧家庭科技有限公司
 				</view>
 				<view class="order-type">
-					实验室服务委托单
+					实验室进场单
 				</view>
 			</view>
 		</view>
@@ -82,15 +82,15 @@
 						<view class="detail bg-white border-radius">
 							<view class="flex item">
 								<view class="flex-sub radius text-label-grey">实验室审核意见</view>
-								<radio-group name="" class="radio-group">
+								<radio-group class="radio-group" @change="examineChange">
 									<label>
-										<radio class='blue radio radio-a' :class="radio=='B'?'checked':''"
-											:checked="radio=='B'?true:false" value="B"></radio>
+										<radio class='blue radio radio-a' :class="radio==1?'checked':''"
+											:checked="radio==1?true:false" value="1"></radio>
 										<text>通过</text>
 									</label>
 									<label>
-										<radio class='red radio radio-a' :class="radio=='B'?'checked':''"
-											:checked="radio=='B'?true:false" value="B"></radio>
+										<radio class='red radio radio-a' :class="radio==2?'checked':''"
+											:checked="radio==2?true:false" value="2"></radio>
 										<text>不通过</text>
 									</label>
 								</radio-group>
@@ -101,8 +101,8 @@
 				</view>
 				<view class="flex justify-center next-step" style="">
 					<button class="cu-btn lg text-white return" @click="returnBack">返回</button>
-					<button class="cu-btn lg text-white bg-blue" @click="toUpdate(1)"
-						style="margin-left: 20rpx;">确认修改</button>
+					<button class="cu-btn lg text-white bg-blue" @click="toExamine"
+						style="margin-left: 20rpx;">确认审核</button>
 				</view>
 			</view>
 
@@ -119,7 +119,12 @@
 			return {
 				// 进场单详情
 				lwEntryOrder: {},
-				activeId: null
+				// 审核进场单对象
+				exLwEntryOrder: {},
+				// 订单id
+				activeId: null,
+				// 审核结果
+				radio: null
 			}
 		},
 		onLoad(params) {
@@ -130,16 +135,41 @@
 			returnBack: function() {
 				uni.navigateBack()
 			},
-			toUpdate(id) {
-				uni.navigateTo({
-					url: address.admin_entryOrder_examine
-				})
+			// 单选按钮点击
+			examineChange(event) {
+				var verifyStatus = event.detail.value
+				this.radio = verifyStatus
+				this.$set(this.exLwEntryOrder, 'verifyStatus', verifyStatus)
 			},
 			// 根据id查询
 			getById(id) {
 				entryOrderApi.get(id).then(res => {
 					this.lwEntryOrder = res.data
+					this.$set(this.exLwEntryOrder, 'id', this.lwEntryOrder.id)
 				})
+			},
+			// 审核
+			toExamine() {
+				console.log(this.lwEntryOrder)
+				if (this.radio !== null) {
+					entryOrderApi.examine(this.exLwEntryOrder).then(res => {
+						uni.showToast({
+							title: '审核成功!',
+							duration: 3000,
+							success() {
+								uni.switchTab({
+									url: address.entryOrder
+								})
+							}
+						})
+					})
+				}else{
+					uni.showToast({
+						title: '请选择审核意见!',
+						duration: 500,
+						icon: 'none',
+					})
+				}
 			}
 		}
 	}
