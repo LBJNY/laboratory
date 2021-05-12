@@ -162,4 +162,39 @@
   width: 48%;
   border-radius: 40rpx;
 }
+.base .uni-forms-item__inner {
+  padding-bottom: 0rpx !important;
+}
+.base .uni-forms-item__inner .uni-forms-item__label {
+  width: 46% !important;
+}
+.base .uni-forms-item__inner .uni-forms-item__label .label-text {
+  color: #C8C8CD !important;
+}
+.base .uni-forms-item__inner .uni-easyinput__content-input {
+  text-align: end !important;
+}
+.base .uni-forms-item__inner .is-input-border {
+  border: none !important;
+}
+.base .uni-error-message {
+  bottom: -20px !important;
+  left: 120rpx !important;
+}
+.appliction .uni-forms-item__label {
+  width: 46% !important;
+}
+.appliction .uni-forms-item__label .label-text {
+  color: #C8C8CD !important;
+}
+.appliction .is-input-border {
+  border: none !important;
+}
+.appliction .uni-forms-item__inner {
+  padding-bottom: 0rpx !important;
+}
+.appliction .uni-error-message {
+  bottom: -20px !important;
+  left: 176rpx !important;
+}
 

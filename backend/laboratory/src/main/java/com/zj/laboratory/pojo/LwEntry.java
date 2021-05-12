@@ -112,9 +112,9 @@ public class LwEntry implements Serializable {
      * sDate
      */
     //修改传到前端的时间格式（不加就是时间戳）
-    //@JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     //修改提交的时候前端传到后端的时间，即前端提交指定格式的字符串
-    //@DateTimeFormat(pattern="yyyy-MM-dd")
+    @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date sDate;
     /**
      * eDate

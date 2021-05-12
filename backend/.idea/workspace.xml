@@ -2,52 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="07a6c610-2ffa-4feb-8b76-f4e94f7c4007" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/laboratory/src/main/java/com/zj/laboratory/controller/LwEntryOrderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/laboratory/src/main/java/com/zj/laboratory/controller/LwEntryOrderController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/laboratory/src/main/java/com/zj/laboratory/controller/LwServiceOrderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/laboratory/src/main/java/com/zj/laboratory/controller/LwServiceOrderController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/laboratory/src/main/java/com/zj/laboratory/controller/LwUserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/laboratory/src/main/java/com/zj/laboratory/controller/LwUserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/laboratory/src/main/java/com/zj/laboratory/enums/RoleEnum.java" beforeDir="false" afterPath="$PROJECT_DIR$/laboratory/src/main/java/com/zj/laboratory/enums/RoleEnum.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/laboratory/src/main/java/com/zj/laboratory/enums/StateEnums.java" beforeDir="false" afterPath="$PROJECT_DIR$/laboratory/src/main/java/com/zj/laboratory/enums/StateEnums.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/laboratory/src/main/java/com/zj/laboratory/mapper/LwEntryOrderMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/laboratory/src/main/java/com/zj/laboratory/mapper/LwEntryOrderMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/laboratory/src/main/java/com/zj/laboratory/mapper/LwOrderAuditMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/laboratory/src/main/java/com/zj/laboratory/mapper/LwOrderAuditMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/laboratory/src/main/java/com/zj/laboratory/mapper/LwServiceOrderMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/laboratory/src/main/java/com/zj/laboratory/mapper/LwServiceOrderMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/laboratory/src/main/java/com/zj/laboratory/mapper/LwUserMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/laboratory/src/main/java/com/zj/laboratory/mapper/LwUserMapper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/laboratory/src/main/java/com/zj/laboratory/pojo/LwEntry.java" beforeDir="false" afterPath="$PROJECT_DIR$/laboratory/src/main/java/com/zj/laboratory/pojo/LwEntry.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/laboratory/src/main/java/com/zj/laboratory/pojo/LwOrder.java" beforeDir="false" afterPath="$PROJECT_DIR$/laboratory/src/main/java/com/zj/laboratory/pojo/LwOrder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/laboratory/src/main/java/com/zj/laboratory/pojo/LwOrderAudit.java" beforeDir="false" afterPath="$PROJECT_DIR$/laboratory/src/main/java/com/zj/laboratory/pojo/LwOrderAudit.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/laboratory/src/main/java/com/zj/laboratory/service/LwEntryOrderService.java" beforeDir="false" afterPath="$PROJECT_DIR$/laboratory/src/main/java/com/zj/laboratory/service/LwEntryOrderService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/laboratory/src/main/java/com/zj/laboratory/service/LwServiceOrderService.java" beforeDir="false" afterPath="$PROJECT_DIR$/laboratory/src/main/java/com/zj/laboratory/service/LwServiceOrderService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/laboratory/src/main/java/com/zj/laboratory/service/LwUserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/laboratory/src/main/java/com/zj/laboratory/service/LwUserService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/laboratory/src/main/java/com/zj/laboratory/service/impl/LwEntryOrderServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/laboratory/src/main/java/com/zj/laboratory/service/impl/LwEntryOrderServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/laboratory/src/main/java/com/zj/laboratory/service/impl/LwServiceOrderServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/laboratory/src/main/java/com/zj/laboratory/service/impl/LwServiceOrderServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/laboratory/src/main/java/com/zj/laboratory/service/impl/LwUserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/laboratory/src/main/java/com/zj/laboratory/service/impl/LwUserServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/laboratory/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/laboratory/src/main/resources/application.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/laboratory/src/main/resources/mapper/LwEntryOrderMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/laboratory/src/main/resources/mapper/LwEntryOrderMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/laboratory/src/main/resources/mapper/LwOrderAuditMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/laboratory/src/main/resources/mapper/LwOrderAuditMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/laboratory/src/main/resources/mapper/LwServiceOrderMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/laboratory/src/main/resources/mapper/LwServiceOrderMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/laboratory/src/main/resources/mapper/LwUserMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/laboratory/src/main/resources/mapper/LwUserMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../laboratory/api/lw-entry-order.js" beforeDir="false" afterPath="$PROJECT_DIR$/../laboratory/api/lw-entry-order.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../laboratory/api/lw-service-order.js" beforeDir="false" afterPath="$PROJECT_DIR$/../laboratory/api/lw-service-order.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../laboratory/api/lw-user.js" beforeDir="false" afterPath="$PROJECT_DIR$/../laboratory/api/lw-user.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../laboratory/components/xfl-select/xfl-select.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../laboratory/components/xfl-select/xfl-select.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../laboratory/pages/admin/entryOrder-examine/entryOrder-examine.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../laboratory/pages/admin/entryOrder-examine/entryOrder-examine.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../laboratory/pages/admin/entryOrder-info/entryOrder-info.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../laboratory/pages/admin/entryOrder-info/entryOrder-info.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../laboratory/pages/admin/serviceOrder-examine/serviceOrder-examine.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../laboratory/pages/admin/serviceOrder-examine/serviceOrder-examine.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../laboratory/pages/admin/serviceOrder-info/serviceOrder-info.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../laboratory/pages/admin/serviceOrder-info/serviceOrder-info.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../laboratory/pages/admin/serviceOrder-info/serviceOrder-info.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../laboratory/pages/admin/serviceOrder-info/serviceOrder-info.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../laboratory/pages/entryOrder/entryOrder.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../laboratory/pages/entryOrder/entryOrder.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../laboratory/pages/home/home.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../laboratory/pages/home/home.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../laboratory/pages/home/home.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../laboratory/pages/home/home.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../laboratory/pages/index/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../laboratory/pages/index/index.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../laboratory/pages/serviceOrder/serviceOrder.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../laboratory/pages/serviceOrder/serviceOrder.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../laboratory/pages/user/entryOrder-examine/entryOrder-examine.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../laboratory/pages/user/entryOrder-examine/entryOrder-examine.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../laboratory/pages/user/entryOrder-save/entryOrder-save.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../laboratory/pages/user/entryOrder-save/entryOrder-save.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../laboratory/pages/user/serviceOrder-examine/serviceOrder-examine.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../laboratory/pages/user/serviceOrder-examine/serviceOrder-examine.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../laboratory/pages/user/serviceOrder-feedback/serviceOrder-feedback.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../laboratory/pages/user/serviceOrder-feedback/serviceOrder-feedback.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../laboratory/pages/user/serviceOrder-save/serviceOrder-save.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../laboratory/pages/user/serviceOrder-save/serviceOrder-save.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../laboratory/pages/user/serviceOrder-save/serviceOrder-save.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../laboratory/pages/user/serviceOrder-save/serviceOrder-save.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../laboratory/pages/user/serviceOrder-update/serviceOrder-update.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../laboratory/pages/user/serviceOrder-update/serviceOrder-update.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../laboratory/unpackage/dist/dev/.sourcemap/mp-weixin/common/main.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/../laboratory/unpackage/dist/dev/.sourcemap/mp-weixin/common/main.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../laboratory/unpackage/dist/dev/.sourcemap/mp-weixin/common/runtime.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/../laboratory/unpackage/dist/dev/.sourcemap/mp-weixin/common/runtime.js.map" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../laboratory/unpackage/dist/dev/.sourcemap/mp-weixin/common/vendor.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/../laboratory/unpackage/dist/dev/.sourcemap/mp-weixin/common/vendor.js.map" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../laboratory/unpackage/dist/dev/.sourcemap/mp-weixin/components/uni-datetime-picker/uni-datetime-picker.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/../laboratory/unpackage/dist/dev/.sourcemap/mp-weixin/components/uni-datetime-picker/uni-datetime-picker.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../laboratory/unpackage/dist/dev/.sourcemap/mp-weixin/components/uni-forms-item/uni-forms-item.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/../laboratory/unpackage/dist/dev/.sourcemap/mp-weixin/components/uni-forms-item/uni-forms-item.js.map" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../laboratory/unpackage/dist/dev/.sourcemap/mp-weixin/components/uni-forms/uni-forms.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/../laboratory/unpackage/dist/dev/.sourcemap/mp-weixin/components/uni-forms/uni-forms.js.map" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../laboratory/unpackage/dist/dev/.sourcemap/mp-weixin/components/uni-icons/uni-icons.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/../laboratory/unpackage/dist/dev/.sourcemap/mp-weixin/components/uni-icons/uni-icons.js.map" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../laboratory/unpackage/dist/dev/.sourcemap/mp-weixin/components/uni-steps/uni-steps.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/../laboratory/unpackage/dist/dev/.sourcemap/mp-weixin/components/uni-steps/uni-steps.js.map" afterDir="false" />
@@ -71,46 +35,16 @@
       <change beforePath="$PROJECT_DIR$/../laboratory/unpackage/dist/dev/.sourcemap/mp-weixin/pages/user/serviceOrder-save/serviceOrder-save.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/../laboratory/unpackage/dist/dev/.sourcemap/mp-weixin/pages/user/serviceOrder-save/serviceOrder-save.js.map" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../laboratory/unpackage/dist/dev/.sourcemap/mp-weixin/pages/user/serviceOrder-update/serviceOrder-update.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/../laboratory/unpackage/dist/dev/.sourcemap/mp-weixin/pages/user/serviceOrder-update/serviceOrder-update.js.map" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../laboratory/unpackage/dist/dev/mp-weixin/app.json" beforeDir="false" afterPath="$PROJECT_DIR$/../laboratory/unpackage/dist/dev/mp-weixin/app.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../laboratory/unpackage/dist/dev/mp-weixin/colorui/components/cu-custom.js" beforeDir="false" afterPath="$PROJECT_DIR$/../laboratory/unpackage/dist/dev/mp-weixin/colorui/components/cu-custom.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../laboratory/unpackage/dist/dev/mp-weixin/common/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/../laboratory/unpackage/dist/dev/mp-weixin/common/main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../laboratory/unpackage/dist/dev/mp-weixin/common/runtime.js" beforeDir="false" afterPath="$PROJECT_DIR$/../laboratory/unpackage/dist/dev/mp-weixin/common/runtime.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../laboratory/unpackage/dist/dev/mp-weixin/common/vendor.js" beforeDir="false" afterPath="$PROJECT_DIR$/../laboratory/unpackage/dist/dev/mp-weixin/common/vendor.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../laboratory/unpackage/dist/dev/mp-weixin/components/uni-datetime-picker/uni-datetime-picker.js" beforeDir="false" afterPath="$PROJECT_DIR$/../laboratory/unpackage/dist/dev/mp-weixin/components/uni-datetime-picker/uni-datetime-picker.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../laboratory/unpackage/dist/dev/mp-weixin/components/uni-forms/uni-forms.js" beforeDir="false" afterPath="$PROJECT_DIR$/../laboratory/unpackage/dist/dev/mp-weixin/components/uni-forms/uni-forms.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../laboratory/unpackage/dist/dev/mp-weixin/components/uni-icons/uni-icons.js" beforeDir="false" afterPath="$PROJECT_DIR$/../laboratory/unpackage/dist/dev/mp-weixin/components/uni-icons/uni-icons.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../laboratory/unpackage/dist/dev/mp-weixin/components/uni-steps/uni-steps.js" beforeDir="false" afterPath="$PROJECT_DIR$/../laboratory/unpackage/dist/dev/mp-weixin/components/uni-steps/uni-steps.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../laboratory/unpackage/dist/dev/mp-weixin/components/xfl-select/xfl-select.js" beforeDir="false" afterPath="$PROJECT_DIR$/../laboratory/unpackage/dist/dev/mp-weixin/components/xfl-select/xfl-select.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../laboratory/unpackage/dist/dev/mp-weixin/components/xfl-select/xfl-select.wxss" beforeDir="false" afterPath="$PROJECT_DIR$/../laboratory/unpackage/dist/dev/mp-weixin/components/xfl-select/xfl-select.wxss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../laboratory/unpackage/dist/dev/mp-weixin/pages/admin/entryOrder-examine/entryOrder-examine.js" beforeDir="false" afterPath="$PROJECT_DIR$/../laboratory/unpackage/dist/dev/mp-weixin/pages/admin/entryOrder-examine/entryOrder-examine.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../laboratory/unpackage/dist/dev/mp-weixin/pages/admin/entryOrder-examine/entryOrder-examine.wxml" beforeDir="false" afterPath="$PROJECT_DIR$/../laboratory/unpackage/dist/dev/mp-weixin/pages/admin/entryOrder-examine/entryOrder-examine.wxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../laboratory/unpackage/dist/dev/mp-weixin/pages/admin/entryOrder-info/entryOrder-info.js" beforeDir="false" afterPath="$PROJECT_DIR$/../laboratory/unpackage/dist/dev/mp-weixin/pages/admin/entryOrder-info/entryOrder-info.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../laboratory/unpackage/dist/dev/mp-weixin/pages/admin/entryOrder-info/entryOrder-info.wxml" beforeDir="false" afterPath="$PROJECT_DIR$/../laboratory/unpackage/dist/dev/mp-weixin/pages/admin/entryOrder-info/entryOrder-info.wxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../laboratory/unpackage/dist/dev/mp-weixin/pages/admin/serviceOrder-examine/serviceOrder-examine.js" beforeDir="false" afterPath="$PROJECT_DIR$/../laboratory/unpackage/dist/dev/mp-weixin/pages/admin/serviceOrder-examine/serviceOrder-examine.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../laboratory/unpackage/dist/dev/mp-weixin/pages/admin/serviceOrder-examine/serviceOrder-examine.wxml" beforeDir="false" afterPath="$PROJECT_DIR$/../laboratory/unpackage/dist/dev/mp-weixin/pages/admin/serviceOrder-examine/serviceOrder-examine.wxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../laboratory/unpackage/dist/dev/mp-weixin/pages/admin/serviceOrder-info/serviceOrder-info.js" beforeDir="false" afterPath="$PROJECT_DIR$/../laboratory/unpackage/dist/dev/mp-weixin/pages/admin/serviceOrder-info/serviceOrder-info.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../laboratory/unpackage/dist/dev/mp-weixin/pages/admin/serviceOrder-info/serviceOrder-info.wxml" beforeDir="false" afterPath="$PROJECT_DIR$/../laboratory/unpackage/dist/dev/mp-weixin/pages/admin/serviceOrder-info/serviceOrder-info.wxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../laboratory/unpackage/dist/dev/mp-weixin/pages/entryOrder/entryOrder.js" beforeDir="false" afterPath="$PROJECT_DIR$/../laboratory/unpackage/dist/dev/mp-weixin/pages/entryOrder/entryOrder.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../laboratory/unpackage/dist/dev/mp-weixin/pages/entryOrder/entryOrder.wxml" beforeDir="false" afterPath="$PROJECT_DIR$/../laboratory/unpackage/dist/dev/mp-weixin/pages/entryOrder/entryOrder.wxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../laboratory/unpackage/dist/dev/mp-weixin/pages/home/home.js" beforeDir="false" afterPath="$PROJECT_DIR$/../laboratory/unpackage/dist/dev/mp-weixin/pages/home/home.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../laboratory/unpackage/dist/dev/mp-weixin/pages/home/home.wxml" beforeDir="false" afterPath="$PROJECT_DIR$/../laboratory/unpackage/dist/dev/mp-weixin/pages/home/home.wxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../laboratory/unpackage/dist/dev/mp-weixin/pages/home/home.wxss" beforeDir="false" afterPath="$PROJECT_DIR$/../laboratory/unpackage/dist/dev/mp-weixin/pages/home/home.wxss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../laboratory/unpackage/dist/dev/mp-weixin/pages/index/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/../laboratory/unpackage/dist/dev/mp-weixin/pages/index/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../laboratory/unpackage/dist/dev/mp-weixin/pages/index/index.wxml" beforeDir="false" afterPath="$PROJECT_DIR$/../laboratory/unpackage/dist/dev/mp-weixin/pages/index/index.wxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../laboratory/unpackage/dist/dev/mp-weixin/pages/serviceOrder/serviceOrder.js" beforeDir="false" afterPath="$PROJECT_DIR$/../laboratory/unpackage/dist/dev/mp-weixin/pages/serviceOrder/serviceOrder.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../laboratory/unpackage/dist/dev/mp-weixin/pages/serviceOrder/serviceOrder.wxml" beforeDir="false" afterPath="$PROJECT_DIR$/../laboratory/unpackage/dist/dev/mp-weixin/pages/serviceOrder/serviceOrder.wxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../laboratory/unpackage/dist/dev/mp-weixin/pages/user/entryOrder-examine/entryOrder-examine.js" beforeDir="false" afterPath="$PROJECT_DIR$/../laboratory/unpackage/dist/dev/mp-weixin/pages/user/entryOrder-examine/entryOrder-examine.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../laboratory/unpackage/dist/dev/mp-weixin/pages/user/entryOrder-save/entryOrder-save.js" beforeDir="false" afterPath="$PROJECT_DIR$/../laboratory/unpackage/dist/dev/mp-weixin/pages/user/entryOrder-save/entryOrder-save.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../laboratory/unpackage/dist/dev/mp-weixin/pages/user/entryOrder-save/entryOrder-save.wxml" beforeDir="false" afterPath="$PROJECT_DIR$/../laboratory/unpackage/dist/dev/mp-weixin/pages/user/entryOrder-save/entryOrder-save.wxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../laboratory/unpackage/dist/dev/mp-weixin/pages/user/serviceOrder-examine/serviceOrder-examine.js" beforeDir="false" afterPath="$PROJECT_DIR$/../laboratory/unpackage/dist/dev/mp-weixin/pages/user/serviceOrder-examine/serviceOrder-examine.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../laboratory/unpackage/dist/dev/mp-weixin/pages/user/serviceOrder-examine/serviceOrder-examine.wxml" beforeDir="false" afterPath="$PROJECT_DIR$/../laboratory/unpackage/dist/dev/mp-weixin/pages/user/serviceOrder-examine/serviceOrder-examine.wxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../laboratory/unpackage/dist/dev/mp-weixin/pages/user/serviceOrder-feedback/serviceOrder-feedback.js" beforeDir="false" afterPath="$PROJECT_DIR$/../laboratory/unpackage/dist/dev/mp-weixin/pages/user/serviceOrder-feedback/serviceOrder-feedback.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../laboratory/unpackage/dist/dev/mp-weixin/pages/user/serviceOrder-feedback/serviceOrder-feedback.wxml" beforeDir="false" afterPath="$PROJECT_DIR$/../laboratory/unpackage/dist/dev/mp-weixin/pages/user/serviceOrder-feedback/serviceOrder-feedback.wxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../laboratory/unpackage/dist/dev/mp-weixin/pages/user/serviceOrder-save/serviceOrder-save.js" beforeDir="false" afterPath="$PROJECT_DIR$/../laboratory/unpackage/dist/dev/mp-weixin/pages/user/serviceOrder-save/serviceOrder-save.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../laboratory/unpackage/dist/dev/mp-weixin/pages/user/serviceOrder-save/serviceOrder-save.json" beforeDir="false" afterPath="$PROJECT_DIR$/../laboratory/unpackage/dist/dev/mp-weixin/pages/user/serviceOrder-save/serviceOrder-save.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../laboratory/unpackage/dist/dev/mp-weixin/pages/user/serviceOrder-save/serviceOrder-save.wxml" beforeDir="false" afterPath="$PROJECT_DIR$/../laboratory/unpackage/dist/dev/mp-weixin/pages/user/serviceOrder-save/serviceOrder-save.wxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../laboratory/unpackage/dist/dev/mp-weixin/pages/user/serviceOrder-update/serviceOrder-update.js" beforeDir="false" afterPath="$PROJECT_DIR$/../laboratory/unpackage/dist/dev/mp-weixin/pages/user/serviceOrder-update/serviceOrder-update.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../laboratory/unpackage/dist/dev/mp-weixin/pages/user/serviceOrder-update/serviceOrder-update.wxml" beforeDir="false" afterPath="$PROJECT_DIR$/../laboratory/unpackage/dist/dev/mp-weixin/pages/user/serviceOrder-update/serviceOrder-update.wxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../laboratory/unpackage/dist/dev/mp-weixin/project.config.json" beforeDir="false" afterPath="$PROJECT_DIR$/../laboratory/unpackage/dist/dev/mp-weixin/project.config.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../laboratory/utils/page-address.js" beforeDir="false" afterPath="$PROJECT_DIR$/../laboratory/utils/page-address.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../laboratory/utils/role.js" beforeDir="false" afterPath="$PROJECT_DIR$/../laboratory/utils/role.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../laboratory/unpackage/dist/dev/mp-weixin/pages/user/serviceOrder-save/serviceOrder-save.wxss" beforeDir="false" afterPath="$PROJECT_DIR$/../laboratory/unpackage/dist/dev/mp-weixin/pages/user/serviceOrder-save/serviceOrder-save.wxss" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -277,7 +211,8 @@
       <workItem from="1620346965561" duration="12980000" />
       <workItem from="1620433632725" duration="17198000" />
       <workItem from="1620606403178" duration="17751000" />
-      <workItem from="1620692904639" duration="1714000" />
+      <workItem from="1620692904639" duration="3663000" />
+      <workItem from="1620778947270" duration="3727000" />
     </task>
     <servers />
   </component>
@@ -305,54 +240,54 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="549" y="167" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1618295339493" />
-    <state width="1493" height="107" key="GridCell.Tab.0.bottom" timestamp="1620692980505">
+    <state width="1493" height="171" key="GridCell.Tab.0.bottom" timestamp="1620783046269">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="107" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1620692980505" />
-    <state width="1493" height="107" key="GridCell.Tab.0.center" timestamp="1620692980505">
+    <state width="1493" height="171" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1620783046269" />
+    <state width="1493" height="171" key="GridCell.Tab.0.center" timestamp="1620783046269">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="107" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1620692980505" />
-    <state width="1493" height="107" key="GridCell.Tab.0.left" timestamp="1620692980504">
+    <state width="1493" height="171" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1620783046269" />
+    <state width="1493" height="171" key="GridCell.Tab.0.left" timestamp="1620783046269">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="107" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1620692980504" />
-    <state width="1493" height="107" key="GridCell.Tab.0.right" timestamp="1620692980505">
+    <state width="1493" height="171" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1620783046269" />
+    <state width="1493" height="171" key="GridCell.Tab.0.right" timestamp="1620783046269">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="107" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1620692980505" />
-    <state width="1493" height="107" key="GridCell.Tab.1.bottom" timestamp="1620628760234">
+    <state width="1493" height="171" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1620783046269" />
+    <state width="1493" height="17" key="GridCell.Tab.1.bottom" timestamp="1620782832181">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="107" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1620628760234" />
-    <state width="1493" height="107" key="GridCell.Tab.1.center" timestamp="1620628760234">
+    <state width="1493" height="17" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1620782832181" />
+    <state width="1493" height="17" key="GridCell.Tab.1.center" timestamp="1620782832180">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="107" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1620628760234" />
-    <state width="1493" height="107" key="GridCell.Tab.1.left" timestamp="1620628760234">
+    <state width="1493" height="17" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1620782832180" />
+    <state width="1493" height="17" key="GridCell.Tab.1.left" timestamp="1620782832180">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="107" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1620628760234" />
-    <state width="1493" height="107" key="GridCell.Tab.1.right" timestamp="1620628760234">
+    <state width="1493" height="17" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1620782832180" />
+    <state width="1493" height="17" key="GridCell.Tab.1.right" timestamp="1620782832180">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="107" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1620628760234" />
-    <state width="1493" height="107" key="GridCell.Tab.2.bottom" timestamp="1620628760234">
+    <state width="1493" height="17" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1620782832180" />
+    <state width="1493" height="17" key="GridCell.Tab.2.bottom" timestamp="1620782807434">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="107" key="GridCell.Tab.2.bottom/0.0.1536.824@0.0.1536.824" timestamp="1620628760234" />
-    <state width="1493" height="107" key="GridCell.Tab.2.center" timestamp="1620628760234">
+    <state width="1493" height="17" key="GridCell.Tab.2.bottom/0.0.1536.824@0.0.1536.824" timestamp="1620782807434" />
+    <state width="1493" height="17" key="GridCell.Tab.2.center" timestamp="1620782807434">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="107" key="GridCell.Tab.2.center/0.0.1536.824@0.0.1536.824" timestamp="1620628760234" />
-    <state width="1493" height="107" key="GridCell.Tab.2.left" timestamp="1620628760234">
+    <state width="1493" height="17" key="GridCell.Tab.2.center/0.0.1536.824@0.0.1536.824" timestamp="1620782807434" />
+    <state width="1493" height="17" key="GridCell.Tab.2.left" timestamp="1620782807434">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="107" key="GridCell.Tab.2.left/0.0.1536.824@0.0.1536.824" timestamp="1620628760234" />
-    <state width="1493" height="107" key="GridCell.Tab.2.right" timestamp="1620628760234">
+    <state width="1493" height="17" key="GridCell.Tab.2.left/0.0.1536.824@0.0.1536.824" timestamp="1620782807434" />
+    <state width="1493" height="17" key="GridCell.Tab.2.right" timestamp="1620782807434">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="107" key="GridCell.Tab.2.right/0.0.1536.824@0.0.1536.824" timestamp="1620628760234" />
+    <state width="1493" height="17" key="GridCell.Tab.2.right/0.0.1536.824@0.0.1536.824" timestamp="1620782807434" />
     <state x="349" y="147" key="IDE.errors.dialog" timestamp="1619064926673">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -391,9 +326,9 @@
           <option name="timeStamp" value="1" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/laboratory/src/main/java/com/zj/laboratory/service/impl/LwServiceOrderServiceImpl.java</url>
-          <line>279</line>
-          <option name="timeStamp" value="11" />
+          <url>file://$PROJECT_DIR$/laboratory/src/main/java/com/zj/laboratory/controller/LwEntryOrderController.java</url>
+          <line>29</line>
+          <option name="timeStamp" value="13" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

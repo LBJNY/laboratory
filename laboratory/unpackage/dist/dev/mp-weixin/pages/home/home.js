@@ -436,6 +436,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 var _pageAddress = _interopRequireDefault(__webpack_require__(/*! utils/page-address.js */ 204));
 var _lwServiceOrder = _interopRequireDefault(__webpack_require__(/*! @/api/lw-service-order */ 214));
 var _lwEntryOrder = _interopRequireDefault(__webpack_require__(/*! @/api/lw-entry-order */ 205));var _methods;function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}var _default =
@@ -682,8 +683,10 @@ var _lwEntryOrder = _interopRequireDefault(__webpack_require__(/*! @/api/lw-entr
     // 跳转到服务委托单审核页面---管理员
     toServiceOrderExamine: function toServiceOrderExamine(event) {
       var id = event.currentTarget.id;
+      console.log('home:');
+      console.log(id);
       uni.navigateTo({
-        url: _pageAddress.default.admin_serviceOrder_examine + '?activeId' + id });
+        url: _pageAddress.default.admin_serviceOrder_examine + '?activeId=' + id });
 
     },
     // 跳转到服务委托单审核详情---管理员

@@ -98,8 +98,14 @@ try {
     uniForms: function() {
       return Promise.all(/*! import() | components/uni-forms/uni-forms */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-forms/uni-forms")]).then(__webpack_require__.bind(null, /*! @/components/uni-forms/uni-forms.vue */ 352))
     },
+    uniFormsItem: function() {
+      return Promise.all(/*! import() | components/uni-forms-item/uni-forms-item */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-forms-item/uni-forms-item")]).then(__webpack_require__.bind(null, /*! @/components/uni-forms-item/uni-forms-item.vue */ 370))
+    },
+    uniEasyinput: function() {
+      return Promise.all(/*! import() | components/uni-easyinput/uni-easyinput */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-easyinput/uni-easyinput")]).then(__webpack_require__.bind(null, /*! @/components/uni-easyinput/uni-easyinput.vue */ 377))
+    },
     xflSelect: function() {
-      return __webpack_require__.e(/*! import() | components/xfl-select/xfl-select */ "components/xfl-select/xfl-select").then(__webpack_require__.bind(null, /*! @/components/xfl-select/xfl-select.vue */ 370))
+      return __webpack_require__.e(/*! import() | components/xfl-select/xfl-select */ "components/xfl-select/xfl-select").then(__webpack_require__.bind(null, /*! @/components/xfl-select/xfl-select.vue */ 385))
     }
   }
 } catch (e) {
@@ -176,6 +182,46 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -998,7 +1044,47 @@ var _lwServiceType = _interopRequireDefault(__webpack_require__(/*! @/api/lw-ser
 //
 //
 //
-var xflSelect = function xflSelect() {__webpack_require__.e(/*! require.ensure | components/xfl-select/xfl-select */ "components/xfl-select/xfl-select").then((function () {return resolve(__webpack_require__(/*! ../../../components/xfl-select/xfl-select */ 370));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default = { data: function data() {return { //当前步骤
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var xflSelect = function xflSelect() {__webpack_require__.e(/*! require.ensure | components/xfl-select/xfl-select */ "components/xfl-select/xfl-select").then((function () {return resolve(__webpack_require__(/*! ../../../components/xfl-select/xfl-select */ 385));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default = { data: function data() {return { //当前步骤
       step: 1, //人员字符串
       personReq: null, // 所需人员等级
       level: ['首席', '资深', '高级', '中级', '初级'], /**
@@ -1006,31 +1092,22 @@ var xflSelect = function xflSelect() {__webpack_require__.e(/*! require.ensure |
                                               * checked 是否选中
                                               * number  数量
                                               */checkbox: [{ value: '0', checked: false, number: '0' }, { value: '1', checked: false, number: 0 }, { value: '2', checked: false, number: 0 }, { value: '3', checked: false, number: 0 }, { value: '4', checked: false, number: 0 }], // 服务委托单详情
-      lwServiceOrder: {}, activeId: null, rules: {// // 对name字段进行必填验证
-        // name: {
-        // 	rules: [
-        // 		//验证
-        // 		{},
-        // 		//错误提示
-        // 		{}
-        // 	]
-        // },
-        // // 对email字段进行必填验证
-        // email: {
-        // 	rules: [{}]
-        // }
-      }, // 资金支持类型
+      lwServiceOrder: { serviceManager: null, deptName: null, projName: null, contact: null, tel: null, description: null, timeReq: null, netReq: null, softReq: null, deviceReq: null, otherReq: null, fundSupport: null, serviceType: null }, activeId: null, orderRules: { serviceManager: { rules: [{ required: true, errorMessage: '智家接口人不能为空' }, { minLength: 2, maxLength: 10, errorMessage: '智家接口人长度在{minLength}到{maxLength}个字符' }] }, deptName: { rules: [{ required: true, errorMessage: '部门名称不能为空' }, { minLength: 1, maxLength: 30, errorMessage: '部门名称长度不能超过{maxLength}字' }] }, projName: { rules: [{ required: true, errorMessage: '项目名称不能为空' }, { minLength: 1, maxLength: 30, errorMessage: '项目名称长度不能超过{maxLength}字' }] }, contact: { rules: [{ required: true, errorMessage: '联系人不能为空' }, { minLength: 1, maxLength: 20, errorMessage: '联系人长度不能超过{maxLength}字' }] }, tel: { rules: [{ required: true, errorMessage: '手机号不能为空' }, { minLength: 1, maxLength: 11, errorMessage: '手机号长度不能超过{maxLength}位' } // {
+          // 	pattern: /^1[3-9]\d{9}$/,
+          // 	errorMessage: '手机号格式错误'
+          // }
+          ] }, email: { rules: [{ required: true, errorMessage: '邮箱不能为空' }, { pattern: /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/, errorMessage: '邮箱格式错误' }] }, description: { rules: [{ required: true, errorMessage: '描述内容不能为空' }, { maxLength: 200, errorMessage: '描述内容不能超过{maxLength}位' }] }, timeReq: { rules: [{ required: true, errorMessage: '时间和周期要求不能为空' }, { maxLength: 200, errorMessage: '时间和周期要求不能超过{maxLength}位' }] }, netReq: { rules: [{ required: true, errorMessage: '场地和网络要求不能为空' }, { maxLength: 200, errorMessage: '场地和网络要求不能超过{maxLength}位' }] }, softReq: { rules: [{ maxLength: 100, errorMessage: '平台和软件要求不能超过{maxLength}位' }] }, deviceReq: { rules: [{ maxLength: 100, errorMessage: '终端和仪表要求不能超过{maxLength}位' }] }, otherReq: { rules: [{ maxLength: 100, errorMessage: '其他要求不能超过{maxLength}位' }] } }, // 资金支持类型
       fundSupportList: [], // 服务委托类型
       serviceTypeList: [] };}, watch: { checkbox: { deep: true, handler: function handler(newVal, oldVal) {var checkbox = this.checkbox,strs = [];for (var i = 0; i < checkbox.length; i++) {strs.push(checkbox[i].number);}var str = strs.join('-'); // this.$set(this, 'personReq', str)
         this.$set(this.lwServiceOrder, 'personReq', str);this.getPersonReq();} } }, onLoad: function onLoad(params) {if (params.activeId != undefined) {this.activeId = params.activeId;this.getById(params.activeId);}}, onShow: function onShow() {this.getAllFundSupports();this.getAllServiceTypes();this.$set(this.lwServiceOrder, 'currentDate', this.getNowFormatDate());}, methods: { // 获取当前日期
     getNowFormatDate: function getNowFormatDate() {var date = new Date();var seperator1 = "-";var year = date.getFullYear();var month = date.getMonth() + 1;var strDate = date.getDate();if (month >= 1 && month <= 9) {month = "0" + month;}if (strDate >= 0 && strDate <= 9) {strDate = "0" + strDate;}var currentdate = year + seperator1 + month + seperator1 + strDate;return currentdate;}, // 获取人员需求字符串
     getPersonReq: function getPersonReq() {var that = this;var req = [];var strArray = [];if (that.lwServiceOrder.personReq != null && that.lwServiceOrder.personReq != '') {req = that.lwServiceOrder.personReq.split('-');for (var index = 0; index < req.length; index++) {var element = req[index];var strNext = '';if (element !== '0' && element !== '') {strNext += that.level[index] + req[index] + '人';strArray.push(strNext);}}}this.personReq = strArray.join(',');}, // 下一步
-    nextStep: function nextStep() {this.step++;console.log(this.step);}, // 上一步
-    preStep: function preStep() {this.step--;}, init_checkBox: function init_checkBox() {var that = this;var req = [];if (that.lwServiceOrder.personReq != null && that.lwServiceOrder.personReq != '') {req = that.lwServiceOrder.personReq.split('-');for (var index = 0; index < req.length; index++) {if (req[index] !== '0') {that.checkbox[index].checked = true;that.checkbox[index].number = req[index];}console.log(req[index] === '0');}}}, /**
-                                                                                                                                                                                                                                                                                                                                                                                                                                                       * 复写 binddata 方法，如果只是为了校验，无复杂自定义操作，可忽略此方法
-                                                                                                                                                                                                                                                                                                                                                                                                                                                       * @param {String} name 字段名称
-                                                                                                                                                                                                                                                                                                                                                                                                                                                       * @param {String} value 表单域的值
-                                                                                                                                                                                                                                                                                                                                                                                                                                                       */ // binddata(name,value){
+    nextStep: function nextStep() {this.step++;}, // 上一步
+    preStep: function preStep() {this.step--;}, init_checkBox: function init_checkBox() {var that = this;var req = [];if (that.lwServiceOrder.personReq != null && that.lwServiceOrder.personReq != '') {req = that.lwServiceOrder.personReq.split('-');for (var index = 0; index < req.length; index++) {if (req[index] !== '0') {that.checkbox[index].checked = true;that.checkbox[index].number = req[index];}}}}, /**
+                                                                                                                                                                                                                                                                                                                                                                                                                       * 复写 binddata 方法，如果只是为了校验，无复杂自定义操作，可忽略此方法
+                                                                                                                                                                                                                                                                                                                                                                                                                       * @param {String} name 字段名称
+                                                                                                                                                                                                                                                                                                                                                                                                                       * @param {String} value 表单域的值
+                                                                                                                                                                                                                                                                                                                                                                                                                       */ // binddata(name,value){
     // 通过 input 事件设置表单指定 name 的值
     //   this.$refs.form.setValue(name, value)
     // },
@@ -1048,11 +1125,25 @@ var xflSelect = function xflSelect() {__webpack_require__.e(/*! require.ensure |
     fundSupportChange: function fundSupportChange(_ref2) {var newVal = _ref2.newVal,index = _ref2.index;console.log(newVal, index);this.$set(this.lwServiceOrder, 'fundSupport', newVal);}, /**
                                                                                                                                                                                              * 返回
                                                                                                                                                                                              */returnBack: function returnBack() {uni.navigateBack();}, // 根据id查询
-    getById: function getById(id) {var _this = this;_lwServiceOrder.default.get(id).then(function (res) {_this.lwServiceOrder = res.data;_this.init_checkBox();console.log(_this.lwServiceOrder);});}, // 获取所有资金支持类型
-    getAllFundSupports: function getAllFundSupports() {var _this2 = this;_lwFundSupport.default.getAll().then(function (res) {_this2.fundSupportList = res.data;});}, // 获取所有服务委托类型
-    getAllServiceTypes: function getAllServiceTypes() {var _this3 = this;_lwServiceType.default.getAll().then(function (res) {_this3.serviceTypeList = res.data;console.log("长度" + _this3.serviceTypeList.length);});}, // 添加
-    add: function add() {_lwServiceOrder.default.save(this.lwServiceOrder).then(function (res) {console.log('表单数据信息：', res);uni.showToast({ title: '表单提交成功!', duration: 3000, success: function success() {uni.switchTab({ url: _pageAddress.default.serviceOrder });} });}).catch(function (err) {console.log('表单错误信息：', err);uni.showToast({ title: '表单信息错误,请检查后重新提交!', duration: 2000, icon: none });});}, // 更新操作
-    update: function update() {console.log('update');_lwServiceOrder.default.update(this.lwServiceOrder).then(function (res) {console.log('表单数据信息：', res);uni.showToast({ title: '订单修改成功!', duration: 3000, success: function success() {uni.switchTab({ url: _pageAddress.default.serviceOrder });} });}).catch(function (err) {console.log('表单错误信息：', err);uni.showToast({ title: '订单信息错误,请检查后重新提交!', duration: 2000, icon: none });});} }, components: { xflSelect: xflSelect } };exports.default = _default;
+    getById: function getById(id) {var _this2 = this;_lwServiceOrder.default.get(id).then(function (res) {_this2.lwServiceOrder = res.data;_this2.init_checkBox();});}, // 获取所有资金支持类型
+    getAllFundSupports: function getAllFundSupports() {var _this3 = this;_lwFundSupport.default.getAll().then(function (res) {_this3.fundSupportList = res.data;});}, // 获取所有服务委托类型
+    getAllServiceTypes: function getAllServiceTypes() {var _this4 = this;_lwServiceType.default.getAll().then(function (res) {_this4.serviceTypeList = res.data;});}, // 添加
+    add: function add() {var _this5 = this;var _this = this;this.$refs.form.validate(function (valid) {console.log(valid);if (valid) {uni.showToast({ title: valid[0].errorMessage, duration: 1500, icon: 'none' });} else {_this5.$refs.form.submit().then(function (params) {if (_this.lwServiceOrder.serviceType == null || _this.lwServiceOrder.serviceType == undefined) {uni.showToast({ title: '请选择服务类型!', duration: 1000, icon: 'none' });}if (_this.lwServiceOrder.fundSupport == null || _this.lwServiceOrder.fundSupport == undefined) {uni.showToast({ title: '请选择资金支持类型!', duration: 1000, icon: 'none' });}_lwServiceOrder.default.save(_this5.lwServiceOrder).then(function (res) {console.log('表单数据信息：', res);uni.showToast({ title: '表单提交成功!', duration: 3000, success: function success() {uni.switchTab({ url: _pageAddress.default.serviceOrder });} });}).catch(function (err) {console.log('表单错误信息：', err);uni.showToast({ title: '表单信息错误,请检查后重新提交!', duration: 2000, icon: 'none' });});});}});}, // 更新操作
+    update: function update() {var _this6 = this;var _this = this;this.$refs.form.validate(function (valid) {console.log(valid);if (valid) {uni.showToast({ title: valid[0].errorMessage, duration: 1500, icon: 'none' });} else {_this6.$refs.form.submit().then(function (params) {if (_this.lwServiceOrder.serviceType == null || _this.lwServiceOrder.serviceType == undefined) {uni.showToast({ title: '请选择服务类型!', duration: 300, icon: 'null' });return;}if (_this.lwServiceOrder.fundSupport == null || _this.lwServiceOrder.fundSupport == undefined) {uni.showToast({ title: '请选择资金支持类型!', duration: 300, icon: 'null' });return;}_lwServiceOrder.default.update(_this6.lwServiceOrder).then(function (res) {uni.showToast({ title: '订单修改成功!', duration: 3000, success: function success() {uni.switchTab({ url: _pageAddress.default.serviceOrder });} });}).catch(function (err) {uni.showToast({ title: '订单信息错误,请检查后重新提交!', duration: 2000, icon: 'none' });});});}});} //判断验证是否符合要求
+    // validate(key) {
+    // 	let bool = true;
+    // 	if (!this.rules[key].rule.test(this[key])) {
+    // 		//提示信息
+    // 		uni.showToast({
+    // 			title: this.rules[key].msg,
+    // 		})
+    // 		//取反
+    // 		bool = false;
+    // 		return false;
+    // 	}
+    // 	return bool;
+    // }
+  }, components: { xflSelect: xflSelect } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),

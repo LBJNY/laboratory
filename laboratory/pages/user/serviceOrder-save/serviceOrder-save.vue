@@ -1,6 +1,6 @@
 <template>
 	<view class="page">
-		<uni-forms ref="form" :model="lwServiceOrder" :rules="rules">
+		<uni-forms ref="form" :value="lwServiceOrder" :rules="orderRules" validate-trigger="bind">
 			<!-- 第一步:填写基础信息 begin -->
 			<view class="step-first" :class="step==1?'':'display-none'">
 				<view class="head bg-light-blue flex justify-between text-white">
@@ -27,15 +27,17 @@
 									<view class="label text-label-grey">
 										服务委托单编号
 									</view>
-									<input type="text" v-model="lwServiceOrder.serviceNo" disabled class="text-right"
-										value="xxxxxxx123" />
+									<input type="text" v-model="lwServiceOrder.serviceNo" disabled class="text-right" />
 								</view>
-								<view class="item flex justify-between align-center box-sizing">
-									<view class="label text-label-grey">
-										智家接口人
+								<view class="item box-sizing">
+									<!-- <view class="label text-label-grey"> 
+										智家接口人   flex justify-between align-center 
 									</view>
 									<input type="text" v-model="lwServiceOrder.serviceManager" placeholder="请输入智家接口人"
-										class="text-right" value="杜宁馨" />
+										class="text-right"/> -->
+									<uni-forms-item label="智家接口人" name="serviceManager">
+										<uni-easyinput v-model="lwServiceOrder.serviceManager" placeholder="请填写接口人" />
+									</uni-forms-item>
 								</view>
 								<view class="item flex justify-between align-center box-sizing">
 									<view class="label text-label-grey">
@@ -52,40 +54,55 @@
 								申请信息
 							</view>
 							<view class="detail bg-white">
-								<view class="item flex justify-between align-center box-sizing">
-									<view class="label text-label-grey">
+								<view class="item box-sizing">
+									<!-- <view class="label text-label-grey">
 										单位和部门名称
 									</view>
 									<input type="text" v-model="lwServiceOrder.deptName" class="" value="天翼智家"
-										placeholder="请输入单位和部门名称" />
+										placeholder="请输入单位和部门名称" /> -->
+									<uni-forms-item label="单位和部门名称" name="deptName">
+										<uni-easyinput v-model="lwServiceOrder.deptName" placeholder="请输入单位和部门名称" />
+									</uni-forms-item>
 								</view>
-								<view class="item flex justify-between align-center box-sizing">
-									<view class="label text-label-grey">
+								<view class="item box-sizing">
+									<!-- <view class="label text-label-grey">
 										服务项目名称
 									</view>
 									<input type="text" v-model="lwServiceOrder.projName" class="" value="zigbee测试"
-										placeholder="请输入项目名称" />
+										placeholder="请输入项目名称" /> -->
+									<uni-forms-item label="服务项目名称" name="projName">
+										<uni-easyinput v-model="lwServiceOrder.projName" placeholder="请输入项目名称" />
+									</uni-forms-item>
 								</view>
-								<view class="item flex justify-between align-center box-sizing">
-									<view class="label text-label-grey">
+								<view class="item box-sizing">
+									<!-- <view class="label text-label-grey">
 										联系人
 									</view>
 									<input type="text" v-model="lwServiceOrder.contact" class="" value="lbj"
-										placeholder="请输入联系人" />
+										placeholder="请输入联系人" /> -->
+									<uni-forms-item label="联系人" name="contact">
+										<uni-easyinput v-model="lwServiceOrder.contact" placeholder="请输入联系人" />
+									</uni-forms-item>
 								</view>
-								<view class="item flex justify-between align-center box-sizing">
-									<view class="label text-label-grey">
+								<view class="item box-sizing">
+									<!-- <view class="label text-label-grey">
 										电话
 									</view>
 									<input type="text" v-model="lwServiceOrder.tel" class="" value="17639842742"
-										placeholder="请输入电话" />
+										placeholder="请输入电话" /> -->
+									<uni-forms-item label="电话" name="tel">
+										<uni-easyinput v-model="lwServiceOrder.tel" placeholder="请输入电话" />
+									</uni-forms-item>
 								</view>
-								<view class="item flex justify-between align-center box-sizing">
-									<view class="label text-label-grey">
+								<view class="item box-sizing">
+									<!-- <view class="label text-label-grey">
 										邮箱
 									</view>
 									<input type="text" v-model="lwServiceOrder.email" class="" value="20000000@163.com"
-										placeholder="请输入邮箱" />
+										placeholder="请输入邮箱" /> -->
+									<uni-forms-item label="邮箱" name="email">
+										<uni-easyinput v-model="lwServiceOrder.email" placeholder="请输入邮箱" />
+									</uni-forms-item>
 								</view>
 							</view>
 						</view>
@@ -103,9 +120,11 @@
 						服务内容
 					</view>
 					<view class="detail bg-white">
-						<textarea v-model="lwServiceOrder.description"
-							style="height: 600rpx !important; width: 100%; padding: 20rpx;" maxlength="200" auto-blur
-							placeholder="请输入服务内容" />
+						<uni-forms-item name="description">
+							<textarea v-model="lwServiceOrder.description"
+								style="height: 600rpx !important; width: 100%; padding: 20rpx;" maxlength="200"
+								auto-blur placeholder="请输入服务内容" @input="binddata('description',$event.detail.value)" />
+						</uni-forms-item>
 					</view>
 					<view class="flex justify-between next-step">
 						<button class="cu-btn lg text-white return" @click="preStep">上一步</button>
@@ -121,32 +140,45 @@
 						资源要求
 					</view>
 					<view class="detail bg-white">
-						<view class="item flex justify-between align-center box-sizing border-bottom">
-							<view class="label text-label-grey">
+						<view class="item  box-sizing border-bottom">
+							<!-- <view class="label text-label-grey">
 								时间和周期要求
 							</view>
-							<input type="text" v-model="lwServiceOrder.timeReq" class="" value="20天"
-								placeholder="请输入时间和周期" />
+							<input type="text" v-model="lwServiceOrder.timeReq" placeholder="请输入时间和周期" /> -->
+							<uni-forms-item label="时间和周期要求" name="timeReq">
+								<uni-easyinput v-model="lwServiceOrder.timeReq" placeholder="请输入时间和周期" />
+							</uni-forms-item>
 						</view>
-						<view class="item flex justify-between align-center box-sizing border-bottom">
-							<view class="label text-label-grey">
+						<view class="item  box-sizing border-bottom">
+							<!-- <view class="label text-label-grey">
 								场地和网络要求
 							</view>
 							<input type="text" v-model="lwServiceOrder.netReq" class="" value="测试室"
-								placeholder="请输入场地和网络要求" />
+								placeholder="请输入场地和网络要求" /> -->
+							<uni-forms-item label="场地和网络要求" name="netReq">
+								<uni-easyinput v-model="lwServiceOrder.netReq" placeholder="请输入场地和网络要求" />
+							</uni-forms-item>
 						</view>
-						<view class="item flex justify-between align-center box-sizing border-bottom">
-							<view class="label text-label-grey">
+						<view class="item  box-sizing border-bottom">
+							<!-- <view class="label text-label-grey">
 								平台和软件要求
 							</view>
 							<input type="text" v-model="lwServiceOrder.softReq" class="" value="lbj"
-								placeholder="请输入平台和软件要求" />
+								placeholder="请输入平台和软件要求" /> -->
+							<uni-forms-item label="平台和软件要求" name="softReq">
+								<uni-easyinput v-model="lwServiceOrder.softReq" placeholder="请输入平台和软件要求" />
+							</uni-forms-item>
 						</view>
 						<view class="cu-form-group align-start" style="padding: 0rpx;">
 							<view class="title text-label-grey">终端和仪表要求</view>
-							<textarea maxlength="100" auto-blur v-model="lwServiceOrder.deviceReq"
+							<!-- <textarea maxlength="100" auto-blur v-model="lwServiceOrder.deviceReq"
 								style="height: 60rpx !important; width: 100%; padding: 0rpx 0rpx 0rpx 52rpx;"
-								placeholder="请输入终端和仪表要求"></textarea>
+								placeholder="请输入终端和仪表要求"></textarea> -->
+							<uni-forms-item name="deviceReq">
+								<textarea v-model="lwServiceOrder.deviceReq"
+									style="height: 300rpx !important; width: 366rpx; " maxlength="200" auto-blur
+									placeholder="请输入终端和仪表要求" @input="binddata('deviceReq',$event.detail.value)" />
+							</uni-forms-item>
 						</view>
 						<view class="item cu-form-group align-start justify-start" style="padding: 0rpx; border:0rpx">
 							<view class="title text-label-grey">
@@ -244,24 +276,31 @@
 									服务类型
 								</view>
 								<view>
-									<xfl-select :list="serviceTypeList" :clearable="false" :showItemNum="5"
-										:isCanInput="true" :style_Container="listBoxStyle" :placeholder="'请选择服务类型'"
-										:initValue="lwServiceOrder.serviceType" :selectHideType="'independent'"
-										:props="item.id" @change="serviceTypeChange"
-										style_Container="height:50rpx;border: 1px solid #919EFF;">
-									</xfl-select>
+									<uni-forms-item name="serviceType">
+										<xfl-select :list="serviceTypeList" :clearable="false" :showItemNum="5"
+											:isCanInput="true" :style_Container="listBoxStyle" :placeholder="'请选择服务类型'"
+											:initValue="lwServiceOrder.serviceType" :selectHideType="'independent'"
+											:props="item.id" @change="serviceTypeChange"
+											@input="binddata('serviceType',$event.detail.value)"
+											style_Container="height:50rpx;border: 1px solid #919EFF;">
+										</xfl-select>
+									</uni-forms-item>
 								</view>
 							</view>
 							<view class="item flex justify-between align-center box-sizing">
 								<view class="label text-label-grey">
 									资金类型费用承担
 								</view>
-								<xfl-select :list="fundSupportList" :clearable="false" :showItemNum="5"
-									:isCanInput="true" :style_Container="listBoxStyle" :placeholder="'请选择资金类型费承担'"
-									:initValue="lwServiceOrder.fundSupport"
-									:selectHideType="'independent'" :props="item.id" @change="fundSupportChange"
-									style_Container="height:50rpx;border: 1px solid #919EFF;">
-								</xfl-select>
+								<uni-forms-item name="fundSupport">
+									<xfl-select :list="fundSupportList" :clearable="false" :showItemNum="5"
+										:isCanInput="true" :style_Container="listBoxStyle" :placeholder="'请选择资金类型费承担'"
+										:initValue="lwServiceOrder.fundSupport" :selectHideType="'independent'"
+										:props="item.id" @change="fundSupportChange"
+										@input="binddata('fundSupport',$event.detail.value)"
+										style_Container="height:50rpx;border: 1px solid #919EFF;">
+									</xfl-select>
+								</uni-forms-item>
+
 							</view>
 						</view>
 					</view>
@@ -398,6 +437,7 @@
 						<view class="flex justify-between next-step" style="">
 							<button class="cu-btn lg text-white return" @click="preStep">返回</button>
 							<button class="cu-btn bg-blue lg next" @click="activeId==null?add():update()">确认提交</button>
+							<!-- activeId==null?add():update() -->
 						</view>
 					</view>
 				</view>
@@ -454,28 +494,156 @@
 					}
 				],
 				// 服务委托单详情
-				lwServiceOrder: {},
+				lwServiceOrder: {
+					serviceManager: null,
+					deptName: null,
+					projName: null,
+					contact: null,
+					tel: null,
+					description: null,
+					timeReq: null,
+					netReq: null,
+					softReq: null,
+					deviceReq: null,
+					otherReq: null,
+					fundSupport: null,
+					serviceType: null,
+				},
 				activeId: null,
-				rules: {
-					// // 对name字段进行必填验证
-					// name: {
-					// 	rules: [
-					// 		//验证
-					// 		{},
-					// 		//错误提示
-					// 		{}
-					// 	]
-					// },
-					// // 对email字段进行必填验证
-					// email: {
-					// 	rules: [{}]
-					// }
+				orderRules: {
+					serviceManager: {
+						rules: [{
+								required: true,
+								errorMessage: '智家接口人不能为空'
+							},
+							{
+								minLength: 2,
+								maxLength: 10,
+								errorMessage: '智家接口人长度在{minLength}到{maxLength}个字符'
+							}
+						]
+					},
+					deptName: {
+						rules: [{
+								required: true,
+								errorMessage: '部门名称不能为空'
+							},
+							{
+								minLength: 1,
+								maxLength: 30,
+								errorMessage: '部门名称长度不能超过{maxLength}字'
+							}
+						]
+					},
+
+					projName: {
+						rules: [{
+								required: true,
+								errorMessage: '项目名称不能为空'
+							},
+							{
+								minLength: 1,
+								maxLength: 30,
+								errorMessage: '项目名称长度不能超过{maxLength}字'
+							}
+						]
+					},
+					contact: {
+						rules: [{
+								required: true,
+								errorMessage: '联系人不能为空'
+							},
+							{
+								minLength: 1,
+								maxLength: 20,
+								errorMessage: '联系人长度不能超过{maxLength}字'
+							}
+						]
+					},
+					tel: {
+						rules: [{
+								required: true,
+								errorMessage: '手机号不能为空'
+							},
+							{
+								minLength: 1,
+								maxLength: 11,
+								errorMessage: '手机号长度不能超过{maxLength}位'
+							},
+							// {
+							// 	pattern: /^1[3-9]\d{9}$/,
+							// 	errorMessage: '手机号格式错误'
+							// }
+						]
+					},
+					email: {
+						rules: [{
+								required: true,
+								errorMessage: '邮箱不能为空'
+							},
+							{
+								pattern: /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/,
+								errorMessage: '邮箱格式错误'
+							}
+						]
+					},
+					description: {
+						rules: [{
+								required: true,
+								errorMessage: '描述内容不能为空'
+							},
+							{
+								maxLength: 200,
+								errorMessage: '描述内容不能超过{maxLength}位'
+							}
+						]
+					},
+
+					timeReq: {
+						rules: [{
+								required: true,
+								errorMessage: '时间和周期要求不能为空'
+							},
+							{
+								maxLength: 200,
+								errorMessage: '时间和周期要求不能超过{maxLength}位'
+							}
+						]
+					},
+					netReq: {
+						rules: [{
+								required: true,
+								errorMessage: '场地和网络要求不能为空'
+							},
+							{
+								maxLength: 200,
+								errorMessage: '场地和网络要求不能超过{maxLength}位'
+							}
+						]
+					},
+					softReq: {
+						rules: [{
+							maxLength: 100,
+							errorMessage: '平台和软件要求不能超过{maxLength}位'
+						}]
+					},
+					deviceReq: {
+						rules: [{
+							maxLength: 100,
+							errorMessage: '终端和仪表要求不能超过{maxLength}位'
+						}]
+					},
+					otherReq: {
+						rules: [{
+							maxLength: 100,
+							errorMessage: '其他要求不能超过{maxLength}位'
+						}]
+					},
 				},
 				// 资金支持类型
 				fundSupportList: [],
 				// 服务委托类型
 				serviceTypeList: []
-
 			}
 		},
 		watch: {
@@ -543,7 +711,6 @@
 			// 下一步
 			nextStep() {
 				this.step++
-				console.log(this.step)
 			},
 			// 上一步
 			preStep() {
@@ -559,7 +726,6 @@
 							that.checkbox[index].checked = true
 							that.checkbox[index].number = req[index]
 						}
-						console.log(req[index] === '0')
 					}
 				}
 			},
@@ -622,7 +788,6 @@
 				serviceOrderApi.get(id).then(res => {
 					this.lwServiceOrder = res.data
 					this.init_checkBox()
-					console.log(this.lwServiceOrder)
 				})
 			},
 			// 获取所有资金支持类型
@@ -635,55 +800,136 @@
 			getAllServiceTypes() {
 				serviceTypeApi.getAll().then(res => {
 					this.serviceTypeList = res.data
-					console.log("长度" + this.serviceTypeList.length)
 				})
 			},
 			// 添加
 			add() {
-				serviceOrderApi.save(this.lwServiceOrder).then(res => {
-					console.log('表单数据信息：', res);
-					uni.showToast({
-						title: '表单提交成功!',
-						duration: 3000,
-						success() {
-							uni.switchTab({
-								url: address.serviceOrder
-							})
-						}
-					})
+				var _this = this
 
-				}).catch(err => {
-					console.log('表单错误信息：', err);
-					uni.showToast({
-						title: '表单信息错误,请检查后重新提交!',
-						duration: 2000,
-						icon: none
-					});
+				this.$refs.form.validate(valid => {
+					console.log(valid)
+					if (valid) {
+						uni.showToast({
+							title: valid[0].errorMessage,
+							duration: 1500,
+							icon: 'none'
+						})
+					} else {
+						this.$refs.form.submit().then(params => {
+							if (_this.lwServiceOrder.serviceType == null || _this.lwServiceOrder
+								.serviceType ==
+								undefined) {
+								uni.showToast({
+									title: '请选择服务类型!',
+									duration: 1000,
+									icon: 'none'
+								})
+							}
+							if (_this.lwServiceOrder.fundSupport == null || _this.lwServiceOrder
+								.fundSupport ==
+								undefined) {
+								uni.showToast({
+									title: '请选择资金支持类型!',
+									duration: 1000,
+									icon: 'none'
+								})
+							}
+							serviceOrderApi.save(this.lwServiceOrder).then(res => {
+								console.log('表单数据信息：', res);
+								uni.showToast({
+									title: '表单提交成功!',
+									duration: 3000,
+									success() {
+										uni.switchTab({
+											url: address.serviceOrder
+										})
+									}
+								})
+
+							}).catch(err => {
+								console.log('表单错误信息：', err);
+								uni.showToast({
+									title: '表单信息错误,请检查后重新提交!',
+									duration: 2000,
+									icon: 'none'
+								});
+							})
+						})
+					}
 				})
+
+
 			},
 			// 更新操作
 			update() {
-				console.log('update')
-				serviceOrderApi.update(this.lwServiceOrder).then(res => {
-					console.log('表单数据信息：', res);
-					uni.showToast({
-						title: '订单修改成功!',
-						duration: 3000,
-						success() {
-							uni.switchTab({
-								url: address.serviceOrder
+				var _this = this
+
+				this.$refs.form.validate(valid => {
+					console.log(valid)
+					if (valid) {
+						uni.showToast({
+							title: valid[0].errorMessage,
+							duration: 1500,
+							icon: 'none'
+						})
+					} else {
+						this.$refs.form.submit().then(params => {
+							if (_this.lwServiceOrder.serviceType == null || _this.lwServiceOrder
+								.serviceType ==
+								undefined) {
+								uni.showToast({
+									title: '请选择服务类型!',
+									duration: 300,
+									icon: 'null'
+								})
+								return
+							}
+							if (_this.lwServiceOrder.fundSupport == null || _this.lwServiceOrder
+								.fundSupport ==
+								undefined) {
+								uni.showToast({
+									title: '请选择资金支持类型!',
+									duration: 300,
+									icon: 'null'
+								})
+								return
+							}
+
+							serviceOrderApi.update(this.lwServiceOrder).then(res => {
+								uni.showToast({
+									title: '订单修改成功!',
+									duration: 3000,
+									success() {
+										uni.switchTab({
+											url: address.serviceOrder
+										})
+									}
+								})
+							}).catch(err => {
+								uni.showToast({
+									title: '订单信息错误,请检查后重新提交!',
+									duration: 2000,
+									icon: 'none'
+								});
 							})
-						}
-					})
-				}).catch(err => {
-					console.log('表单错误信息：', err);
-					uni.showToast({
-						title: '订单信息错误,请检查后重新提交!',
-						duration: 2000,
-						icon: none
-					});
+						})
+					}
 				})
-			}
+			},
+			//判断验证是否符合要求
+			// validate(key) {
+			// 	let bool = true;
+			// 	if (!this.rules[key].rule.test(this[key])) {
+			// 		//提示信息
+			// 		uni.showToast({
+			// 			title: this.rules[key].msg,
+			// 		})
+			// 		//取反
+			// 		bool = false;
+			// 		return false;
+			// 	}
+			// 	return bool;
+			// }
 		},
 		components: {
 			xflSelect
@@ -693,4 +939,84 @@
 
 <style lang="scss">
 	@import 'serviceOrder-save.scss';
+
+	.base {
+		.uni-forms-item__inner {
+			.uni-forms-item__label {
+				width: 46% !important;
+
+				.label-text {
+					color: #C8C8CD !important;
+				}
+			}
+
+			.uni-easyinput__content-input {
+				text-align: end !important;
+			}
+
+			.is-input-border {
+				border: none !important;
+			}
+
+			padding-bottom: 0rpx !important;
+		}
+
+		.uni-error-message {
+			bottom: -20px !important;
+			left: 120rpx !important;
+		}
+	}
+
+	.appliction {
+		.uni-forms-item__label {
+			width: 46% !important;
+
+			.label-text {
+				color: #C8C8CD !important;
+			}
+		}
+
+		.is-input-border {
+			border: none !important;
+		}
+
+		.uni-forms-item__inner {
+			padding-bottom: 0rpx !important;
+		}
+
+		.uni-error-message {
+			bottom: -20px !important;
+			left: 176rpx !important;
+		}
+	}
+
+	.step-third {
+		.uni-forms-item__label {
+			width: 42% !important;
+
+			.label-text {
+				color: #C8C8CD !important;
+			}
+		}
+
+		.is-input-border {
+			border: none !important;
+		}
+
+		.uni-forms-item__inner {
+			padding-bottom: 0rpx !important;
+		}
+
+		.uni-error-message {
+			bottom: -20px !important;
+			left: 142rpx !important;
+		}
+	}
+
+	.step-four {
+		.uni-forms-item__inner {
+			border-radius: 0rpx 0rpx 0rpx 50rpx !important;
+			padding-bottom: 0rpx !important;
+		}
+	}
 </style>

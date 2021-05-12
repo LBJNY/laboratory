@@ -302,9 +302,9 @@ var _lwServiceOrder = _interopRequireDefault(__webpack_require__(/*! @/api/lw-se
 //
 //
 var _default = { data: function data() {return { // 服务委托单详情
-      lwServiceOrder: {}, activeId: null };}, onLoad: function onLoad(params) {this.activeId = params.activeId;this.getById(params.activeId);}, methods: { /**
-                                                                                                                                                            * 返回
-                                                                                                                                                            */returnBack: function returnBack() {uni.navigateBack();}, // 根据id查询
+      lwServiceOrder: {}, activeId: null };}, onLoad: function onLoad(params) {this.activeId = params.activeId;console.log('examine:');console.log(params);this.getById(params.activeId);}, methods: { /**
+                                                                                                                                                                                                        * 返回
+                                                                                                                                                                                                        */returnBack: function returnBack() {uni.navigateBack();}, // 根据id查询
     getById: function getById(id) {var _this = this;_lwServiceOrder.default.get(id).then(function (res) {_this.lwServiceOrder = res.data;console.log(res.data);});} } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

@@ -97,6 +97,16 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
+  var f0 = _vm._f("date-format")(_vm.lwServiceOrder.currentDate)
+
+  _vm.$mp.data = Object.assign(
+    {},
+    {
+      $root: {
+        f0: f0
+      }
+    }
+  )
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -131,6 +141,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
+
 
 
 
@@ -334,13 +345,17 @@ var _lwServiceOrder = _interopRequireDefault(__webpack_require__(/*! @/api/lw-se
 //
 //
 //
+//
 var _default = { data: function data() {return { // 服务委托单详情
       lwServiceOrder: {}, // 订单ID
-      activeId: null };}, onLoad: function onLoad(params) {this.activeId = params.activeId;this.getById(params.activeId);}, methods: { // 根据id查询
-    getById: function getById(id) {var _this = this;_lwServiceOrder.default.get(id).then(function (res) {_this.lwServiceOrder = res.data;console.log(res.data);});}, // 跳转到确认修改页面
+      activeId: null, // 所需人员字符串
+      personReq: null, // 所需人员等级
+      level: ['首席', '资深', '高级', '中级', '初级'] };}, onLoad: function onLoad(params) {this.activeId = params.activeId;this.getById(params.activeId);}, methods: { // 根据id查询
+    getById: function getById(id) {var _this = this;_lwServiceOrder.default.get(id).then(function (res) {_this.lwServiceOrder = res.data;console.log(res.data);_this.getPersonReq();});}, // 跳转到确认修改页面
     toUpdate: function toUpdate(event) {var id = event.currentTarget.id;uni.navigateTo({ url: _pageAddress.default.user_serviceOrder_save + '?activeId=' + this.lwServiceOrder.id });}, /**
                                                                                                                                                                                          * 返回
-                                                                                                                                                                                         */returnBack: function returnBack() {uni.navigateBack();} } };exports.default = _default;
+                                                                                                                                                                                         */returnBack: function returnBack() {uni.navigateBack();}, // 获取人员需求字符串
+    getPersonReq: function getPersonReq() {var that = this;var req = [];var strArray = [];if (that.lwServiceOrder.personReq != null && that.lwServiceOrder.personReq != '') {req = that.lwServiceOrder.personReq.split('-');for (var index = 0; index < req.length; index++) {var element = req[index];var strNext = '';if (element !== '0') {strNext += that.level[index] + req[index] + '人';strArray.push(strNext);}}}this.personReq = strArray.join(',');} } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),

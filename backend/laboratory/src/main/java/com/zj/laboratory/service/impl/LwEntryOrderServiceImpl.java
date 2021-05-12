@@ -157,35 +157,35 @@ public class LwEntryOrderServiceImpl implements LwEntryOrderService {
         // 添加统计表信息
         lwUserStatisticMapper.increaseEntryOrderCount(loginUser.getId());
 
-        // 添加通知消息
-        // 1.查询所有审查员
-        List<LwUser> reviewerList = lwUserMapper.getByLevel(RoleEnum.LEVEL_ENTRY_ORDER.getType());
-        List<LwUser> adminReviewerList = lwUserMapper.getByLevel(RoleEnum.LEVEL_ADMIN.getType());
-        if (reviewerList.size()<=0&&adminReviewerList.size()<=0){
-            throw new LaboratoryException("暂无审核员,请联系负责人添加审核员!");
-        }
-        List<Long> idList=new ArrayList<>();
-        //普通审核人
-        reviewerList.forEach(lwUser -> {
-            idList.add(lwUser.getId());
-        });
-        //顶级审核人
-        adminReviewerList.forEach(lwUser -> {
-            idList.add(lwUser.getId());
-        });
-        // 2.构建通知信息
-        LwNotice lwNotice=new LwNotice();
-        lwNotice.setId(idWorker.nextId());
-        lwNotice.setCreatedBy(getName(loginUser));
-        lwNotice.setNoticeTitle("新增一条进场单!");
-        lwNotice.setNoticeContent("新增进场单:订单编号是"+lwEntry.getId()+",创建人为"+lwEntry.getApplicantName());
-        lwNotice.setRole(StateEnums.NOTICE_ROLE_ADMIN.getCode());
-        List<LwNotice> lwNoticeList = idList.stream().map(id -> {
-            lwNotice.setUserId(id);
-            return lwNotice;
-        }).collect(Collectors.toList());
-        // 3.调用方法
-        lwNoticeMapper.saveBatch(lwNoticeList);
+//        // 添加通知消息
+//        // 1.查询所有审查员
+//        List<LwUser> reviewerList = lwUserMapper.getByLevel(RoleEnum.LEVEL_ENTRY_ORDER.getType());
+//        List<LwUser> adminReviewerList = lwUserMapper.getByLevel(RoleEnum.LEVEL_ADMIN.getType());
+//        if (reviewerList.size()<=0&&adminReviewerList.size()<=0){
+//            throw new LaboratoryException("暂无审核员,请联系负责人添加审核员!");
+//        }
+//        List<Long> idList=new ArrayList<>();
+//        //普通审核人
+//        reviewerList.forEach(lwUser -> {
+//            idList.add(lwUser.getId());
+//        });
+//        //顶级审核人
+//        adminReviewerList.forEach(lwUser -> {
+//            idList.add(lwUser.getId());
+//        });
+//        // 2.构建通知信息
+//        LwNotice lwNotice=new LwNotice();
+//        lwNotice.setId(idWorker.nextId());
+//        lwNotice.setCreatedBy(getName(loginUser));
+//        lwNotice.setNoticeTitle("新增一条进场单!");
+//        lwNotice.setNoticeContent("新增进场单:订单编号是"+lwEntry.getId()+",创建人为"+lwEntry.getApplicantName());
+//        lwNotice.setRole(StateEnums.NOTICE_ROLE_ADMIN.getCode());
+//        List<LwNotice> lwNoticeList = idList.stream().map(id -> {
+//            lwNotice.setUserId(id);
+//            return lwNotice;
+//        }).collect(Collectors.toList());
+//        // 3.调用方法
+//        lwNoticeMapper.saveBatch(lwNoticeList);
     }
 
     @Override

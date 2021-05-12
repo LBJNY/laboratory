@@ -90,6 +90,8 @@
 		},
 		onLoad(params) {
 			this.activeId = params.activeId
+			console.log('examine:')
+			console.log(params)
 			this.getById(params.activeId)
 		},
 		methods: {

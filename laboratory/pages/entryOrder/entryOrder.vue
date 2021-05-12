@@ -76,7 +76,7 @@
 									<uni-steps :options="item.progress" :active="2" v-else-if="item.verifyStatus==2"
 										activeColor="red">
 									</uni-steps>
-									<uni-steps :options="item.progress" :active="1" v-else activeColor="orange">
+									<uni-steps :options="item.progress" :active="0" v-else activeColor="orange">
 									</uni-steps>
 								</view>
 							</view>
@@ -229,6 +229,7 @@
 			getEntryOrderList() {
 				entryOrderApi.getByPage(this.entryPage).then(res => {
 					this.entryPage = res.data
+					console.log(res.data)
 					if (this.entryOrderList.length === 0) {
 						this.entryOrderList = res.data.list
 					} else {

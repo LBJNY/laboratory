@@ -148,7 +148,8 @@
 												<view class="btn">
 													<button class="cu-btn round bg-white blue text-blue"
 														style="border: 1rpx #0081FF solid !important;height: 50rpx;"
-														@click="toServiceOrderExamine(1)"
+														@click="toServiceOrderExamine"
+														:id="item.id"
 														v-if="item.verifyStatus<3">点击审核</button>
 													<button class="cu-btn round bg-white blue text-blue"
 														style="border: 1rpx #0081FF solid !important;height: 50rpx;"
@@ -509,8 +510,10 @@
 			// 跳转到服务委托单审核页面---管理员
 			toServiceOrderExamine(event) {
 				var id = event.currentTarget.id
+				console.log('home:')
+				console.log(id)
 				uni.navigateTo({
-					url: address.admin_serviceOrder_examine + '?activeId' + id
+					url: address.admin_serviceOrder_examine + '?activeId=' + id
 				})
 			},
 			// 跳转到服务委托单审核详情---管理员

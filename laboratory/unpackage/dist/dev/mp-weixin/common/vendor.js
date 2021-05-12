@@ -33681,6 +33681,86 @@ SchemaValidator;exports.default = _default;
 /* 380 */,
 /* 381 */,
 /* 382 */
+/*!************************************************************************!*\
+  !*** D:/study/MyDev/小程序/laboratory/components/uni-easyinput/common.js ***!
+  \************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.throttle = exports.debounce = void 0; /**
+                                                                                                                          * @desc 函数防抖
+                                                                                                                          * @param func 目标函数
+                                                                                                                          * @param wait 延迟执行毫秒数
+                                                                                                                          * @param immediate true - 立即执行， false - 延迟执行
+                                                                                                                          */
+var debounce = function debounce(func) {var wait = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1000;var immediate = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
+  var timer;
+  console.log(1);
+  return function () {
+    console.log(123);
+    var context = this,
+    args = arguments;
+    if (timer) clearTimeout(timer);
+    if (immediate) {
+      var callNow = !timer;
+      timer = setTimeout(function () {
+        timer = null;
+      }, wait);
+      if (callNow) func.apply(context, args);
+    } else {
+      timer = setTimeout(function () {
+        func.apply(context, args);
+      }, wait);
+    }
+  };
+};
+/**
+    * @desc 函数节流
+    * @param func 函数
+    * @param wait 延迟执行毫秒数
+    * @param type 1 使用表时间戳，在时间段开始的时候触发 2 使用表定时器，在时间段结束的时候触发
+    */exports.debounce = debounce;
+var throttle = function throttle(func) {var wait = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1000;var type = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 1;
+  var previous = 0;
+  var timeout;
+  return function () {
+    var context = this;
+    var args = arguments;
+    if (type === 1) {
+      var now = Date.now();
+
+      if (now - previous > wait) {
+        func.apply(context, args);
+        previous = now;
+      }
+    } else if (type === 2) {
+      if (!timeout) {
+        timeout = setTimeout(function () {
+          timeout = null;
+          func.apply(context, args);
+        }, wait);
+      }
+    }
+  };
+};exports.throttle = throttle;
+
+/***/ }),
+/* 383 */,
+/* 384 */,
+/* 385 */,
+/* 386 */,
+/* 387 */,
+/* 388 */,
+/* 389 */,
+/* 390 */,
+/* 391 */,
+/* 392 */,
+/* 393 */,
+/* 394 */,
+/* 395 */,
+/* 396 */,
+/* 397 */
 /*!*******************************************************************!*\
   !*** D:/study/MyDev/小程序/laboratory/components/uni-icons/icons.js ***!
   \*******************************************************************/

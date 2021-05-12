@@ -96,7 +96,7 @@ var components
 try {
   components = {
     xflSelect: function() {
-      return __webpack_require__.e(/*! import() | components/xfl-select/xfl-select */ "components/xfl-select/xfl-select").then(__webpack_require__.bind(null, /*! @/components/xfl-select/xfl-select.vue */ 370))
+      return __webpack_require__.e(/*! import() | components/xfl-select/xfl-select */ "components/xfl-select/xfl-select").then(__webpack_require__.bind(null, /*! @/components/xfl-select/xfl-select.vue */ 385))
     }
   }
 } catch (e) {

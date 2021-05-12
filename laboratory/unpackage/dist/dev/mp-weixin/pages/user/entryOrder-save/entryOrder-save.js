@@ -98,6 +98,12 @@ try {
     uniForms: function() {
       return Promise.all(/*! import() | components/uni-forms/uni-forms */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-forms/uni-forms")]).then(__webpack_require__.bind(null, /*! @/components/uni-forms/uni-forms.vue */ 352))
     },
+    uniFormsItem: function() {
+      return Promise.all(/*! import() | components/uni-forms-item/uni-forms-item */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-forms-item/uni-forms-item")]).then(__webpack_require__.bind(null, /*! @/components/uni-forms-item/uni-forms-item.vue */ 370))
+    },
+    uniEasyinput: function() {
+      return Promise.all(/*! import() | components/uni-easyinput/uni-easyinput */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-easyinput/uni-easyinput")]).then(__webpack_require__.bind(null, /*! @/components/uni-easyinput/uni-easyinput.vue */ 377))
+    },
     uniDatetimePicker: function() {
       return __webpack_require__.e(/*! import() | components/uni-datetime-picker/uni-datetime-picker */ "components/uni-datetime-picker/uni-datetime-picker").then(__webpack_require__.bind(null, /*! @/components/uni-datetime-picker/uni-datetime-picker.vue */ 363))
     }
@@ -179,6 +185,55 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -670,28 +725,68 @@ var _lwEntryOrder = _interopRequireDefault(__webpack_require__(/*! @/api/lw-entr
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var _default = { data: function data() {return { //当前步骤
       step: 1, // 进场单详情
-      lwEntryOrder: {}, rules: {// // 对name字段进行必填验证
-        // name: {
-        // 	rules: [
-        // 		//验证
-        // 		{},
-        // 		//错误提示
-        // 		{}
-        // 	]
-        // },
-        // // 对email字段进行必填验证
-        // email: {
-        // 	rules: [{}]
-        // }
-      }, activeId: null };}, onLoad: function onLoad(params) {if (params.activeId != undefined) {this.activeId = params.activeId;this.getById(params.activeId);}}, onShow: function onShow() {this.$set(this.lwEntryOrder, 'currentDate', this.getNowFormatDate());}, methods: { // 获取当前日期
+      lwEntryOrder: { entryManager: null, deptName: null, projName: null, contact: null, tel: null, description: null, requirement: null }, rules: { entryManager: { rules: [{ required: true, errorMessage: '智家接口人不能为空' }, { minLength: 2, maxLength: 10, errorMessage: '智家接口人长度在{minLength}到{maxLength}个字符' }] }, deptName: { rules: [{ required: true, errorMessage: '部门名称不能为空' }, { minLength: 1, maxLength: 30, errorMessage: '部门名称长度不能超过{maxLength}字' }] }, projName: { rules: [{ required: true, errorMessage: '项目名称不能为空' }, { minLength: 1, maxLength: 30, errorMessage: '项目名称长度不能超过{maxLength}字' }] }, contact: { rules: [{ required: true, errorMessage: '联系人不能为空' }, { minLength: 1, maxLength: 20, errorMessage: '联系人长度不能超过{maxLength}字' }] }, tel: { rules: [{ required: true, errorMessage: '手机号不能为空' }, { minLength: 1, maxLength: 11, errorMessage: '手机号长度不能超过{maxLength}位' } // {
+          // 	pattern: /^1[34578]\d{9}$/,
+          // 	errorMessage: '手机号格式错误'
+          // }
+          ] }, email: { rules: [{ required: true, errorMessage: '邮箱不能为空' }, { pattern: /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/, errorMessage: '邮箱格式错误' }] }, description: { rules: [{ required: true, errorMessage: '描述内容不能为空' }, { maxLength: 200, errorMessage: '描述内容不能超过{maxLength}位' }] }, requirement: { rules: [{ required: true, errorMessage: '描述内容不能为空' }, { maxLength: 200, errorMessage: '描述内容不能超过{maxLength}位' }] } }, activeId: null };}, onLoad: function onLoad(params) {if (params.activeId != undefined) {this.activeId = params.activeId;this.getById(params.activeId);}console.log('结果:' + RegExp(/^1[34578]\d{9}$/).test('17639842742'));}, onShow: function onShow() {this.$set(this.lwEntryOrder, 'currentDate', this.getNowFormatDate());}, methods: { // 获取当前日期
     getNowFormatDate: function getNowFormatDate() {var date = new Date();var seperator1 = "-";var year = date.getFullYear();var month = date.getMonth() + 1;var strDate = date.getDate();if (month >= 1 && month <= 9) {month = "0" + month;}if (strDate >= 0 && strDate <= 9) {strDate = "0" + strDate;}var currentdate = year + seperator1 + month + seperator1 + strDate;return currentdate;}, // 下一步
     nextStep: function nextStep() {this.step++;console.log(this.step);}, // 上一步
     preStep: function preStep() {this.step--;}, // 根据id查询
     getById: function getById(id) {var _this = this;_lwEntryOrder.default.get(id).then(function (res) {_this.lwEntryOrder = res.data;console.log(_this.lwEntryOrder);});}, // 添加
-    add: function add() {console.log('add');_lwEntryOrder.default.save(this.lwEntryOrder).then(function (res) {console.log('表单数据信息：', res);uni.showToast({ title: '表单提交成功!', duration: 3000, success: function success() {uni.switchTab({ url: _pageAddress.default.entryOrder });} });}).catch(function (err) {console.log('表单错误信息：', err);uni.showToast({ title: '表单信息错误,请检查后重新提交!', duration: 2000, icon: none });});}, // 更新操作
-    update: function update() {console.log('update');_lwEntryOrder.default.update(this.lwEntryOrder).then(function (res) {console.log('表单数据信息：', res);uni.showToast({ title: '订单修改成功!', duration: 3000, success: function success() {uni.switchTab({ url: _pageAddress.default.entryOrder });} });}).catch(function (err) {console.log('表单错误信息：', err);uni.showToast({ title: '订单信息错误,请检查后重新提交!', duration: 2000, icon: none });});} } };exports.default = _default;
+    add: function add() {var _this2 = this;console.log('add');this.$refs.form.validate(function (valid) {console.log(valid);if (valid) {uni.showToast({ title: valid[0].errorMessage, duration: 1500, icon: 'null' });} else {_lwEntryOrder.default.save(_this2.lwEntryOrder).then(function (res) {console.log('表单数据信息：', res);uni.showToast({ title: '表单提交成功!', duration: 3000, success: function success() {uni.switchTab({ url: _pageAddress.default.entryOrder });} });}).catch(function (err) {console.log('表单错误信息：', err);uni.showToast({ title: '表单信息错误,请检查后重新提交!', duration: 2000, icon: none });});}});}, // 更新操作
+    update: function update() {var _this3 = this;console.log('update');this.$refs.form.validate(function (valid) {console.log(valid);if (valid) {uni.showToast({ title: valid[0].errorMessage, duration: 1500, icon: 'none' });} else {_lwEntryOrder.default.update(_this3.lwEntryOrder).then(function (res) {console.log('表单数据信息：', res);uni.showToast({ title: '订单修改成功!', duration: 3000, success: function success() {uni.switchTab({ url: _pageAddress.default.entryOrder });} });}).catch(function (err) {console.log('表单错误信息：', err);uni.showToast({ title: '订单信息错误,请检查后重新提交!', duration: 2000, icon: none });});}});} } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
