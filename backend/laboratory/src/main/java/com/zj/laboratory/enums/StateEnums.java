@@ -125,4 +125,18 @@ public enum StateEnums {
         this.code = code;
         this.msg = msg;
     }
+    public static StateEnums getStatusByCode(Integer code) {
+        switch (code) {
+            case 1:
+                return SERVICE_ORDER_DEPT;
+            case 2:
+                return SERVICE_ORDER_LAB;
+            case 3:
+                return SERVICE_ORDER_CHO;
+            case 4:
+                return SERVICE_ORDER_FAIL;
+            default:
+                return SERVICE_ORDER_PENDING;
+        }
+    }
 }

@@ -3,10 +3,12 @@ package com.zj.laboratory.controller;
 import com.alibaba.fastjson.JSON;
 import com.zj.laboratory.config.WeChatConfig;
 import com.zj.laboratory.enums.ResultEnum;
+import com.zj.laboratory.exception.LaboratoryException;
 import com.zj.laboratory.pojo.LoginUser;
 import com.zj.laboratory.pojo.LwUser;
 import com.zj.laboratory.pojo.TokenVo;
 import com.zj.laboratory.pojo.WeChatResult;
+import com.zj.laboratory.pojo.dto.EncryptDto;
 import com.zj.laboratory.pojo.dto.WeChatRegisterDto;
 import com.zj.laboratory.service.LwUserService;
 import com.zj.laboratory.shiro.LwUserRealm;
@@ -15,6 +17,7 @@ import com.zj.laboratory.shiro.UserToken;
 import com.zj.laboratory.utils.HttpUtils;
 import com.zj.laboratory.utils.Result;
 import com.zj.laboratory.utils.ShiroUtils;
+import com.zj.laboratory.utils.WXCore;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -43,6 +46,7 @@ public class WeChatController {
     public Result<Object> weLogin(@PathVariable String code) throws IOException {
         String body = HttpUtils.get(weChatConfig.getAuthUrl(code)).body();
         WeChatResult weChatResult = JSON.parseObject(body, WeChatResult.class);
+        System.out.println(weChatResult.getSessionKey());
         Subject subject = SecurityUtils.getSubject();
         AuthenticationToken authenticationToken = new UserToken(weChatResult.getOpenId(), weChatResult.getOpenId(), LwUserRealm.class);
         try {
@@ -97,5 +101,25 @@ public class WeChatController {
     public Result<LoginUser> info() {
         LoginUser loginUser = ShiroUtils.getLoginUser();
         return new Result<>(loginUser);
+    }
+
+    /**
+     * 获取登录用户手机号
+     *
+     * @return
+     */
+    @RequestMapping(value = "/bindPhoneNumber", method = RequestMethod.PUT)
+    public Result<?> bindPhoneNumber(@RequestBody EncryptDto encryptDto) {
+        //LoginUser loginUser = ShiroUtils.getLoginUser();
+        try {
+            String str = WXCore.decrypt(weChatConfig.getAppId(), encryptDto.getEncryptedData(), encryptDto.getSessionKey(), encryptDto.getIv());
+            Map<String, String> map = (Map<String, String>) JSON.parse(str);
+            System.out.println(map.toString());
+            lwUserService.bindPhoneNumber(map.get("phoneNumber"));
+        } catch (Exception e) {
+            lwUserService.delUserById();
+            throw new LaboratoryException("操作失败");
+        }
+        return new Result<>("绑定成功");
     }
 }

@@ -435,8 +435,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
-
 var _pageAddress = _interopRequireDefault(__webpack_require__(/*! utils/page-address.js */ 204));
 var _lwServiceOrder = _interopRequireDefault(__webpack_require__(/*! @/api/lw-service-order */ 214));
 var _lwEntryOrder = _interopRequireDefault(__webpack_require__(/*! @/api/lw-entry-order */ 205));var _methods;function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}var _default =
@@ -491,9 +489,6 @@ var _lwEntryOrder = _interopRequireDefault(__webpack_require__(/*! @/api/lw-entr
   },
   onShow: function onShow() {
     this.init();
-    _lwServiceOrder.default.getServiceTotalCount().then(function (res) {
-      console.log(res.data);
-    });
   },
   onReachBottom: function onReachBottom() {
     if (this.pageType === this.role.admin_page_num) {
@@ -524,6 +519,8 @@ var _lwEntryOrder = _interopRequireDefault(__webpack_require__(/*! @/api/lw-entr
         this.level = uni.getStorageSync('loginUser').level;
         console.log('level:' + this.level);
       }
+      this.serviceOrderList = [];
+      this.entryOrderList = [];
       this.servicePage.params.role = uni.getStorageSync('pageType');
       this.entryPage.params.role = uni.getStorageSync('pageType');
       this.noticePage.params.role = uni.getStorageSync('pageType');
@@ -531,7 +528,7 @@ var _lwEntryOrder = _interopRequireDefault(__webpack_require__(/*! @/api/lw-entr
       this.getEntryOrderNumber();
       this.getServiceOrderList();
       this.getServiceOrderNumber();
-      this.getNoticeList();
+      //this.getNoticeList()
     },
     tabSelect: function tabSelect(e) {
       this.TabCur = e.currentTarget.dataset.id;
@@ -683,8 +680,6 @@ var _lwEntryOrder = _interopRequireDefault(__webpack_require__(/*! @/api/lw-entr
     // 跳转到服务委托单审核页面---管理员
     toServiceOrderExamine: function toServiceOrderExamine(event) {
       var id = event.currentTarget.id;
-      console.log('home:');
-      console.log(id);
       uni.navigateTo({
         url: _pageAddress.default.admin_serviceOrder_examine + '?activeId=' + id });
 
@@ -704,7 +699,6 @@ var _lwEntryOrder = _interopRequireDefault(__webpack_require__(/*! @/api/lw-entr
 
   event) {var _this7 = this;
     var id = event.currentTarget.id;
-    console.log(id);
     _lwEntryOrder.default.deleteById(id).then(function (res) {
       uni.showToast({
         title: '删除成功!',

@@ -63,7 +63,8 @@
                status,
                header,
                gender,
-               openid
+               openid,
+               phone
         from lw_user
         where deleted = 0
           and status = 1
@@ -176,4 +177,10 @@
         from lw_user
         where level = #{level}
     </select>
+    <update id="bindPhoneNumber">
+        update lw_user set phone=#{phone} where id=#{id}
+    </update>
+    <delete id="delUserById">
+        delete from lw_user where id=#{id}
+    </delete>
 </mapper>

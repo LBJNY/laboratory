@@ -153,7 +153,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
 var _wechat = _interopRequireDefault(__webpack_require__(/*! @/api/wechat.js */ 157));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
 //
 //
@@ -176,8 +175,7 @@ var _wechat = _interopRequireDefault(__webpack_require__(/*! @/api/wechat.js */ 
 //
 //
 //
-//
-var _default = { data: function data() {return { SessionKey: '', OpenId: '', // 当前登录用户
+var _default = { data: function data() {return { sessionKey: '', OpenId: '', // 当前登录用户
       loginUser: null, //登录按钮是否不可用
       isDisabled: true, // 页面类型  0:用户页面  1:管理员界面
       pageType: 0, isCanUse: uni.getStorageSync('isCanUse') || true //默认为true
@@ -187,7 +185,9 @@ var _default = { data: function data() {return { SessionKey: '', OpenId: '', // 
       // });
       var _this = this; //if (uni.getStorageSync('loginUser') && !_this.isCanUse) {
       uni.getUserProfile({ desc: '登录', success: function success(res) {console.log(uni.getStorageSync('loginUser'));if (!uni.getStorageSync('loginUser')) {try {uni.setStorageSync('isCanUse', false); //记录是否第一次授权  false:表示不是第一次授权
-              _this.getUserInfo(res);} catch (e) {}_this.login();}
+              _this.getUserInfo(res);} catch (e) {}
+            _this.login();
+          }
           // wx.showLoading()
         },
         fail: function fail(res) {
@@ -205,11 +205,12 @@ var _default = { data: function data() {return { SessionKey: '', OpenId: '', // 
       // uni.showLoading({
       // 	title: '登录中...'
       // });
+      // 每次登陆清空用户数据
+      uni.setStorageSync('loginUser', null);
       // 登录获取
       uni.login({
         provider: "weixin",
         success: function success(res) {
-          console.log(res);
           // 获取微信登录用的code
           var code = res.code;
           _wechat.default.loginByCode(code).then(function (res) {
@@ -218,17 +219,21 @@ var _default = { data: function data() {return { SessionKey: '', OpenId: '', // 
               _wechat.default.getLoginInfo().then(function (res) {
                 uni.setStorageSync('loginUser', res.data);
                 _this.loginUser = res.data;
+                if (res.data.phone == undefined || res.data.phone == null) {
+                  _this.toBindPhoneNumber();
+                }
                 _this.navigateTo();
               });
               _this2.navigateTo();
-              console.log(res.data.token);
             } else {
               uni.setStorageSync('openId', res.data.openId);
-              console.log("openid:" + res.data.openId);
+              uni.setStorageSync('sessionKey', res.data.sessionKey);
+              console.log(res.data.sessionKey);
               _this2.$set(_this2, 'isDisabled', false);
             }
             // uni.hideLoading()
-            console.log(uni.getStorageSync('loginUser'));
+            //console.log(uni.getStorageSync('loginUser'))
+            console.log(_this2.isDisabled);
           });
         } });
 
@@ -252,7 +257,6 @@ var _default = { data: function data() {return { SessionKey: '', OpenId: '', // 
     //获取用户信息
     getUserInfo: function getUserInfo(detail) {
       var userInfo = detail.userInfo;
-      console.log(detail);
       // 获取到openId
       var openId = uni.getStorageSync('openId');
       userInfo.openId = openId;
@@ -263,21 +267,21 @@ var _default = { data: function data() {return { SessionKey: '', OpenId: '', // 
         uni.setStorageSync('Authorization', res.data.token);
         console.log(res.data);
       });
-
     },
     toHome: function toHome() {
       uni.redirectTo({
         url: '../home/home' });
+
+    },
+    toBindPhoneNumber: function toBindPhoneNumber() {
+      uni.redirectTo({
+        url: '/pages/bindPhoneNumber/bindPhoneNumber' });
 
     } },
 
   onShow: function onShow() {
     // 登录获取
     this.login();
-    console.log('admin-reviewer:' + this.role.admin_reviewer);
-  },
-  onLoad: function onLoad() {//默认加载
-
   } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

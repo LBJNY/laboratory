@@ -3,6 +3,8 @@ package com.zj.laboratory.mapper;
 
 import com.zj.laboratory.pojo.LwEntry;
 import com.zj.laboratory.pojo.LwOrder;
+import com.zj.laboratory.pojo.vo.OrderMonthVo;
+import com.zj.laboratory.pojo.vo.OrderPointVo;
 import com.zj.laboratory.utils.Page;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -106,5 +108,22 @@ public interface LwEntryOrderMapper {
      */
 //    Integer selectCountByType(@Param("type") Integer type);
 
+    /**
+     * 审核
+     * @param lwEntry
+     * @return
+     */
     int examine(LwEntry lwEntry);
+
+    /**
+     * 查询月订单数量
+     * @return
+     */
+    List<OrderMonthVo> monthOrder();
+
+    /**
+     * 查询订单各状态占比
+     * @return
+     */
+    List<OrderPointVo> orderPoint();
 }

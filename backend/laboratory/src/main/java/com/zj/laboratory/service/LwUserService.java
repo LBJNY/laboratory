@@ -101,4 +101,13 @@ public interface LwUserService {
      * @return
      */
     List<LwReviewerVo> getReviewerList(String serviceNo);
+
+    /**
+     * 绑定手机号
+     */
+    void bindPhoneNumber(String phone);
+    /**
+     * 删除用户---真正删除
+     */
+    void delUserById();
 }

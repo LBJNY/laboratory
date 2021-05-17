@@ -218,6 +218,17 @@ public class LwUserServiceImpl implements LwUserService {
         });
         return reviewerList;
     }
+
+    @Override
+    public void bindPhoneNumber(String phone) {
+        LoginUser loginUser = ShiroUtils.getLoginUser();
+        loginUser.setPhone(phone);
+        int res = lwUserMapper.bindPhoneNumber(loginUser);
+        if (res<=0){
+            throw new LaboratoryException("绑定失败!");
+        }
+    }
+
     // 获取名称
     protected String getName(LwUser lwUser) {
         if (lwUser.getName() != null) {
@@ -225,5 +236,11 @@ public class LwUserServiceImpl implements LwUserService {
         } else {
             return lwUser.getNickname();
         }
+    }
+    @Override
+    public void delUserById() {
+        LoginUser loginUser = ShiroUtils.getLoginUser();
+        assert loginUser != null;
+        lwUserMapper.delUserById(loginUser.getId());
     }
 }

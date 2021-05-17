@@ -18,7 +18,8 @@
     "pages/admin/serviceOrder-examine/serviceOrder-examine",
     "pages/admin/entryOrder-examine/entryOrder-examine",
     "pages/admin/serviceOrder-info/serviceOrder-info",
-    "pages/admin/entryOrder-info/entryOrder-info"
+    "pages/admin/entryOrder-info/entryOrder-info",
+    "pages/bindPhoneNumber/bindPhoneNumber"
   ],
   "subPackages": [],
   "window": {
@@ -60,6 +61,5 @@
   },
   "usingComponents": {
     "cu-custom": "/colorui/components/cu-custom"
-  },
-  "sitemapLocation": "sitemap35.json"
+  }
 }

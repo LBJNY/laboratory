@@ -221,4 +221,16 @@
             and date_format(currentDate, '%Y-%m-%d') = #{params.currentDate}
         </if>
     </select>
+    <select id="monthOrder" resultType="com.zj.laboratory.pojo.vo.OrderMonthVo">
+        select DATE_FORMAT(currentDate, '%Y-%m-%d') as day, count(*) as count
+        from lw_entry
+        where DATE_FORMAT(currentDate, '%Y-%m') = DATE_FORMAT(now(), '%Y-%m')
+        group by day
+        order by day asc
+    </select>
+    <select id="orderPoint" resultType="com.zj.laboratory.pojo.vo.OrderPointVo">
+        select verify_status as status, count(*) as count
+        from lw_entry
+        group by verify_status
+    </select>
 </mapper>

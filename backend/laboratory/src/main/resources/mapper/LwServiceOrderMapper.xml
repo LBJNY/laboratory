@@ -362,4 +362,16 @@
         where serviceNo = #{serviceNo}
         and version = #{version}
     </update>
+    <select id="monthOrder" resultType="com.zj.laboratory.pojo.vo.OrderMonthVo">
+        select DATE_FORMAT(currentDate, '%Y-%m-%d') as day, count(*) as count
+        from lw_order
+        where DATE_FORMAT(currentDate, '%Y-%m') = DATE_FORMAT(now(), '%Y-%m')
+        group by day
+        order by day asc
+    </select>
+    <select id="orderPoint" resultType="com.zj.laboratory.pojo.vo.OrderPointVo">
+        select verify_status as status, count(1) as count
+        from lw_order
+        group by verify_status
+    </select>
 </mapper>

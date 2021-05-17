@@ -2,9 +2,7 @@ package com.zj.laboratory.controller;
 
 import com.zj.laboratory.pojo.*;
 import com.zj.laboratory.pojo.dto.LwEntryOrderDto;
-import com.zj.laboratory.pojo.vo.LwEntryOrderVo;
-import com.zj.laboratory.pojo.vo.LwServiceOrderVo;
-import com.zj.laboratory.pojo.vo.LwUserVo;
+import com.zj.laboratory.pojo.vo.*;
 import com.zj.laboratory.service.LwEntryOrderService;
 import com.zj.laboratory.utils.Page;
 import com.zj.laboratory.utils.Result;
@@ -147,5 +145,26 @@ public class LwEntryOrderController {
     public Result<?> toExamine(@RequestBody LwEntry lwEntry){
         lwEntryOrderService.examine(lwEntry);
         return new Result<>("审核成功!");
+    }
+
+    /**
+     * 查询当月订单
+     *
+     * @return
+     */
+    @RequestMapping(value = "/monthOrder", method = RequestMethod.GET)
+    public Result<List<OrderMonthVo>> monthOrder() {
+        List<OrderMonthVo> list = lwEntryOrderService.monthOrder();
+        return new Result<>(list);
+    }
+    /**
+     * 查询每种订单的占比
+     *
+     * @return
+     */
+    @RequestMapping(value = "/orderPoint", method = RequestMethod.GET)
+    public Result<List<OrderPointVo>> orderPoint() {
+        List<OrderPointVo> list = lwEntryOrderService.orderPoint();
+        return new Result<>(list);
     }
 }

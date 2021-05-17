@@ -3,6 +3,8 @@ package com.zj.laboratory.service;
 import com.zj.laboratory.pojo.LwEntry;
 import com.zj.laboratory.pojo.LwUserStatistic;
 import com.zj.laboratory.pojo.vo.LwEntryOrderVo;
+import com.zj.laboratory.pojo.vo.OrderMonthVo;
+import com.zj.laboratory.pojo.vo.OrderPointVo;
 import com.zj.laboratory.utils.Page;
 
 import java.util.List;
@@ -83,4 +85,16 @@ public interface LwEntryOrderService {
      * @param lwEntry
      */
     void examine(LwEntry lwEntry);
+
+    /**
+     * 查询月订单
+     * @return
+     */
+    List<OrderMonthVo> monthOrder();
+
+    /**
+     * 查询订单个状态占比
+     * @return
+     */
+    List<OrderPointVo> orderPoint();
 }

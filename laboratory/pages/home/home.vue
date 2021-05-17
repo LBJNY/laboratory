@@ -148,8 +148,7 @@
 												<view class="btn">
 													<button class="cu-btn round bg-white blue text-blue"
 														style="border: 1rpx #0081FF solid !important;height: 50rpx;"
-														@click="toServiceOrderExamine"
-														:id="item.id"
+														@click="toServiceOrderExamine" :id="item.id"
 														v-if="item.verifyStatus<3">点击审核</button>
 													<button class="cu-btn round bg-white blue text-blue"
 														style="border: 1rpx #0081FF solid !important;height: 50rpx;"
@@ -232,8 +231,7 @@
 												<view class="btn">
 													<button class="cu-btn round bg-white blue text-blue"
 														style="border: 1rpx #0081FF solid !important;height: 50rpx;"
-														:id="item.id"
-														@click="toAdminEntryOrderExamine"
+														:id="item.id" @click="toAdminEntryOrderExamine"
 														v-if="item.verifyStatus===0">点击审核</button>
 													<button class="cu-btn round bg-white blue text-blue"
 														style="border: 1rpx #0081FF solid !important;height: 50rpx;"
@@ -283,7 +281,7 @@
 				// 进场单列表
 				entryOrderList: [],
 				// 通知信息列表
-				noticeList:[],
+				noticeList: [],
 				// 分页对象
 				servicePage: {
 					// 分页传参
@@ -318,9 +316,6 @@
 		},
 		onShow() {
 			this.init()
-			serviceOrderApi.getServiceTotalCount().then(res => {
-				console.log(res.data)
-			})
 		},
 		onReachBottom() {
 			if (this.pageType === this.role.admin_page_num) {
@@ -349,8 +344,10 @@
 				console.log("pageType:" + this.pageType)
 				if (this.pageType != this.role.user_page_num) {
 					this.level = uni.getStorageSync('loginUser').level
-					console.log('level:'+this.level)
+					console.log('level:' + this.level)
 				}
+				this.serviceOrderList = []
+				this.entryOrderList = []
 				this.servicePage.params.role = uni.getStorageSync('pageType')
 				this.entryPage.params.role = uni.getStorageSync('pageType')
 				this.noticePage.params.role = uni.getStorageSync('pageType')
@@ -358,7 +355,7 @@
 				this.getEntryOrderNumber()
 				this.getServiceOrderList()
 				this.getServiceOrderNumber()
-				this.getNoticeList()
+				//this.getNoticeList()
 			},
 			tabSelect(e) {
 				this.TabCur = e.currentTarget.dataset.id;
@@ -456,8 +453,8 @@
 			// 获取公告列表
 			getNoticeList() {
 				serviceOrderApi.getByPage(this.servicePage).then(res => {
-					this.noticeList=[]
-					
+					this.noticeList = []
+
 					this.noticeList = res.data
 				})
 			},
@@ -510,8 +507,6 @@
 			// 跳转到服务委托单审核页面---管理员
 			toServiceOrderExamine(event) {
 				var id = event.currentTarget.id
-				console.log('home:')
-				console.log(id)
 				uni.navigateTo({
 					url: address.admin_serviceOrder_examine + '?activeId=' + id
 				})
@@ -531,7 +526,6 @@
 			// 删除进场单---用户
 			del(event) {
 				var id = event.currentTarget.id
-				console.log(id)
 				entryOrderApi.deleteById(id).then(res => {
 					uni.showToast({
 						title: '删除成功!',
@@ -585,7 +579,7 @@
 				})
 			},
 			// 跳转到审核页面---管理员
-			toAdminEntryOrderExamine(event){
+			toAdminEntryOrderExamine(event) {
 				var id = event.currentTarget.id
 				uni.navigateTo({
 					url: address.admin_entryOrder_examine + '?activeId=' + id

@@ -3,6 +3,8 @@ package com.zj.laboratory.mapper;
 
 import com.zj.laboratory.pojo.LwEntry;
 import com.zj.laboratory.pojo.LwOrder;
+import com.zj.laboratory.pojo.vo.OrderMonthVo;
+import com.zj.laboratory.pojo.vo.OrderPointVo;
 import com.zj.laboratory.utils.Page;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
@@ -110,4 +112,16 @@ public interface LwServiceOrderMapper {
      * @param lwOrder
      */
     int updateVerifyStatus(LwOrder lwOrder);
+
+    /**
+     * 查询月订单
+     * @return
+     */
+    List<OrderMonthVo> monthOrder();
+
+    /**
+     * 各种状态占比
+     * @return
+     */
+    List<OrderPointVo> orderPoint();
 }

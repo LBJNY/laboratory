@@ -2,6 +2,8 @@ package com.zj.laboratory.service;
 
 import com.zj.laboratory.pojo.*;
 import com.zj.laboratory.pojo.vo.LwServiceOrderVo;
+import com.zj.laboratory.pojo.vo.OrderMonthVo;
+import com.zj.laboratory.pojo.vo.OrderPointVo;
 import com.zj.laboratory.utils.Page;
 
 import java.util.List;
@@ -80,4 +82,18 @@ public interface LwServiceOrderService {
      * @param lwOrderAudit
      */
     void examine(LwOrderAudit lwOrderAudit);
+
+    /**
+     * 查询月订单数量
+     * @return
+     */
+    List<OrderMonthVo> monthOrder();
+
+    /**
+     * 各种状态占比
+     * @return
+     */
+    List<OrderPointVo> orderPoint();
+
+
 }

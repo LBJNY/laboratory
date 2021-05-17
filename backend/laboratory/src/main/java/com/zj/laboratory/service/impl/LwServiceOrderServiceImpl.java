@@ -6,10 +6,7 @@ import com.zj.laboratory.enums.StateEnums;
 import com.zj.laboratory.exception.LaboratoryException;
 import com.zj.laboratory.mapper.*;
 import com.zj.laboratory.pojo.*;
-import com.zj.laboratory.pojo.vo.LwEntryOrderVo;
-import com.zj.laboratory.pojo.vo.LwOrderFeedbackVo;
-import com.zj.laboratory.pojo.vo.LwOrderProgressVo;
-import com.zj.laboratory.pojo.vo.LwServiceOrderVo;
+import com.zj.laboratory.pojo.vo.*;
 import com.zj.laboratory.service.LwServiceOrderService;
 import com.zj.laboratory.utils.IdWorker;
 import com.zj.laboratory.utils.Page;
@@ -155,13 +152,16 @@ public class LwServiceOrderServiceImpl implements LwServiceOrderService {
     public Page<LwServiceOrderVo> getListByPage(Page<LwOrder> page) {
         // 判断当前页面是审核员页面 or 用户页面
         Integer role = Integer.parseInt(page.getParams().get("role").toString());
-        if (RoleEnum.ADMIN.getType() != role) {
+        if (!RoleEnum.ADMIN.getType().equals(role)) {
             LoginUser loginUser = ShiroUtils.getLoginUser();
             if (loginUser == null) {
                 throw new LaboratoryException(ResultEnum.NOT_LOGIN);
             }
             page.getParams().put("applicationId", loginUser.getId());
+        }else {
+            page.getParams().remove("applicationId");
         }
+
         Integer count = lwServiceOrderMapper.getListCountByPage(page);
         List<LwOrder> list = lwServiceOrderMapper.getListByPage(page);
         // 获取返回信息
@@ -171,9 +171,9 @@ public class LwServiceOrderServiceImpl implements LwServiceOrderService {
             List<LwOrderProgressVo> progress = new ArrayList<>();
             progress.add(new LwOrderProgressVo(StateEnums.ORDER_CONFIRM.getMsg()));
             progress.add(new LwOrderProgressVo(StateEnums.ORDER_IN_APPROVAL.getMsg()));
-            if (StateEnums.SERVICE_ORDER_CHO.getCode() == lwServiceOrder.getVerifyStatus()) {
+            if (StateEnums.SERVICE_ORDER_CHO.getCode().equals(lwServiceOrder.getVerifyStatus())) {
                 progress.add(new LwOrderProgressVo(StateEnums.ORDER_AUDIT_SUCCESS.getMsg()));
-            } else if (StateEnums.SERVICE_ORDER_FAIL.getCode() == lwServiceOrder.getVerifyStatus()) {
+            } else if (StateEnums.SERVICE_ORDER_FAIL.getCode().equals(lwServiceOrder.getVerifyStatus())) {
                 progress.add(new LwOrderProgressVo(StateEnums.ORDER_AUDIT_FAILED.getMsg()));
             } else {
                 progress.add(new LwOrderProgressVo(StateEnums.ORDER_AUDIT_OVER.getMsg()));
@@ -300,6 +300,26 @@ public class LwServiceOrderServiceImpl implements LwServiceOrderService {
             lwUserStatisticMapper.increaseServiceOrderFailCount(lwOrder.getApplicationId());
         }
     }
+
+    /**
+     * 查询月订单数量
+     * @return
+     */
+    @Override
+    public List<OrderMonthVo> monthOrder() {
+        return lwServiceOrderMapper.monthOrder();
+    }
+
+    @Override
+    public List<OrderPointVo> orderPoint() {
+        List<OrderPointVo> list = lwServiceOrderMapper.orderPoint();
+        for (OrderPointVo vo : list) {
+            vo.setStatusMsg(StateEnums.getStatusByCode(vo.getStatus()).getMsg());
+        }
+        return list;
+    }
+
+
 
     // 获取名称
     protected String getName(LwUser lwUser) {

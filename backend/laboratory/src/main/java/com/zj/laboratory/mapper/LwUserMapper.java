@@ -1,5 +1,6 @@
 package com.zj.laboratory.mapper;
 
+import com.zj.laboratory.pojo.LoginUser;
 import com.zj.laboratory.pojo.LwReviewerType;
 import com.zj.laboratory.pojo.LwUser;
 import com.zj.laboratory.utils.Page;
@@ -8,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -136,4 +138,16 @@ public interface LwUserMapper {
      * @return
      */
     List<LwUser> getByLevel(@Param("level")Integer level);
+
+    /**
+     * 绑定手机号
+     * @return
+     */
+    int bindPhoneNumber(LoginUser loginUser);
+
+    /**
+     * 删除--真正删除
+     * @param id
+     */
+    void delUserById(@RequestParam("id") Long id);
 }

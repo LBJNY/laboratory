@@ -96,7 +96,7 @@ var components
 try {
   components = {
     uniDatetimePicker: function() {
-      return __webpack_require__.e(/*! import() | components/uni-datetime-picker/uni-datetime-picker */ "components/uni-datetime-picker/uni-datetime-picker").then(__webpack_require__.bind(null, /*! @/components/uni-datetime-picker/uni-datetime-picker.vue */ 363))
+      return __webpack_require__.e(/*! import() | components/uni-datetime-picker/uni-datetime-picker */ "components/uni-datetime-picker/uni-datetime-picker").then(__webpack_require__.bind(null, /*! @/components/uni-datetime-picker/uni-datetime-picker.vue */ 378))
     }
   }
 } catch (e) {

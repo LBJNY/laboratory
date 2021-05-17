@@ -9,10 +9,7 @@ import com.zj.laboratory.mapper.LwNoticeMapper;
 import com.zj.laboratory.mapper.LwUserMapper;
 import com.zj.laboratory.mapper.LwUserStatisticMapper;
 import com.zj.laboratory.pojo.*;
-import com.zj.laboratory.pojo.vo.LwEntryOrderVo;
-import com.zj.laboratory.pojo.vo.LwOrderProgressVo;
-import com.zj.laboratory.pojo.vo.LwReviewerVo;
-import com.zj.laboratory.pojo.vo.LwServiceOrderVo;
+import com.zj.laboratory.pojo.vo.*;
 import com.zj.laboratory.service.LwEntryOrderService;
 import com.zj.laboratory.utils.IdWorker;
 import com.zj.laboratory.utils.Page;
@@ -180,6 +177,7 @@ public class LwEntryOrderServiceImpl implements LwEntryOrderService {
 //        lwNotice.setNoticeTitle("新增一条进场单!");
 //        lwNotice.setNoticeContent("新增进场单:订单编号是"+lwEntry.getId()+",创建人为"+lwEntry.getApplicantName());
 //        lwNotice.setRole(StateEnums.NOTICE_ROLE_ADMIN.getCode());
+//        lwNotice.setNoticeType(StateEnums.NOTICE_ENTRY_ORDER.getCode());
 //        List<LwNotice> lwNoticeList = idList.stream().map(id -> {
 //            lwNotice.setUserId(id);
 //            return lwNotice;
@@ -206,12 +204,14 @@ public class LwEntryOrderServiceImpl implements LwEntryOrderService {
     public Page<LwEntryOrderVo> getListByPage(Page<LwEntry> page) {
         Integer role = Integer.parseInt(page.getParams().get("role").toString());
 
-        if (RoleEnum.ADMIN.getType() != role) {
+        if (!RoleEnum.ADMIN.getType().equals(role)) {
             LoginUser loginUser = ShiroUtils.getLoginUser();
             if (loginUser == null) {
                 throw new LaboratoryException(ResultEnum.NOT_LOGIN);
             }
             page.getParams().put("applicantId", loginUser.getId());
+        }else {
+            page.getParams().remove("applicationId");
         }
         Integer count = lwEntryOrderMapper.getListCountByPage(page);
         List<LwEntry> list = lwEntryOrderMapper.getListByPage(page);
@@ -293,6 +293,21 @@ public class LwEntryOrderServiceImpl implements LwEntryOrderService {
             lwUserStatisticMapper.increaseEntryOrderPassCount(loginUser.getId());
         }
     }
+
+    @Override
+    public List<OrderMonthVo> monthOrder() {
+        return lwEntryOrderMapper.monthOrder();
+    }
+
+    @Override
+    public List<OrderPointVo> orderPoint() {
+        List<OrderPointVo> list = lwEntryOrderMapper.orderPoint();
+        for (OrderPointVo vo : list) {
+            vo.setStatusMsg(StateEnums.getStatusByCode(vo.getStatus()).getMsg());
+        }
+        return list;
+    }
+
     // 获取名称
     protected String getName(LoginUser lwUser) {
         if (lwUser.getName() != null) {

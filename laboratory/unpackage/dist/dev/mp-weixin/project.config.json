@@ -36,10 +36,8 @@
   },
   "compileType": "miniprogram",
   "libVersion": "",
-  "appid": "wxb2b5716e82d2e3e6",
+  "appid": "wx5902fd0785847676",
   "projectname": "laboratory",
-  "simulatorType": "wechat",
-  "simulatorPluginLibVersion": {},
   "condition": {
     "search": {
       "current": -1,

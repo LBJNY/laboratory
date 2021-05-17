@@ -90,7 +90,8 @@ public class LwUser implements Serializable {
     public LoginUser toLoginUser() {
         LoginUser user = new LoginUser();
         user.setId(id);
-        user.setUsername(phone);
+        user.setUsername(name);
+        user.setPhone(phone);
         user.setName(name);
         user.setNickName(nickname);
         user.setHeader(header);

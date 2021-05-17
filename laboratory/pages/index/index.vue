@@ -9,11 +9,10 @@
 					<view>申请获取以下权限</view>
 					<text>获得你的公开信息(昵称，头像、地区等)</text>
 				</view>
-				<!-- <button class='bottom' type='primary' open-type="getUserInfo" withCredentials="true" lang="zh_CN"
-					@getuserinfo="wxGetUserInfo">
-					授权登录
-				</button> -->
-				<button class='bottom' type='primary' lang="zh_CN" @click="wxGetUserInfo" :disabled="isDisabled==true?'true':'false'">
+				<!-- <button class="bottom" type='primary' open-type="getPhoneNumber"
+					@getphonenumber="getPhoneNumber">手机号授权</button> -->
+				<button class='bottom' type='primary'  lang="zh_CN" @click="wxGetUserInfo"
+					:disabled="isDisabled==true?true:false">
 					登录
 				</button>
 			</view>
@@ -23,15 +22,16 @@
 
 <script>
 	import weChatApi from '@/api/wechat.js'
+
 	export default {
 		data() {
 			return {
-				SessionKey: '',
+				sessionKey: '',
 				OpenId: '',
 				// 当前登录用户
 				loginUser: null,
 				//登录按钮是否不可用
-				isDisabled:true,
+				isDisabled: true,
 				// 页面类型  0:用户页面  1:管理员界面
 				pageType: 0,
 				isCanUse: uni.getStorageSync('isCanUse') || true //默认为true
@@ -73,11 +73,12 @@
 				// uni.showLoading({
 				// 	title: '登录中...'
 				// });
+				// 每次登陆清空用户数据
+				uni.setStorageSync('loginUser', null)
 				// 登录获取
 				uni.login({
 					provider: "weixin",
 					success: (res) => {
-						console.log(res)
 						// 获取微信登录用的code
 						const code = res.code
 						weChatApi.loginByCode(code).then(res => {
@@ -86,17 +87,21 @@
 								weChatApi.getLoginInfo().then(res => {
 									uni.setStorageSync('loginUser', res.data)
 									_this.loginUser = res.data
+									if(res.data.phone==undefined||res.data.phone==null){
+										_this.toBindPhoneNumber()
+									}
 									_this.navigateTo()
 								})
 								this.navigateTo()
-								console.log(res.data.token)
 							} else {
 								uni.setStorageSync('openId', res.data.openId)
-								console.log("openid:" + res.data.openId)
-								this.$set(this,'isDisabled',false)
+								uni.setStorageSync('sessionKey', res.data.sessionKey)
+								console.log(res.data.sessionKey)
+								this.$set(this, 'isDisabled', false)
 							}
 							// uni.hideLoading()
-							console.log(uni.getStorageSync('loginUser'))
+							//console.log(uni.getStorageSync('loginUser'))
+							console.log(this.isDisabled)
 						})
 					}
 				})
@@ -104,7 +109,7 @@
 			},
 			navigateTo() {
 				if (this.loginUser) {
-					console.log('page:'+(this.loginUser.level > this.role.user))
+					console.log('page:' + (this.loginUser.level > this.role.user))
 					if (this.loginUser.level != this.role.user) {
 						uni.redirectTo({
 							url: '/pages/selectPage/selectPage'
@@ -120,7 +125,6 @@
 			//获取用户信息
 			getUserInfo(detail) {
 				const userInfo = detail.userInfo
-				console.log(detail)
 				// 获取到openId
 				const openId = uni.getStorageSync('openId')
 				userInfo.openId = openId
@@ -131,21 +135,21 @@
 					uni.setStorageSync('Authorization', res.data.token)
 					console.log(res.data)
 				})
-
 			},
 			toHome() {
 				uni.redirectTo({
 					url: '../home/home'
+				})
+			},
+			toBindPhoneNumber(){
+				uni.redirectTo({
+					url: '/pages/bindPhoneNumber/bindPhoneNumber'
 				})
 			}
 		},
 		onShow() {
 			// 登录获取
 			this.login();
-			console.log('admin-reviewer:'+this.role.admin_reviewer)
-		},
-		onLoad() { //默认加载
-
 		}
 	}
 </script>

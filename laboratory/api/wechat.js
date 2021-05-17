@@ -41,5 +41,18 @@ export default {
 			url: `/${groupName}/info`,
 			method: 'get'
 		})
+	},
+	/**
+	 * 绑定手机号
+	 * @param {Object} encryptedData
+	 * @param {Object} sessionKey
+	 * @param {Object} iv
+	 */
+	bindPhoneNumber(encryptDto) {
+		return request({
+			url: `/${groupName}/bindPhoneNumber`,
+			method: 'put',
+			data: encryptDto
+		})
 	}
 }
